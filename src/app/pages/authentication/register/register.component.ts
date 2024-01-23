@@ -62,6 +62,7 @@ export class AppSideRegisterComponent {
     if (this.form.invalid) {
       return;
     }
+    
 
     this.navService.post("Account",this.form.value).subscribe({
       next: value => console.log(value),
