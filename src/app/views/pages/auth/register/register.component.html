@@ -1,0 +1,77 @@
+<div class="row w-100 mx-0 auth-page">
+  <div class="col-md-8 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4 pe-md-0">
+          <div class="auth-side-wrapper" [ngStyle]="{ 'background-image': 'url(https://via.placeholder.com/219x452)' }">
+
+          </div>
+        </div>
+        <div class="col-md-8 ps-md-0">
+          <div class="auth-form-wrapper px-4 py-5">
+            <a routerLink="." class="nobleui-logo d-block mb-2">One<span>Lift</span></a>
+            <h5 class="text-muted fw-normal mb-4">Create a free account.</h5>
+            <form class="forms-sample"  [formGroup]="form" (ngSubmit)="signUp()">
+              <div class="mb-3">
+                <label for="exampleInputUsername1" class="form-label">Username</label>
+                <input type="text" formControlName="userName" autocomplete="Username" placeholder="Username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['userName'].errors }"/>
+                <div *ngIf="submitted && f['userName'].errors" class="invalid-feedback">
+                  <div *ngIf="f['userName'].errors['required']">User name is required</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" placeholder="Email"  formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].errors['required']">Email is required</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" autocomplete="current-password" placeholder="Password"  formControlName="password"  [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                  <div *ngIf="f['password'].errors['required']">Password is required</div>
+                  <div *ngIf="f['password'].errors['minlength']">
+                    Password must be at least 6 characters
+                  </div>
+                  <div *ngIf="f['password'].errors['maxlength']">
+                    Username must not exceed 40 characters
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" autocomplete="current-password" placeholder="confirmPassword"  formControlName="confirmPassword"  [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }">
+                <div
+                *ngIf="submitted && f['confirmPassword'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['confirmPassword'].errors['required']">
+                  Confirm Password is required
+                </div>
+                <div *ngIf="f['confirmPassword'].errors['matching']">
+                  Confirm Password does not match
+                </div>
+              </div>
+              </div>
+              <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="authCheck">
+                <label class="form-check-label" for="authCheck">
+                  Remember me
+                </label>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">Sign up</button>
+                <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
+                  <i class="feather icon-twitter btn-icon-prepend"></i>
+                  Sign up with twitter
+                </button>
+              </div>
+              <a routerLink="/auth/login" class="d-block mt-3 text-muted">Already a user? Sign in</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

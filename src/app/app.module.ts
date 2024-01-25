@@ -1,64 +1,46 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { LayoutModule } from './views/layout/layout.module';
+import { AuthGuard } from './core/guard/auth.guard';
+
 import { AppComponent } from './app.component';
+import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
-// icons
-import { TablerIconsModule } from 'angular-tabler-icons';
-import * as TablerIcons from 'angular-tabler-icons/icons';
-
-//Import all material modules
-import { MaterialModule } from './material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-//Import Layouts
-import { FullComponent } from './layouts/full/full.component';
-import { BlankComponent } from './layouts/blank/blank.component';
-
-// Vertical Layout
-import { SidebarComponent } from './layouts/full/sidebar/sidebar.component';
-import { HeaderComponent } from './layouts/full/header/header.component';
-import { BrandingComponent } from './layouts/full/sidebar/branding.component';
-import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
-import { JwtModule } from '@auth0/angular-jwt';
-import { ToastrModule } from 'ngx-toastr';
-export function tokenGetter() {
-  return localStorage.getItem("access_token");
-}
-
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent,
-    BlankComponent,
-    SidebarComponent,
-    HeaderComponent,
-    BrandingComponent,
-    AppNavItemComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
+    LayoutModule,
+    HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    MaterialModule,
-    TablerIconsModule.pick(TablerIcons),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["example.com"],
-        disallowedRoutes: ["http://example.com/examplebadroute/"],
-      },
-    }),
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(),
+    ReactiveFormsModule
   ],
-  exports: [TablerIconsModule],
-  bootstrap: [AppComponent],
+  providers: [
+    AuthGuard,
+    {
+      provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          xml: () => import('highlight.js/lib/languages/xml'),
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          scss: () => import('highlight.js/lib/languages/scss'),
+        }
+      }
+    }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

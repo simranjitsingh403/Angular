@@ -1,54 +1,79 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { BlankComponent } from './layouts/blank/blank.component';
-import { FullComponent } from './layouts/full/full.component';
+import { Routes, RouterModule } from '@angular/router';
+import { BaseComponent } from './views/layout/base/base.component';
+import { AuthGuard } from './core/guard/auth.guard';
+import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
+
 
 const routes: Routes = [
+  { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
   {
     path: '',
-    component: FullComponent,
+    component: BaseComponent,
+    canActivate: [AuthGuard],
     children: [
       {
-        path: '',
-        redirectTo: '/dashboard',
-        pathMatch: 'full',
+        path: 'dashboard',
+        loadChildren: () => import('./views/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./pages/pages.module').then((m) => m.PagesModule),
+        path: 'apps',
+        loadChildren: () => import('./views/pages/apps/apps.module').then(m => m.AppsModule)
       },
       {
         path: 'ui-components',
-        loadChildren: () =>
-          import('./pages/ui-components/ui-components.module').then(
-            (m) => m.UicomponentsModule
-          ),
+        loadChildren: () => import('./views/pages/ui-components/ui-components.module').then(m => m.UiComponentsModule)
       },
       {
-        path: 'extra',
-        loadChildren: () =>
-          import('./pages/extra/extra.module').then((m) => m.ExtraModule),
+        path: 'advanced-ui',
+        loadChildren: () => import('./views/pages/advanced-ui/advanced-ui.module').then(m => m.AdvancedUiModule)
       },
-    ],
+      {
+        path: 'form-elements',
+        loadChildren: () => import('./views/pages/form-elements/form-elements.module').then(m => m.FormElementsModule)
+      },
+      {
+        path: 'advanced-form-elements',
+        loadChildren: () => import('./views/pages/advanced-form-elements/advanced-form-elements.module').then(m => m.AdvancedFormElementsModule)
+      },
+      {
+        path: 'charts-graphs',
+        loadChildren: () => import('./views/pages/charts-graphs/charts-graphs.module').then(m => m.ChartsGraphsModule)
+      },
+      {
+        path: 'tables',
+        loadChildren: () => import('./views/pages/tables/tables.module').then(m => m.TablesModule)
+      },
+      {
+        path: 'icons',
+        loadChildren: () => import('./views/pages/icons/icons.module').then(m => m.IconsModule)
+      },
+      {
+        path: 'general',
+        loadChildren: () => import('./views/pages/general/general.module').then(m => m.GeneralModule)
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+      // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+  { 
+    path: 'error',
+    component: ErrorPageComponent,
+    data: {
+      'type': 404,
+      'title': 'Page Not Found',
+      'desc': 'Oopps!! The page you were looking for doesn\'t exist.'
+    }
   },
   {
-    path: '',
-    component: BlankComponent,
-    children: [
-      {
-        path: 'authentication',
-        loadChildren: () =>
-          import('./pages/authentication/authentication.module').then(
-            (m) => m.AuthenticationModule
-          ),
-      },
-    ],
+    path: 'error/:type',
+    component: ErrorPageComponent
   },
+  { path: '**', redirectTo: 'error', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
