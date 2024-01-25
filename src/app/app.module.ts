@@ -9,14 +9,17 @@ import { AuthGuard } from './core/guard/auth.guard';
 
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-
+import { ArchwizardModule } from 'angular-archwizard';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { DriverRegistorComponent } from './views/pages/driver-registor/driver-registor.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    DriverRegistorComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     LayoutModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ArchwizardModule,
+    NgSelectModule
   ],
   providers: [
     AuthGuard,

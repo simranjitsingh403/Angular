@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
+import { DriverRegistorComponent } from './views/pages/driver-registor/driver-registor.component';
 
 
 const routes: Routes = [
@@ -55,6 +56,11 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
+  },
+  {
+    path:'driver-registor',
+    pathMatch:'prefix',
+    component:DriverRegistorComponent
   },
   { 
     path: 'error',
