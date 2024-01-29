@@ -13,8 +13,9 @@ export class DriverRegistorComponent implements OnInit {
   isvalidlicense:any;
   isreferredshow:any;
   htmlText:any;
+  validationForm1:UntypedFormGroup;
   validationForm2: UntypedFormGroup;
-
+  result:any;
   isForm1Submitted: Boolean;
   isForm2Submitted: Boolean;
 
@@ -23,65 +24,19 @@ export class DriverRegistorComponent implements OnInit {
   joiningdate: NgbDateStruct;
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
-  validationForm1 = new FormGroup({
-    userName: new FormControl(''),
-    email: new FormControl(''),
-    firstName : new FormControl(''),
-      lastName : new FormControl(''),
-      middleName : new FormControl(''),
-      stateid: new FormControl(''),
-      mobileNumber : new FormControl(''),
-      islegallyallowed :new FormControl(''),
-      isvalidlicense :new FormControl(''),
-      licenseclassid :new FormControl(''),
-      isusauthorized:new FormControl(''),
-      isimmigrationallowed:new FormControl(''),
-      salaryexpectation:new FormControl(''),
-      jobtype:new FormControl(''),
-      referredbyname:new FormControl(''),
-      joiningdate :new FormControl(''),
-      comments :new FormControl(''),
-      genderId: new FormControl(''),
-      raceid: new FormControl(''),
-      veteranid: new FormControl(''),
-  });
-
-  quillConfig = {
-     toolbar: {
-       container: [
-         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-         ['code-block'],
-        //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-         [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-         [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-        //  [{ 'direction': 'rtl' }],                         // text direction
-
-        //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-         [{ 'align': [] }],
-
-        //  ['clean'],                                         // remove formatting button
-
-        //  ['link'],
-         //['link', 'image', 'video']
-       ],
-     },
-  }
-
-  constructor(public formBuilder: UntypedFormBuilder,private calendar: NgbCalendar, private navService:ApiService) { }
+  
+  constructor(public formBuilder: UntypedFormBuilder,private navService: ApiService) { }
 
   ngOnInit(): void {
 
-    //this.navService.get("Diver/Account/Register").subscribe(d => this.validationForm1 = d)
-
-   
+    this.navService.get("Diver/Account/Register").subscribe((response) => {
+      this.result=response;
+    })
     /**
      * form1 value validation
      */
     this.validationForm1 = this.formBuilder.group({
-      firstName : ['', Validators.required],
+      firstName : [this.result.firstName, Validators.required],
       lastName : ['', Validators.required],
       middleName : [''],
       email : ['', Validators.required],
@@ -100,6 +55,7 @@ export class DriverRegistorComponent implements OnInit {
       genderId: [''],
       raceid: [''],
       veteranid: [''],
+      states:[this.result.states]
     });
 
     /**
@@ -194,6 +150,29 @@ export class DriverRegistorComponent implements OnInit {
   onBlur = () => {
     console.log("Blurred");
   }
+  quillConfig = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['code-block'],
+       //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+       //  [{ 'direction': 'rtl' }],                         // text direction
+
+       //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'align': [] }],
+
+       //  ['clean'],                                         // remove formatting button
+
+       //  ['link'],
+        //['link', 'image', 'video']
+      ],
+    },
+ }
 
 
 }
