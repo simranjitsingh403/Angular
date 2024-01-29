@@ -25,6 +25,24 @@ export class DriverRegistorComponent implements OnInit {
   validationForm1 = new FormGroup({
     userName: new FormControl(''),
     email: new FormControl(''),
+    firstName : new FormControl(''),
+      lastName : new FormControl(''),
+      middleName : new FormControl(''),
+      stateid: new FormControl(''),
+      mobileNumber : new FormControl(''),
+      islegallyallowed :new FormControl(''),
+      isvalidlicense :new FormControl(''),
+      licenseclassid :new FormControl(''),
+      isusauthorized:new FormControl(''),
+      isimmigrationallowed:new FormControl(''),
+      salaryexpectation:new FormControl(''),
+      jobtype:new FormControl(''),
+      referredbyname:new FormControl(''),
+      joiningdate :new FormControl(''),
+      comments :new FormControl(''),
+      genderId: new FormControl(''),
+      raceid: new FormControl(''),
+      veteranid: new FormControl(''),
   });
 
   quillConfig = {
