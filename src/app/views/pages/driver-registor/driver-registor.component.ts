@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ContentChange, SelectionChange } from 'ngx-quill';
@@ -12,7 +12,6 @@ export class DriverRegistorComponent implements OnInit {
   isvalidlicense:any;
   isreferredshow:any;
   htmlText:any;
-  validationForm1: UntypedFormGroup;
   validationForm2: UntypedFormGroup;
 
   isForm1Submitted: Boolean;
@@ -22,6 +21,11 @@ export class DriverRegistorComponent implements OnInit {
   selectedstate:any=null;
   joiningdate: NgbDateStruct;
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
+
+  validationForm1 = new FormGroup({
+    userName: new FormControl(''),
+    email: new FormControl(''),
+  });
 
   quillConfig = {
      toolbar: {
@@ -51,6 +55,7 @@ export class DriverRegistorComponent implements OnInit {
 
   ngOnInit(): void {
 
+   
     /**
      * form1 value validation
      */
@@ -67,7 +72,7 @@ export class DriverRegistorComponent implements OnInit {
       isusauthorized:['', Validators.required],
       isimmigrationallowed:['', Validators.required],
       salaryexpectation:['', Validators.required],
-      jobtype:['', Validators.required],
+      jobtype:['1', Validators.required],
       referredbyname:[''],
       joiningdate :['', Validators.required],
       comments :[''],
