@@ -9,116 +9,253 @@
           <aw-wizard-step stepTitle="step 1">
             <form (ngSubmit)="form1Submit()" [formGroup]="validationForm1">
 
-              <div class="row mb-3">
-                <label for="firstName" class="col-sm-3 col-form-label">First name</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="firstName" formControlName="firstName" 
-                  [ngClass]="{'is-invalid': isForm1Submitted && form1.firstName.errors}" placeholder="First name">
-                  <div *ngIf="isForm1Submitted && form1.firstName.errors?.required" class="invalid-feedback">
-                    Required
+              <div class="col-md-12 grid-margin">
+                <div class="card rounded">
+                  <div class="card-body">
+                    <h6 class="card-title">Personal Information</h6>
+                  <div class="col-md-12">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                      <label for="firstName" class="col-md-3 col-form-label">First name</label>
+                      <input type="text" class="form-control" id="firstName" formControlName="firstName" 
+                      [ngClass]="{'is-invalid': isForm1Submitted && form1.firstName.errors}" placeholder="First name">
+                      <div *ngIf="isForm1Submitted && form1.firstName.errors?.required" class="invalid-feedback">
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="float: right;">
+                    <div class="mb-3">
+                      <label for="lastName" class="col-md-3 col-form-label">Last name</label>
+                      <input type="text" class="form-control" id="lastName" formControlName="lastName" 
+                      [ngClass]="{'is-invalid': isForm1Submitted && form1.lastName.errors}" placeholder="Last name">
+                    <div *ngIf="isForm1Submitted && form1.lastName.errors?.required" class="invalid-feedback">
+                      Required
+                    </div>
+                  </div>
+                </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                        <label for="middleName" class="col-md-3 col-form-label">Middle Name</label>
+                        <input type="text" class="form-control" id="middleName" formControlName="middleName" 
+                        placeholder="Middle Name">
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="float: right;">
+                    <div class="mb-3">
+                      <label for="email" class="col-md-3 col-form-label">Email</label>
+                      <input type="email" class="form-control" id="email" formControlName="email" 
+                      [ngClass]="{'is-invalid': isForm1Submitted && form1.email.errors}" placeholder="Email">
+                    <div *ngIf="isForm1Submitted && form1.email.errors?.required" class="invalid-feedback">
+                      Required
+                    </div>
+                  </div>
+                </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                        <label for="mobileNumber" class="col-md-3 col-form-label">Contact Number</label>
+                        <input class="form-control"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped] = "true" id="mobileNumber" formControlName="mobileNumber" 
+                        [ngClass]="{'is-invalid': isForm1Submitted && form1.mobileNumber.errors}" placeholder="Contact Number">
+                      <div *ngIf="isForm1Submitted && form1.mobileNumber.errors?.required" class="invalid-feedback">
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="float: right;">
+                    <div class="mb-3">
+                      <label for="mobileNumber" class="col-md-3 col-form-label">&nbsp;</label><br>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="isvalidlicense">
+                        <input type="checkbox" class="form-check-input"  (change)="fieldsChange($event)" id="isvalidlicense" formControlName="isvalidlicense" 
+                        [ngClass]="{'is-invalid': isForm1Submitted && form1.isvalidlicense.errors}">
+                        Do you have a valid driver's license?  
+                        </label>
+                        <div *ngIf="isForm1Submitted && form1.isvalidlicense.errors?.required" class="invalid-feedback">
+                            Required
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                  </div>
+
+                  <div class="col-md-12" id="isLicenseValid" style="display: inline-block;" *ngIf="isvalidlicense;">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                        <label for="stateid" class="col-form-label">Select State</label>
+                        <div>
+                            <ng-select [items]="states"
+                            bindLabel="name"
+                            bindValue="id"
+                            placeholder="Select State"
+                            formControlName="stateid">
+                          </ng-select>
+                        </div>
+                      </div>
+                     
+                  </div>
+                  <div class="col-md-5" style="float: right;">
+                    <div class="mb-3">
+                      <label for="stateid" class="col-form-label">Select State</label>
+                      <div>
+                          <ng-select [items]="states"
+                          bindLabel="name"
+                          bindValue="id"
+                          placeholder="Select State"
+                          formControlName="stateid">
+                        </ng-select>
+                      </div>
+                    </div>
+                   
+                </div>
+                  </div>
+
                   </div>
                 </div>
               </div>
 
-              <div class="row mb-3">
-                <label for="lastName" class="col-sm-3 col-form-label">Last name</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="lastName" formControlName="lastName" 
-                    [ngClass]="{'is-invalid': isForm1Submitted && form1.lastName.errors}" placeholder="Last name">
-                  <div *ngIf="isForm1Submitted && form1.lastName.errors?.required" class="invalid-feedback">
-                    Required
+              <div class="col-md-12 grid-margin">
+                <div class="card rounded">
+                  <div class="card-body">
+                    <h6 class="card-title">Other Information</h6>
+                  <div class="col-md-12">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                        <label for="salaryexpectation" class="col-md-3 col-form-label">Salary Expectation</label>
+                        <input type="number" class="form-control" id="salaryexpectation" formControlName="salaryexpectation" 
+                        [ngClass]="{'is-invalid': isForm1Submitted && form1.salaryexpectation.errors}" placeholder="Salary Expectation">
+                      <div *ngIf="isForm1Submitted && form1.salaryexpectation.errors?.required" class="invalid-feedback">
+                        Required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="float: right;">
+                    <div class="mb-3">
+                      <label for="joiningdate" class="col-md-3 col-form-label">Joining Date</label>
+                      <input type="date" class="form-control" id="joiningdate" formControlName="joiningdate" 
+                      [ngClass]="{'is-invalid': isForm1Submitted && form1.joiningdate.errors}" >
+                    <div *ngIf="isForm1Submitted && form1.joiningdate.errors?.required" class="invalid-feedback">
+                      Required
+                    </div>
+                  </div>
+                </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                        <label for="islegallyallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label" for="islegallyallowed">
+                          <input type="checkbox" class="form-check-input" id="islegallyallowed" formControlName="islegallyallowed" 
+                          [ngClass]="{'is-invalid': isForm1Submitted && form1.islegallyallowed.errors}">
+                          Are you legally allowed to drive?   
+                          </label>
+                          <div *ngIf="isForm1Submitted && form1.islegallyallowed.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="float: right;">
+                    <div class="mb-3">
+                      <label for="isusauthorized" class="col-md-3 col-form-label">&nbsp;</label><br>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label" for="isusauthorized">
+                        <input type="checkbox" class="form-check-input" id="isusauthorized" formControlName="isusauthorized" 
+                        [ngClass]="{'is-invalid': isForm1Submitted && form1.isusauthorized.errors}">
+                        Are you legally authorized to work in the United States?
+                        </label>
+                        <div *ngIf="isForm1Submitted && form1.isusauthorized.errors?.required" class="invalid-feedback">
+                            Required
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                        <label for="isimmigrationallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label" for="isimmigrationallowed">
+                          <input type="checkbox" class="form-check-input" id="isimmigrationallowed" formControlName="isimmigrationallowed" 
+                          [ngClass]="{'is-invalid': isForm1Submitted && form1.isimmigrationallowed.errors}">
+                          Will you now, or in the future, require One Lift Partners to commence an immigration case in order to employ you (for example, H-1B or other employment-based immigration case)?
+                          </label>
+                          <div *ngIf="isForm1Submitted && form1.isimmigrationallowed.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="float: right;">
+                    <div class="mb-3">
+                      <label for="isusauthorized" class="col-md-3 col-form-label">Job Type</label><br>
+                      <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="jobtype" checked>
+                        <label class="form-check-label" for="jobtype">
+                          Full Time
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="jobtype">
+                        <label class="form-check-label" for="jobtype">
+                          Part Time
+                        </label>
+                      </div>
+                  </div>
+                </div>
+                  </div>
+
+                  <div class="col-md-12" style="display: inline-block;">
+                    <div class="col-md-5" style="float: left;">
+                      <div class="mb-3">
+                        <label class="col-md-3 col-form-label">&nbsp;</label><br>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" (change)="refferChange($event)">
+                          Were you referred by anyone at OneLift?
+                          </label>
+                      
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5" style="float: right;" *ngIf="isreferredshow;">
+                      <div class="mb-3">
+                        <label for="referredbyname" class="col-md-3 col-form-label">Referred Name</label>
+                        <input type="text" class="form-control" id="referredbyname" formControlName="referredbyname" 
+                        placeholder="Referred Name">
+                  </div>
+                </div>
+                  </div>
                   </div>
                 </div>
               </div>
 
-              <div class="row mb-3">
-                <label for="middleName" class="col-sm-3 col-form-label">Middle Name</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" id="middleName" formControlName="middleName" 
-                  placeholder="Middle Name">
-                  
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="email" class="col-sm-3 col-form-label">Email</label>
-                <div class="col-sm-9">
-                  <input type="email" class="form-control" id="email" formControlName="email" 
-                    [ngClass]="{'is-invalid': isForm1Submitted && form1.email.errors}" placeholder="Email">
-                  <div *ngIf="isForm1Submitted && form1.email.errors?.required" class="invalid-feedback">
-                    Required
-                  </div>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="mobileNumber" class="col-sm-3 col-form-label">Contact Number</label>
-                <div class="col-sm-9">
-                  <input type="number" class="form-control" id="mobileNumber" formControlName="mobileNumber" 
-                    [ngClass]="{'is-invalid': isForm1Submitted && form1.mobileNumber.errors}" placeholder="Contact Number">
-                  <div *ngIf="isForm1Submitted && form1.mobileNumber.errors?.required" class="invalid-feedback">
-                    Required
-                  </div>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="salaryexpectation" class="col-sm-3 col-form-label">Salary Expectation</label>
-                <div class="col-sm-9">
-                  <input type="number" class="form-control" id="salaryexpectation" formControlName="salaryexpectation" 
-                    [ngClass]="{'is-invalid': isForm1Submitted && form1.salaryexpectation.errors}" placeholder="Salary Expectation">
-                  <div *ngIf="isForm1Submitted && form1.salaryexpectation.errors?.required" class="invalid-feedback">
-                    Required
-                  </div>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <label for="referredbyname" class="col-sm-3 col-form-label">Referred By Name</label>
-                <div class="col-sm-9">
-                  <input type="number" class="form-control" id="referredbyname" formControlName="referredbyname" 
-                    [ngClass]="{'is-invalid': isForm1Submitted && form1.referredbyname.errors}" placeholder="Referred By Name">
-                  <div *ngIf="isForm1Submitted && form1.referredbyname.errors?.required" class="invalid-feedback">
-                    Required
-                  </div>
-                </div>
-              </div>    
+              <div class="row">
+                <div class="col-md-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">Example</h6>
               
+                      <quill-editor
+                        formControlName="comments"
+                        placeholder="Comments here..."
+                        [modules]="quillConfig"
+                        (onSelectionChanged)="onSelectionChanged($event)"
+                        (onContentChanged)="onContentChanged($event)">
+                      </quill-editor>
               
-              <div class="row mb-3">
-                <label for="stateid" class="col-sm-3 col-form-label">Select State</label>
-                <div class="col-sm-9">
-                    <ng-select [items]="states"
-                    bindLabel="name"
-                    bindValue="id"
-                    placeholder="Select State"
-                    formControlName="stateid">
-                  </ng-select>
-                </div>
-              </div>    
-
-              <div class="row mb-3">
-                <label for="joiningdate" class="col-sm-3 col-form-label">Joining Date</label>
-                <div class="col-sm-9">
-                    <input type="date" class="form-control" id="joiningdate" formControlName="joiningdate" 
-                    [ngClass]="{'is-invalid': isForm1Submitted && form1.joiningdate.errors}" >
-                  <div *ngIf="isForm1Submitted && form1.joiningdate.errors?.required" class="invalid-feedback">
-                    Required
+                    </div>
                   </div>
-                </div>
-              </div>   
-              
-              <div class="row mb-3">
-              <div class="form-check form-check-inline">
-                <label class="form-check-label" for="islegallyallowed">
-                <input type="checkbox" class="form-check-input" id="islegallyallowed" formControlName="islegallyallowed" 
-                [ngClass]="{'is-invalid': isForm1Submitted && form1.islegallyallowed.errors}">
-                Are you legally authorized to work in the United States?
-                </label>
-                <div *ngIf="isForm1Submitted && form1.joiningdate.errors?.required" class="invalid-feedback">
-                    Required
-                  </div>
-              </div>
+                </div> <!-- col -->
               </div>
 
               <div class="d-flex justify-content-center mt-2">
@@ -132,8 +269,8 @@
             
               
               <div class="row mb-3">
-                <label for="password" class="col-sm-3 col-form-label">Password</label>
-                <div class="col-sm-9">
+                <label for="password" class="col-md-3 col-form-label">Password</label>
+                <div class="col-md-9">
                   <input type="password" class="form-control" id="password" formControlName="password"
                   [ngClass]="{'is-invalid': isForm2Submitted && form2.password.errors}" placeholder="Password">
                 </div>

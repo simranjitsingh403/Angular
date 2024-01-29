@@ -1,15 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
-import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { ContentChange, SelectionChange } from 'ngx-quill';
 @Component({
   selector: 'app-driver-registor',
   templateUrl: './driver-registor.component.html',
   styleUrls: ['./driver-registor.component.scss']
 })
 export class DriverRegistorComponent implements OnInit {
-
+  isvalidlicense:any;
+  isreferredshow:any;
+  htmlText:any;
   validationForm1: UntypedFormGroup;
   validationForm2: UntypedFormGroup;
 
@@ -20,6 +22,30 @@ export class DriverRegistorComponent implements OnInit {
   selectedstate:any=null;
   joiningdate: NgbDateStruct;
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
+
+  quillConfig = {
+     toolbar: {
+       container: [
+         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+         ['code-block'],
+        //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+         [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+         [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+        //  [{ 'direction': 'rtl' }],                         // text direction
+
+        //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+         [{ 'align': [] }],
+
+        //  ['clean'],                                         // remove formatting button
+
+        //  ['link'],
+         //['link', 'image', 'video']
+       ],
+     },
+  }
 
   constructor(public formBuilder: UntypedFormBuilder,private calendar: NgbCalendar) { }
 
@@ -36,6 +62,7 @@ export class DriverRegistorComponent implements OnInit {
       stateid: ['', Validators.required],
       mobileNumber : ['', Validators.required],
       islegallyallowed :['', Validators.required],
+      isvalidlicense :['', Validators.required],
       licenseclassid :['', Validators.required],
       isusauthorized:['', Validators.required],
       isimmigrationallowed:['', Validators.required],
@@ -87,10 +114,12 @@ export class DriverRegistorComponent implements OnInit {
    * Go to next step while form value is valid
    */
   form1Submit() {
+    debugger;
     if(this.validationForm1.valid) {
       this.wizardForm.goToNextStep();
     }
     this.isForm1Submitted = true;
+    this.wizardForm.goToNextStep();
   }
 
   /**
@@ -101,6 +130,43 @@ export class DriverRegistorComponent implements OnInit {
       this.wizardForm.goToNextStep();
     }
     this.isForm2Submitted = true;
+  }
+
+  fieldsChange(values:any):void {
+    if(values.currentTarget.checked){
+      this.isvalidlicense=true;
+    }
+    else{
+      this.isvalidlicense=false;
+    }
+  }
+
+  refferChange(values:any):void {
+    if(values.currentTarget.checked){
+      this.isreferredshow=true;
+    }
+    else{
+      this.isreferredshow=false;
+    }
+  }
+
+  onSelectionChanged = (event: SelectionChange) => {
+    if(event.oldRange == null) {
+      this.onFocus();
+    }
+    if(event.range == null) {
+      this.onBlur();
+    }
+  }
+
+  onContentChanged = (event: ContentChange) => {
+    // console.log(event.html);
+  }
+  onFocus = () => {
+    console.log("On Focus");
+  }
+  onBlur = () => {
+    console.log("Blurred");
   }
 
 

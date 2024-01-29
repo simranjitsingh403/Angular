@@ -15,6 +15,9 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DriverRegistorComponent } from './views/pages/driver-registor/driver-registor.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { QuillModule } from 'ngx-quill'
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +33,9 @@ import { DriverRegistorComponent } from './views/pages/driver-registor/driver-re
     FormsModule,
     ReactiveFormsModule,
     ArchwizardModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxMaskModule.forRoot(),
+    QuillModule.forRoot()
   ],
   providers: [
     AuthGuard,
