@@ -3,6 +3,7 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormContro
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ContentChange, SelectionChange } from 'ngx-quill';
+import { ApiService } from 'src/app/api.service';
 @Component({
   selector: 'app-driver-registor',
   templateUrl: './driver-registor.component.html',
@@ -69,9 +70,11 @@ export class DriverRegistorComponent implements OnInit {
      },
   }
 
-  constructor(public formBuilder: UntypedFormBuilder,private calendar: NgbCalendar) { }
+  constructor(public formBuilder: UntypedFormBuilder,private calendar: NgbCalendar, private navService:ApiService) { }
 
   ngOnInit(): void {
+
+    //this.navService.get("Diver/Account/Register").subscribe(d => this.validationForm1 = d);
 
    
     /**
