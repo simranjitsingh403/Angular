@@ -74,7 +74,7 @@ export class DriverRegistorComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //this.navService.get("Diver/Account/Register").subscribe(d => this.validationForm1 = d);
+    //this.navService.get("Diver/Account/Register").subscribe(d => this.validationForm1 = d)
 
    
     /**
