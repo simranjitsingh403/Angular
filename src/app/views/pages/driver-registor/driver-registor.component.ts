@@ -30,8 +30,9 @@ export class DriverRegistorComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.navService.get<Drivermodel>("Diver/Account/Register").subscribe((response) => {
+    this.navService.get<Drivermodel>("Diver/Account/Register?Id=1BC77CD9-D652-42F9-A46A-FF8ED884D838").subscribe((response) => {
       this.result = response;
+      console.log(response);
     }, e => console.log(e), () => {
       this.validationForm1.patchValue({
         firstName: this.result.firstName,
@@ -42,7 +43,7 @@ export class DriverRegistorComponent implements OnInit {
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
         islegallyallowed: this.result.isLegallyAllowed,
-        isvalidlicense: this.result.licenseClassId != null ? true : false,
+        isvalidlicense: this.result.licenseClassId != 0 ? true : false,
         licenseclassid: this.result.licenseClassId,
         isusauthorized: this.result.isUSAuthorized,
         isimmigrationallowed: this.result.isImmigrationAllowed,
@@ -61,7 +62,7 @@ export class DriverRegistorComponent implements OnInit {
         veteran: this.result.veteran,
         isreferredshow: this.result.referredByName != null? true : false
       });
-      this.isvalidlicense = this.result.licenseClassId != null ? true : false;
+      this.isvalidlicense = this.result.licenseClassId != 0 ? true : false;
       this.isreferredshow = this.result.referredByName != null? true : false;
     });
     /**
@@ -106,7 +107,30 @@ export class DriverRegistorComponent implements OnInit {
    * Wizard finish function
    */
   finishFunction() {
-    alert('Successfully Completed');
+    this.result.firstName = this.form1.firstName.value;
+    this.result.lastName = this.form1.lastName.value;
+    this.result.middleName = this.form1.middleName.value;
+    this.result.email = this.form1.email.value;
+    this.result.stateId = this.form1.stateid.value;
+    this.result.phoneNumber = this.form1.mobileNumber.value;
+    this.result.isLegallyAllowed = this.form1.islegallyallowed.value;
+    this.result.licenseClassId = this.form1.licenseclassid.value;
+    this.result.isUSAuthorized = this.form1.isusauthorized.value;
+    this.result.isImmigrationAllowed = this.form1.isimmigrationallowed.value;
+    this.result.salaryExpectation = this.form1.salaryexpectation.value;
+    this.result.jobType = this.form1.jobtype.value;
+    this.result.referredByName = this.form1.referredbyname.value;
+    this.result.joiningDate = this.form1.joiningdate.value;
+    this.result.comments = this.form1.comments.value;
+    this.result.genderId = this.form1.genderId.value;
+    this.result.raceId = this.form1.raceid.value;
+    this.result.veteranId = this.form1.veteranid.value;
+
+    if(this.result.id == "00000000-0000-0000-0000-000000000000"){
+      this.navService.post("Diver/Account/Register",this.result).subscribe(d => console.log(d));
+    }else{
+      this.navService.put("Diver/Account/UpdateDriver",this.result).subscribe(d => console.log(d));
+    }
   }
 
   /**

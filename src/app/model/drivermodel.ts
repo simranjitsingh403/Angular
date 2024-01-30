@@ -1,7 +1,7 @@
 export class Drivermodel {
     id: string
     userName: string
-    firstName: ''
+    firstName: string
     lastName: string
     middleName: string
     email: string
