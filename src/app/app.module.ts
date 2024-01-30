@@ -14,7 +14,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DriverRegistorComponent } from './views/pages/driver-registor/driver-registor.component';
+import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';

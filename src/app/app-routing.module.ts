@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-import { DriverRegistorComponent } from './views/pages/driver-registor/driver-registor.component';
+import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
 
 
 const routes: Routes = [
@@ -58,7 +58,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:'driver-registor',
+    path:'driver-register',
     pathMatch:'prefix',
     component:DriverRegistorComponent
   },

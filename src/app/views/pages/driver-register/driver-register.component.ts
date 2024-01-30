@@ -8,8 +8,8 @@ import { Drivermodel } from 'src/app/model/drivermodel';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-driver-registor',
-  templateUrl: './driver-registor.component.html',
-  styleUrls: ['./driver-registor.component.scss']
+  templateUrl: './driver-register.component.html',
+  styleUrls: ['./driver-register.component.scss']
 })
 export class DriverRegistorComponent implements OnInit {
   isvalidlicense: any;

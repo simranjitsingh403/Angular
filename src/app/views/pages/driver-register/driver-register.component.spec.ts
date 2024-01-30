@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DriverRegistorComponent } from './driver-registor.component';
+import { DriverRegistorComponent } from './driver-register.component';
 
 describe('DriverRegistorComponent', () => {
   let component: DriverRegistorComponent;
