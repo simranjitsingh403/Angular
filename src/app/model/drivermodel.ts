@@ -21,6 +21,7 @@ export class Drivermodel {
     veteranId: number
     createdBy: string
     createdDateTime: Date
+    isDeleted : boolean
     licenseClasses: [any]
     jobTypes: [any]
     genders: [any]
