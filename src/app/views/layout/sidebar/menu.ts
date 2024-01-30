@@ -187,6 +187,10 @@ export const MENU: MenuItem[] = [
         link: '/form-elements/basic-elements'
       },
       {
+        label: 'Create Driver',
+        link: '/driver/register'
+      },
+      {
         label: 'Advanced elements',
         subItems: [
           {
