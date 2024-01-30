@@ -56,7 +56,6 @@ export class ApiService {
       private handleError(error: HttpErrorResponse) {
         if (error.status === 0) {
           // A client-side or network error occurred. Handle it accordingly.
-          console.log('An error occurred:', error.error);
         } 
         // Return an observable with a user-facing error message.
         return throwError(() => new Error('offline...!'));
