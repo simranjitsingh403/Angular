@@ -1,0 +1,30 @@
+export class Drivermodel {
+    id: string
+    userName: string
+    firstName: ''
+    lastName: string
+    middleName: string
+    email: string
+    stateId: number
+    phoneNumber: string
+    isLegallyAllowed: boolean
+    licenseClassId: number
+    isUSAuthorized: boolean
+    isImmigrationAllowed: boolean
+    salaryExpectation: number
+    jobType: number
+    referredByName: string
+    joiningDate: Date
+    comments: string
+    genderId: number
+    raceId: number
+    veteranId: number
+    createdBy: string
+    createdDateTime: Date
+    licenseClasses: [any]
+    jobTypes: [any]
+    genders: [any]
+    races: [any]
+    veteran: [any]
+    states: [any]
+}
