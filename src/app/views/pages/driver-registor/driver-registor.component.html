@@ -14,7 +14,9 @@
                   <div class="card-body">
                     <h6 class="card-title">Personal Information</h6>
                   <div class="col-md-12">
-                    <div class="col-md-5" style="float: left;">
+                    
+                    <div class="row">
+                    <div class="col-md-6">
                       <div class="mb-3">
                       <label for="firstName" class="col-md-3 col-form-label">First name</label>
                       <input type="text" class="form-control" id="firstName" formControlName="firstName" 
@@ -24,7 +26,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-5" style="float: right;">
+                  <div class="col-md-6">
                     <div class="mb-3">
                       <label for="lastName" class="col-md-3 col-form-label">Last name</label>
                       <input type="text" class="form-control" id="lastName" formControlName="lastName" 
@@ -34,85 +36,95 @@
                     </div>
                   </div>
                 </div>
+              </div>
                   </div>
 
                   <div class="col-md-12">
-                    <div class="col-md-5" style="float: left;">
-                      <div class="mb-3">
-                        <label for="middleName" class="col-md-3 col-form-label">Middle Name</label>
-                        <input type="text" class="form-control" id="middleName" formControlName="middleName" 
-                        placeholder="Middle Name">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="middleName" class="col-md-3 col-form-label">Middle Name</label>
+                          <input type="text" class="form-control" id="middleName" formControlName="middleName" 
+                          placeholder="Middle Name">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-5" style="float: right;">
-                    <div class="mb-3">
-                      <label for="email" class="col-md-3 col-form-label">Email</label>
-                      <input type="email" class="form-control" id="email" formControlName="email" 
-                      [ngClass]="{'is-invalid': isForm1Submitted && form1.email.errors}" placeholder="Email">
-                    <div *ngIf="isForm1Submitted && form1.email.errors?.required" class="invalid-feedback">
-                      Required
-                    </div>
-                  </div>
-                </div>
-                  </div>
-
-                  <div class="col-md-12">
-                    <div class="col-md-5" style="float: left;">
+                    <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="mobileNumber" class="col-md-3 col-form-label">Contact Number</label>
-                        <input class="form-control"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped] = "true" id="mobileNumber" formControlName="mobileNumber" 
-                        [ngClass]="{'is-invalid': isForm1Submitted && form1.mobileNumber.errors}" placeholder="Contact Number">
-                      <div *ngIf="isForm1Submitted && form1.mobileNumber.errors?.required" class="invalid-feedback">
+                        <label for="email" class="col-md-3 col-form-label">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email" 
+                        [ngClass]="{'is-invalid': isForm1Submitted && form1.email.errors}" placeholder="Email">
+                      <div *ngIf="isForm1Submitted && form1.email.errors?.required" class="invalid-feedback">
                         Required
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-5" style="float: right;">
-                    <div class="mb-3">
-                      <label for="mobileNumber" class="col-md-3 col-form-label">&nbsp;</label><br>
-                      <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="isvalidlicense">
-                        <input type="checkbox" class="form-check-input"  (change)="fieldsChange($event)" id="isvalidlicense" formControlName="isvalidlicense" 
-                        [ngClass]="{'is-invalid': isForm1Submitted && form1.isvalidlicense.errors}">
-                        Do you have a valid driver's license?  
-                        </label>
-                        <div *ngIf="isForm1Submitted && form1.isvalidlicense.errors?.required" class="invalid-feedback">
-                            Required
-                          </div>
-                      </div>
+                    </div>
+                    
                   </div>
-                </div>
+
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="mobileNumber" class="col-md-3 col-form-label">Contact Number</label>
+                          <input class="form-control"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped] = "true" id="mobileNumber" formControlName="mobileNumber" 
+                          [ngClass]="{'is-invalid': isForm1Submitted && form1.mobileNumber.errors}" placeholder="Contact Number">
+                        <div *ngIf="isForm1Submitted && form1.mobileNumber.errors?.required" class="invalid-feedback">
+                          Required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="mobileNumber" class="col-md-3 col-form-label">&nbsp;</label><br>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label" for="isvalidlicense">
+                          <input type="checkbox" class="form-check-input"  (change)="fieldsChange($event)" id="isvalidlicense" formControlName="isvalidlicense" 
+                          [ngClass]="{'is-invalid': isForm1Submitted && form1.isvalidlicense.errors}">
+                          Do you have a valid driver's license?  
+                          </label>
+                          <div *ngIf="isForm1Submitted && form1.isvalidlicense.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                    </div>
+                   
                   </div>
 
                   <div class="col-md-12" id="isLicenseValid" style="display: inline-block;" *ngIf="isvalidlicense;">
-                    <div class="col-md-5" style="float: left;">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="licenseclassid" class="col-form-label">Select License Class</label>
+                          <div>
+                              <ng-select [items]="result.licenseClasses"
+                              bindLabel="name"
+                              bindValue="id"
+                              placeholder="Select License Class"
+                              formControlName="licenseclassid">
+                            </ng-select>
+                          </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="licenseclassid" class="col-form-label">Select License Class</label>
+                        <label for="stateid" class="col-form-label">Select State</label>
                         <div>
-                            <ng-select [items]="result.licenseClasses"
+                            <ng-select [items]="result.states"
                             bindLabel="name"
                             bindValue="id"
-                            placeholder="Select License Class"
-                            formControlName="licenseclassid">
+                            placeholder="Select State"
+                            formControlName="stateid">
                           </ng-select>
                         </div>
                       </div>
                      
                   </div>
-                  <div class="col-md-5" style="float: right;">
-                    <div class="mb-3">
-                      <label for="stateid" class="col-form-label">Select State</label>
-                      <div>
-                          <ng-select [items]="result.states"
-                          bindLabel="name"
-                          bindValue="id"
-                          placeholder="Select State"
-                          formControlName="stateid">
-                        </ng-select>
-                      </div>
                     </div>
-                   
-                </div>
+                    
                   </div>
 
                   </div>
@@ -124,116 +136,128 @@
                   <div class="card-body">
                     <h6 class="card-title">Other Information</h6>
                   <div class="col-md-12">
-                    <div class="col-md-5" style="float: left;">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="salaryexpectation" class="col-md-3 col-form-label">Salary Expectation</label>
+                          <input type="number" class="form-control" id="salaryexpectation" formControlName="salaryexpectation" 
+                          [ngClass]="{'is-invalid': isForm1Submitted && form1.salaryexpectation.errors}" placeholder="Salary Expectation">
+                        <div *ngIf="isForm1Submitted && form1.salaryexpectation.errors?.required" class="invalid-feedback">
+                          Required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="salaryexpectation" class="col-md-3 col-form-label">Salary Expectation</label>
-                        <input type="number" class="form-control" id="salaryexpectation" formControlName="salaryexpectation" 
-                        [ngClass]="{'is-invalid': isForm1Submitted && form1.salaryexpectation.errors}" placeholder="Salary Expectation">
-                      <div *ngIf="isForm1Submitted && form1.salaryexpectation.errors?.required" class="invalid-feedback">
+                        <label for="joiningdate" class="col-md-3 col-form-label">Joining Date</label>
+                        <input type="date" class="form-control" id="joiningdate" formControlName="joiningdate" 
+                        [ngClass]="{'is-invalid': isForm1Submitted && form1.joiningdate.errors}" >
+                      <div *ngIf="isForm1Submitted && form1.joiningdate.errors?.required" class="invalid-feedback">
                         Required
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-5" style="float: right;">
-                    <div class="mb-3">
-                      <label for="joiningdate" class="col-md-3 col-form-label">Joining Date</label>
-                      <input type="date" class="form-control" id="joiningdate" formControlName="joiningdate" 
-                      [ngClass]="{'is-invalid': isForm1Submitted && form1.joiningdate.errors}" >
-                    <div *ngIf="isForm1Submitted && form1.joiningdate.errors?.required" class="invalid-feedback">
-                      Required
                     </div>
-                  </div>
-                </div>
+                   
                   </div>
 
                   <div class="col-md-12">
-                    <div class="col-md-5" style="float: left;">
-                      <div class="mb-3">
-                        <label for="islegallyallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
-                        <div class="form-check form-check-inline">
-                          <label class="form-check-label" for="islegallyallowed">
-                          <input type="checkbox" class="form-check-input" id="islegallyallowed" formControlName="islegallyallowed" 
-                          [ngClass]="{'is-invalid': isForm1Submitted && form1.islegallyallowed.errors}">
-                          Are you legally allowed to drive?   
-                          </label>
-                          <div *ngIf="isForm1Submitted && form1.islegallyallowed.errors?.required" class="invalid-feedback">
-                              Required
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="col-md-5" style="float: right;">
-                    <div class="mb-3">
-                      <label for="isusauthorized" class="col-md-3 col-form-label">&nbsp;</label><br>
-                      <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="isusauthorized">
-                        <input type="checkbox" class="form-check-input" id="isusauthorized" formControlName="isusauthorized" 
-                        [ngClass]="{'is-invalid': isForm1Submitted && form1.isusauthorized.errors}">
-                        Are you legally authorized to work in the United States?
-                        </label>
-                        <div *ngIf="isForm1Submitted && form1.isusauthorized.errors?.required" class="invalid-feedback">
-                            Required
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="islegallyallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="islegallyallowed">
+                            <input type="checkbox" class="form-check-input" id="islegallyallowed" formControlName="islegallyallowed" 
+                            [ngClass]="{'is-invalid': isForm1Submitted && form1.islegallyallowed.errors}">
+                            Are you legally allowed to drive?   
+                            </label>
+                            <div *ngIf="isForm1Submitted && form1.islegallyallowed.errors?.required" class="invalid-feedback">
+                                Required
+                              </div>
                           </div>
                       </div>
-                  </div>
-                </div>
-                  </div>
-
-                  <div class="col-md-12">
-                    <div class="col-md-5" style="float: left;">
+                    </div>
+                    <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="isimmigrationallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
+                        <label for="isusauthorized" class="col-md-3 col-form-label">&nbsp;</label><br>
                         <div class="form-check form-check-inline">
-                          <label class="form-check-label" for="isimmigrationallowed">
-                          <input type="checkbox" class="form-check-input" id="isimmigrationallowed" formControlName="isimmigrationallowed" 
-                          [ngClass]="{'is-invalid': isForm1Submitted && form1.isimmigrationallowed.errors}">
-                          Will you now, or in the future, require One Lift Partners to commence an immigration case in order to employ you (for example, H-1B or other employment-based immigration case)?
+                          <label class="form-check-label" for="isusauthorized">
+                          <input type="checkbox" class="form-check-input" id="isusauthorized" formControlName="isusauthorized" 
+                          [ngClass]="{'is-invalid': isForm1Submitted && form1.isusauthorized.errors}">
+                          Are you legally authorized to work in the United States?
                           </label>
-                          <div *ngIf="isForm1Submitted && form1.isimmigrationallowed.errors?.required" class="invalid-feedback">
+                          <div *ngIf="isForm1Submitted && form1.isusauthorized.errors?.required" class="invalid-feedback">
                               Required
                             </div>
                         </div>
                     </div>
                   </div>
-                  <div class="col-md-5" style="float: right;">
-                    <div class="mb-3">
-                      <label for="isusauthorized" class="col-md-3 col-form-label">Job Type</label><br>
-                      <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" formControlName="jobtype" value="1" >
-                        <label class="form-check-label" for="Full Time">
-                          Full Time
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" formControlName="jobtype" value="2">
-                        <label class="form-check-label" for="Part Time">
-                          Part Time
-                        </label>
-                      </div>
+                    </div>
+                    
                   </div>
-                </div>
+
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="isimmigrationallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="isimmigrationallowed">
+                            <input type="checkbox" class="form-check-input" id="isimmigrationallowed" formControlName="isimmigrationallowed" 
+                            [ngClass]="{'is-invalid': isForm1Submitted && form1.isimmigrationallowed.errors}">
+                            Will you now, or in the future, require One Lift Partners to commence an immigration case in order to employ you (for example, H-1B or other employment-based immigration case)?
+                            </label>
+                            <div *ngIf="isForm1Submitted && form1.isimmigrationallowed.errors?.required" class="invalid-feedback">
+                                Required
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="isusauthorized" class="col-md-3 col-form-label">Job Type</label><br>
+                        <div class="form-check form-check-inline">
+                          <input type="radio" class="form-check-input" formControlName="jobtype" value="1" >
+                          <label class="form-check-label" for="Full Time">
+                            Full Time
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input type="radio" class="form-check-input" formControlName="jobtype" value="2">
+                          <label class="form-check-label" for="Part Time">
+                            Part Time
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                    </div>
+                  
                   </div>
 
                   <div class="col-md-12" style="display: inline-block;">
-                    <div class="col-md-5" style="float: left;">
-                      <div class="mb-3">
-                        <label class="col-md-3 col-form-label">&nbsp;</label><br>
-                        <div class="form-check form-check-inline">
-                          <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" formControlName="isreferredshow" (change)="refferChange($event)">
-                          Were you referred by anyone at OneLift?
-                          </label>
-                      
-                        </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label class="col-md-3 col-form-label">&nbsp;</label><br>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" formControlName="isreferredshow" (change)="refferChange($event)">
+                            Were you referred by anyone at OneLift?
+                            </label>
+                        
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="isreferredshow;">
+                        <div class="mb-3">
+                          <label for="referredbyname" class="col-md-3 col-form-label">Referred Name</label>
+                          <input type="text" class="form-control" id="referredbyname" formControlName="referredbyname" 
+                          placeholder="Referred Name">
                     </div>
                   </div>
-                  <div class="col-md-5" style="float: right;" *ngIf="isreferredshow;">
-                      <div class="mb-3">
-                        <label for="referredbyname" class="col-md-3 col-form-label">Referred Name</label>
-                        <input type="text" class="form-control" id="referredbyname" formControlName="referredbyname" 
-                        placeholder="Referred Name">
-                  </div>
-                </div>
+                    </div>
+                    
                   </div>
                   </div>
                 </div>
@@ -257,6 +281,76 @@
                   </div>
                 </div> <!-- col -->
               </div>
+
+              <div class="col-md-12 grid-margin">
+                <div class="card rounded">
+                  <div class="card-body">
+                    <h6 class="card-title">Our Policy</h6>
+                  
+
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                          <span><b>U.S. EQUAL EMPLOYMENT OPPORTUNITY INFORMATION   (Completion is voluntary and will not subject you to adverse treatment)</b> Our company values diversity. To ensure that we comply with reporting requirements and to learn more about how we can increase diversity in our candidate pool, we invite you to voluntarily provide demographic information in a confidential survey at the end of this application. discrimination based on race, color, religion, sex (including pregnancy, sexual orientation, or gender identity), national origin, age (40 or older), disability and genetic information (including family medical history). Providing this information is optional. It will not be accessible or used in the hiring process, and has no effect on your opportunity for employment. </span> 
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12" style="display: inline-block;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="genderId" class="col-form-label">Select Gender</label>
+                          <div>
+                              <ng-select [items]="genders"
+                              bindLabel="value"
+                              bindValue="key"
+                              placeholder="Select Gender"
+                              formControlName="genderId">
+                            </ng-select>
+                          </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-4">
+                      <div class="mb-3">
+                        <label for="raceid" class="col-form-label">Select Race</label>
+                        <div>
+                            <ng-select [items]="races"
+                            bindLabel="value"
+                            bindValue="key"
+                            placeholder="Select Race"
+                            formControlName="raceid">
+                          </ng-select>
+                        </div>
+                      </div>
+                     
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label for="veteranid" class="col-form-label">Veteran Status</label>
+                      <div>
+                          <ng-select [items]="veteran"
+                          bindLabel="value"
+                          bindValue="key"
+                          placeholder="Veteran Status"
+                          formControlName="veteranid">
+                        </ng-select>
+                      </div>
+                    </div>
+                   
+                </div>
+                    </div>
+                  
+                  </div>
+                  
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+
 
               <div class="d-flex justify-content-center mt-2">
                 <button class="btn btn-primary" type="submit">Continue</button>

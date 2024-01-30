@@ -14,16 +14,17 @@ import { ToastrService } from 'ngx-toastr';
 export class DriverRegistorComponent implements OnInit {
   isvalidlicense: any;
   isreferredshow: any;
-  htmlText: any;
   validationForm1: any;
   validationForm2: UntypedFormGroup;
   isForm1Submitted: Boolean;
   isForm2Submitted: Boolean;
   firstName: string;
   result: Drivermodel;
-  states: any = [];
   selectedstate: any = null;
   joiningdate: NgbDateStruct;
+  genders:any=[];
+  races:any=[];
+  veteran:any=[];
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 
@@ -61,6 +62,9 @@ export class DriverRegistorComponent implements OnInit {
         veteran: this.result.veteran,
         isreferredshow: this.result.referredByName != null? true : false
       });
+      this.genders=this.result.genders;
+      this.races=this.result.races;
+      this.veteran=this.result.veteran;
       this.isvalidlicense = this.result.licenseClassId != 0 ? true : false;
       this.isreferredshow = this.result.referredByName != null? true : false;
     });
