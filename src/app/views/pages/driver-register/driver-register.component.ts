@@ -37,14 +37,14 @@ export class DriverRegistorComponent implements OnInit {
       this.validationForm1.patchValue({
         firstName: this.result.firstName,
         states: this.result.states,
-        stateid: this.result.stateId,
+        stateid: this.result.stateId != 0 ? this.result.stateId : null,
         lastName: this.result.lastName,
         middleName: this.result.middleName,
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
         islegallyallowed: this.result.isLegallyAllowed,
         isvalidlicense: this.result.licenseClassId != 0 ? true : false,
-        licenseclassid: this.result.licenseClassId,
+        licenseclassid: this.result.licenseClassId != 0? this.result.licenseClassId : null,
         isusauthorized: this.result.isUSAuthorized,
         isimmigrationallowed: this.result.isImmigrationAllowed,
         salaryexpectation: this.result.salaryExpectation,
@@ -99,7 +99,6 @@ export class DriverRegistorComponent implements OnInit {
      */
     this.validationForm2 = this.formBuilder.group({
 
-      password: ['', Validators.required]
     });
 
     this.isForm1Submitted = false;
@@ -178,6 +177,8 @@ export class DriverRegistorComponent implements OnInit {
     }
     else {
       this.isvalidlicense = false;
+      this.form1.licenseclassid.value = null;
+      this.form1.stateid.value = null;
     }
   }
 
@@ -187,6 +188,7 @@ export class DriverRegistorComponent implements OnInit {
     }
     else {
       this.isreferredshow = false;
+      this.form1.referredbyname.value = null;
     }
   }
 
