@@ -58,7 +58,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:'driver-register',
+    path:'driver/register',
     pathMatch:'prefix',
     component:DriverRegistorComponent
   },
