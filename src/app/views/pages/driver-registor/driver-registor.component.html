@@ -87,13 +87,13 @@
                   <div class="col-md-12" id="isLicenseValid" style="display: inline-block;" *ngIf="isvalidlicense;">
                     <div class="col-md-5" style="float: left;">
                       <div class="mb-3">
-                        <label for="stateid" class="col-form-label">Select State</label>
+                        <label for="licenseclassid" class="col-form-label">Select License Class</label>
                         <div>
-                            <ng-select [items]="states"
+                            <ng-select [items]="result.licenseClasses"
                             bindLabel="name"
                             bindValue="id"
-                            placeholder="Select State"
-                            formControlName="stateid">
+                            placeholder="Select License Class"
+                            formControlName="licenseclassid">
                           </ng-select>
                         </div>
                       </div>
@@ -103,7 +103,7 @@
                     <div class="mb-3">
                       <label for="stateid" class="col-form-label">Select State</label>
                       <div>
-                          <ng-select [items]="states"
+                          <ng-select [items]="result.states"
                           bindLabel="name"
                           bindValue="id"
                           placeholder="Select State"
@@ -220,7 +220,7 @@
                         <label class="col-md-3 col-form-label">&nbsp;</label><br>
                         <div class="form-check form-check-inline">
                           <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" (change)="refferChange($event)">
+                          <input type="checkbox" class="form-check-input" formControlName="isreferredshow" (change)="refferChange($event)">
                           Were you referred by anyone at OneLift?
                           </label>
                       
@@ -243,7 +243,7 @@
                 <div class="col-md-12 grid-margin">
                   <div class="card">
                     <div class="card-body">
-                      <h6 class="card-title">Example</h6>
+                      <h6 class="card-title">Comments</h6>
               
                       <quill-editor
                         formControlName="comments"
