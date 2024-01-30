@@ -28,4 +28,5 @@ export class Drivermodel {
     races: [any]
     veteran: [any]
     states: [any]
+    documentTypes: [any]
 }
