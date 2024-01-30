@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ContentChange, SelectionChange } from 'ngx-quill';
 import { ApiService } from 'src/app/api.service';
 import { Drivermodel } from 'src/app/model/drivermodel';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-driver-registor',
   templateUrl: './driver-registor.component.html',
@@ -26,13 +27,12 @@ export class DriverRegistorComponent implements OnInit {
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService) { }
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
     this.navService.get<Drivermodel>("Diver/Account/Register").subscribe((response) => {
       this.result = response;
-    }, e => console.log(e), () => {
+    }, e => this.toastr.error(e.message), () => {
       this.validationForm1.patchValue({
         firstName: this.result.firstName,
         states: this.result.states,
@@ -89,7 +89,7 @@ export class DriverRegistorComponent implements OnInit {
       veteranid: [''],
       isreferredshow : []
     });
-
+    
     /**
      * formw value validation
      */
@@ -101,7 +101,7 @@ export class DriverRegistorComponent implements OnInit {
     this.isForm1Submitted = false;
     this.isForm2Submitted = false;
   }
-
+ 
   /**
    * Wizard finish function
    */

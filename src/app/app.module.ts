@@ -15,8 +15,9 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DriverRegistorComponent } from './views/pages/driver-registor/driver-registor.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
-import { QuillModule } from 'ngx-quill'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { QuillModule } from 'ngx-quill';
+import { ToastrModule } from 'ngx-toastr';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ArchwizardModule,
     NgSelectModule,
     NgxMaskModule.forRoot(),
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthGuard,
