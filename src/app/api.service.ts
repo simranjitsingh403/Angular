@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -23,7 +23,9 @@ export class ApiService {
         if (serverURL === undefined) {
           serverURL = environment.baseURL;
         }
-        return  this.http.get<T>(serverURL + url, { headers });
+        return  this.http.get<T>(serverURL + url, { headers }).pipe(
+          catchError(this.handleError)
+        );
       }
     
       post<T>(url: string, data: any, isLoginHeader?: boolean, serverURL?: string): Observable<T> {
@@ -49,6 +51,15 @@ export class ApiService {
         }
     
         return this.http.put<T>(serverURL + url, data, { headers });
+      }
+
+      private handleError(error: HttpErrorResponse) {
+        if (error.status === 0) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.log('An error occurred:', error.error);
+        } 
+        // Return an observable with a user-facing error message.
+        return throwError(() => new Error('offline...!'));
       }
 
 }
