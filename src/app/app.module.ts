@@ -15,6 +15,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
+import { RoleComponent } from './views/pages/auth/role/role.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';
@@ -23,7 +24,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
   declarations: [
     AppComponent,
     ErrorPageComponent,
-    DriverRegistorComponent
+    DriverRegistorComponent,
+    RoleComponent
   ],
   imports: [
     BrowserModule,
