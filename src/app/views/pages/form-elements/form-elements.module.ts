@@ -16,6 +16,7 @@ import { FormElementsComponent } from './form-elements.component';
 import { BasicElementsComponent } from './basic-elements/basic-elements.component';
 import { EditorsComponent } from './editors/editors.component';
 import { WizardComponent } from './wizard/wizard.component';
+import { DriverRegistorComponent } from '../driver-register/driver-register.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
       {
         path: 'basic-elements',
         component: BasicElementsComponent
+      },
+      {
+        path: 'driver/register',
+        component: DriverRegistorComponent
       },
       {
         path: 'editors',

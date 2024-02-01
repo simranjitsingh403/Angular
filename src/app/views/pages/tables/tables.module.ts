@@ -8,6 +8,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { NgxDatatableComponent } from './ngx-datatable/ngx-datatable.component';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { DriverTableComponent } from './driver-table/driver-table.component';
 
 const routes: Routes = [
   {
@@ -30,13 +31,17 @@ const routes: Routes = [
       {
         path: 'ngx-datatable',
         component: NgxDatatableComponent
+      },
+      {
+        path: 'drivers',
+        component: DriverTableComponent
       }
     ]
   }
 ]
 
 @NgModule({
-  declarations: [TablesComponent, BasicTableComponent, DataTableComponent, NgxDatatableComponent],
+  declarations: [TablesComponent, BasicTableComponent, DataTableComponent, NgxDatatableComponent, DriverTableComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

@@ -188,7 +188,7 @@ export const MENU: MenuItem[] = [
       },
       {
         label: 'Create Driver',
-        link: '/driver/register'
+        link: '/admin/driver/register'
       },
       {
         label: 'Advanced elements',
@@ -247,6 +247,10 @@ export const MENU: MenuItem[] = [
     label: 'Tables',
     icon: 'layout',
     subItems: [
+      {
+        label: 'Create Driver',
+        link: '/tables/drivers'
+      },
       {
         label: 'Basic tables',
         link: '/tables/basic-table',

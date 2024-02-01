@@ -1,4 +1,5 @@
 export class Drivermodel {
+
     id: string
     userName: string
     firstName: string
@@ -29,4 +30,5 @@ export class Drivermodel {
     veteran: [any]
     states: [any]
     documentTypes: [any]
+    documents:any = []
 }

@@ -371,7 +371,29 @@
                       <div class="col-md-5" style="float: left;">
                         <div class="mb-3">
                           <label class="col-md-3 col-form-label">Upload</label>
-                          <input class="form-control" type="file" multiple id="driverFiles">
+                          <input class="form-control" type="file" #file multiple formControlName="documents" (change)="uploadFile(file.files)"
+                          [ngClass]="{'is-invalid': isForm2Submitted && form2.documents.errors}">
+                          <div *ngIf="isForm2Submitted && form2.documents.errors?.required" class="invalid-feedback">
+                            Required
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">Files</h6>
+
+                      <div class="col-md-6" style="float: left;">
+                        <div class="mb-2" *ngFor="let doc of result.documents; index as i">
+                          <div class="row">
+                            <a class="col-md-2" href="{{apiPath + doc.documentPath}}" target="_blank">File {{i+1}}</a>
+                            <button class="btn-primary col-md-1" (click)="DeleteDocument(i)" >Del</button>
+                          </div>
                         </div>
                       </div>
 
