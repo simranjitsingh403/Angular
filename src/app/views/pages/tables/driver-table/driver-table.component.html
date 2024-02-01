@@ -1,1 +1,40 @@
-<p>driver-table works!</p>
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Driver Status</h6>
+    
+            <div class="col-md-5" style="float: left;">
+              <div class="mb-3">
+                <div>
+                    <ng-select [items]="status"
+                    bindLabel="value"
+                    bindValue="key"
+                    placeholder="Driver Status" (change)="GetDrivers($event)">
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Drivers</h6>
+    
+            <div class="card" *ngFor="let item in drivers">
+                <div class="card-header">
+                  Card header
+                </div>
+                <div class="card-body">
+                  ...
+                </div>
+              </div>
+    
+          </div>
+        </div>
+      </div>
+</div>
