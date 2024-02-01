@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { DataTable } from 'simple-datatables';
 import { ApiService } from 'src/app/api.service';
@@ -26,7 +26,7 @@ export class RoleComponent implements OnInit {
   }
   binddatatable(){
     setTimeout(() => {
-      this.datatable = new DataTable("#dataTableExample");
+      this.datatable = new DataTable("#dataTable");
     }, 200);
     
   }
