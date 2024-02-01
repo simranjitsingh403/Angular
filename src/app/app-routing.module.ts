@@ -31,7 +31,7 @@ const routes: Routes = [
         loadChildren: () => import('./views/pages/advanced-ui/advanced-ui.module').then(m => m.AdvancedUiModule)
       },
       {
-        path: 'form-elements',
+        path: 'admin',
         loadChildren: () => import('./views/pages/form-elements/form-elements.module').then(m => m.FormElementsModule)
       },
       {

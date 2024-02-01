@@ -19,7 +19,7 @@ export class ApiService {
     }
 
     get<T>(url: string, serverURL?: string): Observable<T> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
         if (serverURL === undefined) {
           serverURL = environment.baseURL;
         }
@@ -28,10 +28,13 @@ export class ApiService {
         );
       }
     
-      post<T>(url: string, data: any, isLoginHeader?: boolean, serverURL?: string): Observable<T> {
+      post<T>(url: string, data: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
         let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         if (isLoginHeader) {
           headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        }
+        if(fileInput){
+          headers = new HttpHeaders();
         }
     
         if (serverURL === undefined) {

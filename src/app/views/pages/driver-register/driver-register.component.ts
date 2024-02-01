@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormControl, FormBuilder, FormsModule } from '@angular/forms';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ContentChange, SelectionChange } from 'ngx-quill';
 import { ApiService } from 'src/app/api.service';
 import { Drivermodel } from 'src/app/model/drivermodel';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-driver-registor',
   templateUrl: './driver-register.component.html',
@@ -22,16 +24,18 @@ export class DriverRegistorComponent implements OnInit {
   result: Drivermodel;
   selectedstate: any = null;
   joiningdate: NgbDateStruct;
-  genders:any=[];
-  races:any=[];
-  veteran:any=[];
+  genders: any = [];
+  races: any = [];
+  veteran: any = [];
+  documentTypeId : number = 1;
+  apiPath:string = environment.baseURL;
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService,private toastr: ToastrService) { }
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.navService.get<Drivermodel>("Diver/Account/Register").subscribe((response) => {
+    this.navService.get<Drivermodel>("Driver/Account/Register").subscribe((response) => {
       this.result = response;
     }, e => this.toastr.error(e.message), () => {
       this.validationForm1.patchValue({
@@ -44,29 +48,34 @@ export class DriverRegistorComponent implements OnInit {
         mobileNumber: this.result.phoneNumber,
         islegallyallowed: this.result.isLegallyAllowed,
         isvalidlicense: this.result.licenseClassId != 0 ? true : false,
-        licenseclassid: this.result.licenseClassId != 0? this.result.licenseClassId : null,
+        licenseclassid: this.result.licenseClassId != 0 ? this.result.licenseClassId : null,
         isusauthorized: this.result.isUSAuthorized,
         isimmigrationallowed: this.result.isImmigrationAllowed,
         salaryexpectation: this.result.salaryExpectation,
-        jobtype: this.result.jobType != 0? this.result.jobType.toString() : '1',
+        jobtype: this.result.jobType != 0 ? this.result.jobType.toString() : '1',
         referredbyname: this.result.referredByName,
         joiningdate: this.result.joiningDate,
         comments: this.result.comments,
-        genderId: this.result.genderId,
-        raceid: this.result.raceId,
-        veteranid: this.result.veteranId,
+        genderId: this.result.genderId != 0 ? this.result.genderId : null,
+        raceid: this.result.raceId != 0 ? this.result.raceId : null,
+        veteranid: this.result.veteranId != 0 ? this.result.veteranId : null,
         licenseClasses: this.result.licenseClasses,
         jobTypes: this.result.jobTypes,
         genders: this.result.genders,
         races: this.result.races,
         veteran: this.result.veteran,
-        isreferredshow: this.result.referredByName != null? true : false
+        isreferredshow: this.result.referredByName != null ? true : false
       });
-      this.genders=this.result.genders;
-      this.races=this.result.races;
-      this.veteran=this.result.veteran;
+      this.genders = this.result.genders;
+      this.races = this.result.races;
+      this.veteran = this.result.veteran;
       this.isvalidlicense = this.result.licenseClassId != 0 ? true : false;
-      this.isreferredshow = this.result.referredByName != null? true : false;
+      this.isreferredshow = this.result.referredByName != null ? true : false;
+
+      if(this.result.documents.length > 0){
+        this.validationForm2.controls['documents'].setErrors(null);
+      }
+      
     });
     /**
      * form1 value validation
@@ -88,23 +97,23 @@ export class DriverRegistorComponent implements OnInit {
       referredbyname: [''],
       joiningdate: ['', Validators.required],
       comments: [''],
-      genderId: [''],
-      raceid: [''],
-      veteranid: [''],
-      isreferredshow : []
+      genderId: [null],
+      raceid: [null],
+      veteranid: [null],
+      isreferredshow: [],
     });
-    
+
     /**
      * formw value validation
      */
     this.validationForm2 = this.formBuilder.group({
-
+      documents:['', [Validators.required]]
     });
 
     this.isForm1Submitted = false;
     this.isForm2Submitted = false;
   }
- 
+
   /**
    * Wizard finish function
    */
@@ -128,11 +137,12 @@ export class DriverRegistorComponent implements OnInit {
     this.result.raceId = this.form1.raceid.value;
     this.result.veteranId = this.form1.veteranid.value;
 
-    if(this.result.id == "00000000-0000-0000-0000-000000000000"){
-      this.navService.post("Diver/Account/Register",this.result).subscribe(d => console.log(d));
-    }else{
-      this.navService.put("Diver/Account/UpdateDriver",this.result).subscribe(d => console.log(d));
+    if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+      this.navService.post("Driver/Account/Register", this.result).subscribe(d => console.log(d));
+    } else {
+      this.navService.put("Driver/Account/UpdateDriver", this.result).subscribe(d => console.log(d));
     }
+
   }
 
   /**
@@ -158,7 +168,6 @@ export class DriverRegistorComponent implements OnInit {
       this.wizardForm.goToNextStep();
     }
     this.isForm1Submitted = true;
-    this.wizardForm.goToNextStep();
   }
 
   /**
@@ -234,5 +243,32 @@ export class DriverRegistorComponent implements OnInit {
     },
   }
 
+  uploadFile = (files: any) => {
+    if (files.length === 0) {
+      return;
+    }
+
+    let filesToUpload = files;
+    const formData = new FormData();
+
+    Array.from(filesToUpload).map((file: any, index: number) => {
+      return formData.append('file_Driver_'+this.documentTypeId, file, file.name);
+    });
+
+    this.navService.post<any>('Driver/Account/UploadFiles', formData, false, undefined, true)
+      .subscribe(v => { 
+        for (let i = 0; i < v.length; i++) {
+          this.result.documents.push(v[i]);
+        }
+      });
+   }
+
+   DeleteDocument(index:any){
+    this.result.documents.splice(index,1);
+
+    if(this.result.documents.length == 0){
+      this.validationForm2.controls['documents'].setErrors({require:true});
+    }
+   }
 
 }
