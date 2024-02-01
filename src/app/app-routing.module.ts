@@ -4,6 +4,7 @@ import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
+import { RoleComponent } from './views/pages/auth/role/role.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,11 @@ const routes: Routes = [
     path:'driver/register',
     pathMatch:'prefix',
     component:DriverRegistorComponent
+  },
+  {
+    path:'role',
+    pathMatch:'prefix',
+    component:RoleComponent
   },
   { 
     path: 'error',
