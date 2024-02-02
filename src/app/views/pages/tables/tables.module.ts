@@ -9,6 +9,17 @@ import { NgxDatatableComponent } from './ngx-datatable/ngx-datatable.component';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DriverTableComponent } from './driver-table/driver-table.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from '../../layout/layout.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ArchwizardModule } from 'angular-archwizard';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxMaskModule } from 'ngx-mask';
+import { QuillModule } from 'ngx-quill';
+import { ToastrModule } from 'ngx-toastr';
 
 const routes: Routes = [
   {
@@ -45,7 +56,15 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    NgxDatatableModule
+    NgxDatatableModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ArchwizardModule,
+    NgSelectModule,
+    NgxMaskModule.forRoot(),
+    QuillModule.forRoot(),
+    ToastrModule.forRoot()
   ]
 })
 export class TablesModule { }
