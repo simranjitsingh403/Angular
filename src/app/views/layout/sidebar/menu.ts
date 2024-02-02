@@ -47,6 +47,11 @@ export const MENU: MenuItem[] = [
     }
   },
   {
+    label: 'Role',
+    icon: 'unlock',
+    link: '/admin/role',
+  },
+  {
     label: 'Components',
     isTitle: true
   },
