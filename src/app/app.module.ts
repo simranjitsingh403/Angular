@@ -19,6 +19,8 @@ import { RoleComponent } from './views/pages/auth/role/role.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';
+import { AgGridAngular } from 'ag-grid-angular';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ReactiveFormsModule,
     ArchwizardModule,
     NgSelectModule,
+    AgGridAngular,
+    SweetAlert2Module.forRoot(),
     NgxMaskModule.forRoot(),
     QuillModule.forRoot(),
     ToastrModule.forRoot()

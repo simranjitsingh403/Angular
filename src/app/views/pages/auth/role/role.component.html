@@ -1,28 +1,48 @@
 <div class="row">
-    <div class="col-md-12 stretch-card">
+   
+    <div class="col-md-6 stretch-card">
       <div class="card">
         <div class="card-body">
-          <h6 class="card-title">Data Table</h6>
+          <h6 class="card-title">Roles</h6>
           <div class="table-responsive">
-            <table id="dataTable" class="table table-responsive">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-             <tbody>
-                <tr *ngFor="let row of items">
-                    <td>{{row.name}}</td>
-                    <td><i class='mdi mdi-pencil'></i> |
-                      <i class='mdi mdi-delete-forever'></i>
-                    </td>
-               </tr>
-             </tbody>
-            </table>
+            <ag-grid-angular 
+            style="height: 500px;" 
+            class="ag-theme-quartz"
+            [rowData]="rowData$ | async" 
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [animateRows]="true"
+            (gridReady)="onGridReady($event)"
+            (cellClicked)="onCellClicked($event)"
+            >
+          </ag-grid-angular>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-md-6 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">{{heading}}</h6>
+          <form (ngSubmit)="formSubmit()" [formGroup]="validationForm">
+            <div class="col-md-12">
+              <div class="mb-3">
+              <label for="name" class="col-md-3 col-form-label">Role name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" 
+              [ngClass]="{'is-invalid': isFormSubmitted && form.name.errors}" placeholder="Role name">
+              <div *ngIf="isFormSubmitted && form.name.errors?.required" class="invalid-feedback">
+                Required
+              </div>
+            </div>
+          </div>
+         
+          <div class="mt-2" style="padding-right: 10px;" clss="row">
+            <button class="btn btn-primary" style="float: right;" type="submit">{{buttonValue}}</button>
+            <button class="btn btn-outline-info" style="float: right;margin-right: 10px;"  (click)="clear()" type="button">Clear</button>
+          </div>
+         
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-
