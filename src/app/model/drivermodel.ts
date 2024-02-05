@@ -23,6 +23,8 @@ export class Drivermodel {
     createdBy: string
     createdDateTime: Date
     isDeleted : boolean
+    formStatusId : number
+    rejectedReason:string
     licenseClasses: [any]
     jobTypes: [any]
     genders: [any]

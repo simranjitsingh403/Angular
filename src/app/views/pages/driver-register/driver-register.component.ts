@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/api.service';
 import { Drivermodel } from 'src/app/model/drivermodel';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-driver-registor',
@@ -21,7 +22,7 @@ export class DriverRegistorComponent implements OnInit {
   isForm1Submitted: Boolean;
   isForm2Submitted: Boolean;
   firstName: string;
-  result: Drivermodel;
+  result: Drivermodel = new Drivermodel();
   selectedstate: any = null;
   joiningdate: NgbDateStruct;
   genders: any = [];
@@ -29,13 +30,15 @@ export class DriverRegistorComponent implements OnInit {
   veteran: any = [];
   documentTypeId : number = 1;
   apiPath:string = environment.baseURL;
+  driverId:any = this.route.snapshot.params['id'];
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService) { }
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.navService.get<Drivermodel>("Driver/Account/Register").subscribe((response) => {
+    
+    this.navService.get<Drivermodel>("Driver/Account/Register?Id=" + this.driverId).subscribe((response) => {
       this.result = response;
     }, e => this.toastr.error(e.message), () => {
       this.validationForm1.patchValue({

@@ -1,8 +1,13 @@
 <div class="row">
+
 <div class="col-md-12 grid-margin">
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Driver Form</h6>
+        <div *ngIf="result.rejectedReason != null">
+          <h5 class="text-danger" >Note:- {{result.rejectedReason}}</h5>
+          
+        </div>
 
         <aw-wizard #wizardForm>
           

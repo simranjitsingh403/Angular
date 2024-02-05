@@ -253,7 +253,7 @@ export const MENU: MenuItem[] = [
     icon: 'layout',
     subItems: [
       {
-        label: 'Create Driver',
+        label: 'Drivers',
         link: '/tables/drivers'
       },
       {

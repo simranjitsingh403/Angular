@@ -34,7 +34,7 @@ const routes: Routes = [
         component: BasicElementsComponent
       },
       {
-        path: 'driver/register',
+        path: 'driver/register/:id',
         component: DriverRegistorComponent
       },
       {
