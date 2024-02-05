@@ -23,7 +23,9 @@ export class RoleComponent implements OnInit {
     this.heading="ADD ROLE";
     this.validationForm = this.formBuilder.group({
       name: ['', Validators.required],
-      id:[]
+      isDeleted:[0],
+      id:['00000000-0000-0000-0000-000000000000'],
+      AspNetRoleId:['00000000-0000-0000-0000-000000000000']
     });
 
     this.GetAll();
@@ -44,7 +46,7 @@ export class RoleComponent implements OnInit {
       this.isFormSubmitted = true;
     }
     else{
-      this.navService.post("Role", this.validationForm.value).subscribe(d => console.log(d));
+      this.navService.post("Role", this.validationForm.value).subscribe(d =>{ if(d){this.clear();this.GetAll();this.toastr.success("Record save successfully.")}else{this.toastr.error("something went wrong.")} });
     }
   }
 
@@ -74,7 +76,11 @@ export class RoleComponent implements OnInit {
         confirmButtonText: 'Yes, delete it!'
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
-          this.navService.put("Role", params.data.id).subscribe(d => {this.toastr.success("Record deleted successfully."); this.GetAll()});
+          this.validationForm.patchValue({
+            name: params.data.name,
+            id:params.data.id
+          })
+          this.navService.put("Role", this.validationForm.value).subscribe(d => { if(d){this.toastr.success("Record deleted successfully.");this.clear(); this.GetAll()}else{this.toastr.error("something went wrong")}});
         }
       });
     }
@@ -85,17 +91,17 @@ export class RoleComponent implements OnInit {
   clear(){
     this.validationForm.patchValue({
       name: '',
-      
+      id:''
     })
     this.buttonValue='Create';
     this.heading="ADD ROLE";
   }
 
   columnDefs: ColDef[] = [
-    { headerName: 'Name', field: 'name' },
+    { headerName: 'Name', field: 'name',cellStyle: {'font-weight': '600'}},
     {
       headerName: 'Action', field: 'id',filter:false,sortable:false, cellRenderer: function () {
-        return '<a><i class="mdi mdi-pencil" id="edit" style="font-size: 22px;"></i></a> | <a><i class="mdi mdi-delete-forever" id="delete" style="color: red; font-size: 22px;"></a>'
+        return '<a><i class="mdi mdi-pencil" id="edit" style="font-size: 20px;"></i></a> | <a><i class="mdi mdi-delete-forever" id="delete" style="color: red; font-size: 20px;"></a>'
       }
     }];
 

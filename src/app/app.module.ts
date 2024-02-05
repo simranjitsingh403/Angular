@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
 import { RoleComponent } from './views/pages/auth/role/role.component';
+import { DriverTableComponent } from './views/pages/tables/driver-table/driver-table.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';
@@ -27,7 +28,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     AppComponent,
     ErrorPageComponent,
     DriverRegistorComponent,
-    RoleComponent
+    RoleComponent,
+    DriverTableComponent
   ],
   imports: [
     BrowserModule,

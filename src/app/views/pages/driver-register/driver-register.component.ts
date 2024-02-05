@@ -34,7 +34,7 @@ export class DriverRegistorComponent implements OnInit {
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route:ActivatedRoute) { }
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     
@@ -143,7 +143,7 @@ export class DriverRegistorComponent implements OnInit {
     if (this.result.id == "00000000-0000-0000-0000-000000000000") {
       this.navService.post("Driver/Account/Register", this.result).subscribe(d => console.log(d));
     } else {
-      this.navService.put("Driver/Account/UpdateDriver", this.result).subscribe(d => console.log(d));
+      this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d =>{if(d.success==true){this.toastr.success(d.message); this.router.navigate(['/admin/drivers']);}else{this.toastr.error("something went wrong.")}});
     }
 
   }

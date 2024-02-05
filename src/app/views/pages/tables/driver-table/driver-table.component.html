@@ -3,22 +3,32 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Driver Status</h6>
-
-        <div class="col-md-5" style="float: left;">
-          <div class="mb-3">
-            <div>
-              <ng-select [items]="status" bindLabel="value" bindValue="key" [ngModel]='4' placeholder="Driver Status"
-                (change)="GetDrivers($event)">
-              </ng-select>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <div>
+                <ng-select [items]="status" bindLabel="value" bindValue="key" [ngModel]='4' placeholder="Driver Status"
+                  (change)="GetDrivers($event)">
+                </ng-select>
+              </div>
             </div>
           </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-primary btn-icon-text" (click)="redirectToAddDriver()">
+              <i class="feather icon-check-square btn-icon-prepend"></i>
+              Add
+            </button>
+            
+          </div>
         </div>
+
 
       </div>
     </div>
   </div>
 
-  <div class="col-md-12 grid-margin stretch-card">
+  <!-- <div class="col-md-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">Drivers</h6>
@@ -53,6 +63,28 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Roles</h6>
+        <div class="table-responsive">
+          <ag-grid-angular 
+          style="height: 500px;" 
+          class="ag-theme-quartz"
+          [rowData]="rowData$ | async" 
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [animateRows]="true"
+          (gridReady)="onGridReady($event)"
+          (cellClicked)="onCellClicked($event)"
+          [getRowStyle]="getRowStyle"
+          >
+        </ag-grid-angular>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -63,17 +95,16 @@
     <button type="button" class="btn-close" (click)="modal.close(false)" aria-label="Close"></button>
   </div>
   <form (ngSubmit)="formSubmit()" [formGroup]="rejectForm">
-  <div class="modal-body">
-    <textarea class="form-control" formControlName="reason"
-    placeholder="reason.."
-    [ngClass]="{'is-invalid': isFormSubmitted && form.reason.errors}"></textarea>
-    <div *ngIf="isFormSubmitted && form.reason.errors?.required" class="invalid-feedback">
-      Required
+    <div class="modal-body">
+      <textarea class="form-control" formControlName="reason" placeholder="reason.."
+        [ngClass]="{'is-invalid': isFormSubmitted && form.reason.errors}"></textarea>
+      <div *ngIf="isFormSubmitted && form.reason.errors?.required" class="invalid-feedback">
+        Required
+      </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Close</button>
-    <button type="submit" class="btn btn-danger">Reject</button>
-  </div>
-</form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Close</button>
+      <button type="submit" class="btn btn-danger">Reject</button>
+    </div>
+  </form>
 </ng-template>

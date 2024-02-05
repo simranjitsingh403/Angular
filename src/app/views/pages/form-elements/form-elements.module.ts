@@ -18,6 +18,7 @@ import { EditorsComponent } from './editors/editors.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { DriverRegistorComponent } from '../driver-register/driver-register.component';
 import { RoleComponent } from '../auth/role/role.component';
+import { DriverTableComponent } from '../tables/driver-table/driver-table.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: 'role',
         component: RoleComponent
+      },
+      {
+        path: 'drivers',
+        component: DriverTableComponent
       },
       {
         path: 'editors',
