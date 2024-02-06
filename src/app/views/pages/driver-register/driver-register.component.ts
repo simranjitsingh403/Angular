@@ -21,7 +21,6 @@ export class DriverRegistorComponent implements OnInit {
   validationForm2: UntypedFormGroup;
   isForm1Submitted: Boolean;
   isForm2Submitted: Boolean;
-  firstName: string;
   result: Drivermodel = new Drivermodel();
   selectedstate: any = null;
   joiningdate: NgbDateStruct;
@@ -84,7 +83,7 @@ export class DriverRegistorComponent implements OnInit {
      * form1 value validation
      */
     this.validationForm1 = this.formBuilder.group({
-      firstName: [this.firstName, Validators.required],
+      firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       middleName: [''],
       email: ['', Validators.required],

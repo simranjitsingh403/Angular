@@ -41,7 +41,6 @@ export class RoleComponent implements OnInit {
   }
 
   formSubmit() {
-    debugger;
     if (!this.validationForm.valid) {
       this.isFormSubmitted = true;
     }

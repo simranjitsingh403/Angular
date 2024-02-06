@@ -57,7 +57,7 @@ export const MENU: MenuItem[] = [
     link: '/admin/drivers',
   },
   {
-    label: 'User',
+    label: 'Users',
     icon: 'unlock',
     link: '/admin/user',
   },
