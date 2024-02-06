@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/api.service';
@@ -17,36 +17,37 @@ import { RowClassParams } from 'ag-grid-community';
 export class DriverTableComponent implements OnInit {
   status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }, { key: 4, value: "All" }];
   statusId: number = 4;
-  drivers:Drivermodel[] = [];
-  driver:Drivermodel = new Drivermodel();
+  drivers: Drivermodel[] = [];
+  driver: Drivermodel = new Drivermodel();
   rejectForm: UntypedFormGroup;
-  isFormSubmitted:boolean;
-  getRowStyle:any;
-  rejectModal:'rejectModal';
-  constructor(private navService: ApiService, private toastr: ToastrService,private router:Router,private modalService: NgbModal,
+  isFormSubmitted: boolean;
+  getRowStyle: any;
+  @ViewChild('rejectModal') rejectModal: HTMLInputElement;
+
+  constructor(private navService: ApiService, private toastr: ToastrService, private router: Router, private modalService: NgbModal,
     public formBuilder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.GetAll();
     this.rejectForm = this.formBuilder.group({
-      reason:['',Validators.required]
+      reason: ['', Validators.required]
     });
 
     this.isFormSubmitted = false;
 
-   
-    this.getRowStyle=(params: RowClassParams) => {
-     if(params.data.formStatusId==3){
-      return {'background-color': '#FFE4E4'}
-     }
-     if(params.data.formStatusId==2){
-      return {'background-color': '#E5FFE4'}
-     }
-     return null;
+
+    this.getRowStyle = (params: RowClassParams) => {
+      if (params.data.formStatusId == 3) {
+        return { 'background-color': '#FFE4E4' }
+      }
+      if (params.data.formStatusId == 2) {
+        return { 'background-color': '#E5FFE4' }
+      }
+      return null;
     }
 
   }
-  
+
   GetAll() {
     this.rowData$ = this.navService.get<any>("Driver/Account/GetDrivers?status=" + this.statusId);
   }
@@ -69,27 +70,28 @@ export class DriverTableComponent implements OnInit {
     this.GetAll();
   }
 
-  EditDriver(Id:any){
+  EditDriver(Id: any) {
     this.router.navigateByUrl('/admin/driver/register/' + Id)
   }
 
-  AcceptDriver(model:Drivermodel){
+  AcceptDriver(model: Drivermodel) {
     model.formStatusId = 2;
-    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => {if(d.success){this.toastr.success("Record accepted successfully.");this.GetAll();}} ,e => this.toastr.error(e));
+    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } }, e => this.toastr.error(e));
   }
 
-  RejectDriver(model:Drivermodel){
+  RejectDriver(model: Drivermodel) {
     model.formStatusId = 3;
-    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => this.toastr.success(d.message),e => this.toastr.error(e));
+    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } }, e => this.toastr.error(e));
   }
 
-  openRejectModal(content: TemplateRef<any>,model:Drivermodel) {
-    this.modalService.open(content, {}).result.then((result) => {
-    }).catch((res) => {});
+  openRejectModal(model: Drivermodel) {
+    this.modalService.open(this.rejectModal, {}).result.then((result) => {
+    }).catch((res) => { });
 
     this.driver = model;
   }
-  redirectToAddDriver(){
+
+  redirectToAddDriver() {
     this.router.navigate(['/admin/driver/register']);
   }
 
@@ -99,15 +101,17 @@ export class DriverTableComponent implements OnInit {
 
   onCellClicked(params: any) {
     params.node.setSelected(true);
-    if(params.event.srcElement.id=="accept"){
-      this.driver.id=params.data.id
+    if (params.event.srcElement.id == "accept") {
+      this.driver.id = params.data.id
       this.AcceptDriver(this.driver)
     }
-    if(params.event.srcElement.id=="accept"){
-      this.driver.id=params.data.id;
-      //openRejectModal(TemplateRef,params.data)
+    if (params.event.srcElement.id == "reject") {
+      debugger;
+      this.driver.id = params.data.id;
+
+      this.openRejectModal(params.data)
     }
-    if(params.event.srcElement.id=="delete"){
+    if (params.event.srcElement.id == "delete") {
       Swal.fire({
         title: 'Are you sure?',
         text: 'You won\'t be able to revert this!',
@@ -118,39 +122,41 @@ export class DriverTableComponent implements OnInit {
         confirmButtonText: 'Yes, delete it!'
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
-          this.navService.put("/Driver/Account/DeleteDriver",this.driver.id).subscribe(d => { if(d){this.toastr.success("Record deleted successfully.");this.GetAll()}else{this.toastr.error("something went wrong")}});
+          this.navService.put("Driver/Account/DeleteDriver/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
         }
       });
     }
-   
+
   }
-  
+
 
   columnDefs: ColDef[] = [
-    { headerName: 'Name', field: 'fullName',cellStyle: {'font-weight': '600'},cellRenderer:function(params:any){return '<a href="/admin/driver/register/'+params.data.id+'">'+params.data.fullName+'<a/>'}},
-    { headerName: 'Email', field: 'email',cellStyle: {'font-weight': '600'}},
-    { headerName: 'Contact Number', field: 'phoneNumber',cellStyle: {'font-weight': '600'}},
-    { headerName: 'Status', field: 'formStatusName',cellStyle: {'font-weight': '600'},cellRenderer:function(params:any){
-      let data='';
-      if(params.data.formStatusId==1){
-        data+='<span>Pending</span>'
-      }
-      if(params.data.formStatusId==2){
-        data+='<span><span style="color: green">●</span> Approved</span>'
-      }
-      if(params.data.formStatusId==3){
-        data+='<span><span style="color: red">●</span> Rejected</span>'
-      }
-      return data;
-    }},
+    { headerName: 'Name', field: 'fullName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/driver/register/' + params.data.id + '">' + params.data.fullName + '<a/>' } },
+    { headerName: 'Email', field: 'email', cellStyle: { 'font-weight': '600' } },
+    { headerName: 'Contact Number', field: 'phoneNumber', cellStyle: { 'font-weight': '600' } },
     {
-      headerName: 'Action', field: 'id',filter:false,sortable:false, cellRenderer: function (params:any) {
-        let data='';
-        if(params.data.formStatusId==1){
-          data+='<a><i class="mdi mdi-account-check" id="accept" style="font-size: 20px;color:green;" title="Accept"></i></a> |';
-          data+='<a><i class="mdi mdi-account-remove" id="reject" title="Reject" style="font-size: 20px;color:red;"></i></a> |';
+      headerName: 'Status', field: 'formStatusName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) {
+        let data = '';
+        if (params.data.formStatusId == 1) {
+          data += '<span>Pending</span>'
         }
-        data+='<a><i class="mdi mdi-delete-forever" id="delete" title="Delete" style="color: red; font-size: 20px;"></a>';
+        if (params.data.formStatusId == 2) {
+          data += '<span><span style="color: green">●</span> Approved</span>'
+        }
+        if (params.data.formStatusId == 3) {
+          data += '<span><span style="color: red">●</span> Rejected</span>'
+        }
+        return data;
+      }
+    },
+    {
+      headerName: 'Action', field: 'id', filter: false, sortable: false, cellRenderer: function (params: any) {
+        let data = '';
+        if (params.data.formStatusId == 1) {
+          data += '<a><i class="mdi mdi-account-check" id="accept" style="font-size: 20px;color:green;" title="Accept"></i></a> |';
+          data += '<a><i class="mdi mdi-account-remove" id="reject" title="Reject" style="font-size: 20px;color:red;"></i></a> |';
+        }
+        data += '<a><i class="mdi mdi-delete-forever" id="delete" title="Delete" style="color: red; font-size: 20px;"></a>';
         return data;
       }
     }];
@@ -160,5 +166,5 @@ export class DriverTableComponent implements OnInit {
     sortable: true, filter: true
   }
 
- 
+
 }

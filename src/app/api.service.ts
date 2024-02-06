@@ -43,7 +43,7 @@ export class ApiService {
         return this.http.post<T>(serverURL + url, data, { headers });
       }
     
-      put<T>(url: string, data: any, isLoginHeader?: boolean, serverURL?: string): Observable<T> {
+      put<T>(url: string, data?: any, isLoginHeader?: boolean, serverURL?: string): Observable<T> {
         let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         if (isLoginHeader) {
           headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
