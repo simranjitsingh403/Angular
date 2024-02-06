@@ -76,12 +76,12 @@ export class DriverTableComponent implements OnInit {
 
   AcceptDriver(model: Drivermodel) {
     model.formStatusId = 2;
-    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } }, e => this.toastr.error(e));
+    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } else{this.toastr.error(d.message);this.GetAll();} }, e => {this.toastr.error(e.message);this.GetAll(); });
   }
 
   RejectDriver(model: Drivermodel) {
     model.formStatusId = 3;
-    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } }, e => this.toastr.error(e));
+    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } }, e => {this.toastr.error(e.message);this.GetAll();});
   }
 
   openRejectModal(model: Drivermodel) {
@@ -102,13 +102,10 @@ export class DriverTableComponent implements OnInit {
   onCellClicked(params: any) {
     params.node.setSelected(true);
     if (params.event.srcElement.id == "accept") {
-      this.driver.id = params.data.id
-      this.AcceptDriver(this.driver)
+      this.AcceptDriver(params.data)
     }
     if (params.event.srcElement.id == "reject") {
-      debugger;
       this.driver.id = params.data.id;
-
       this.openRejectModal(params.data)
     }
     if (params.event.srcElement.id == "delete") {

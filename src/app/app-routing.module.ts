@@ -64,6 +64,10 @@ const routes: Routes = [
     component:DriverRegistorComponent
   },
   {
+    path: 'driver/register/:id',
+    component: DriverRegistorComponent
+  },
+  {
     path:'role',
     pathMatch:'prefix',
     component:RoleComponent
