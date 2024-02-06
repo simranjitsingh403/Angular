@@ -91,7 +91,7 @@ export class RoleComponent implements OnInit {
   clear(){
     this.validationForm.patchValue({
       name: '',
-      id:''
+      id:'00000000-0000-0000-0000-000000000000'
     })
     this.buttonValue='Create';
     this.heading="ADD ROLE";

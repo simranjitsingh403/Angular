@@ -39,6 +39,10 @@ const routes: Routes = [
         component: DriverRegistorComponent
       },
       {
+        path: 'driver/register',
+        component: DriverRegistorComponent
+      },
+      {
         path: 'role',
         component: RoleComponent
       },
