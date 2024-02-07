@@ -17,9 +17,25 @@ export class UserComponent implements OnInit {
   roles = [];
   states = [];
   userId: any = this.route.snapshot.params['id'];
+  isEmailDisabled = false;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.validationForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      middleName: [''],
+      email: ['', Validators.required],
+      roleId: [null, Validators.required],
+      stateId: [null],
+      mobileNumber: ['', Validators.required],
+      zipCode: [],
+      address: [],
+      genderId: [null],
+      profilePic: [null],
+    });
+
     this.navService.get<Usermodel>("Account/UserRegister?Id=00000000-0000-0000-0000-000000000000").subscribe((response) => {
       this.result = response;
       
@@ -36,24 +52,11 @@ export class UserComponent implements OnInit {
         stateId: this.result.stateId,
         zipCode: this.result.zipCode,
         address: this.result.address,
-        profilePic: this.result.profilePicture,
       });
       this.roles = this.result.roles;
       this.states = this.result.states;
-    });
-
-    this.validationForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      middleName: [''],
-      email: ['', Validators.required],
-      roleId: [null, Validators.required],
-      stateId: [null],
-      mobileNumber: ['', Validators.required],
-      zipCode: [],
-      address: [],
-      genderId: [null],
-      profilePic: [null],
+      this.isEmailDisabled = this.result.email != null? true:false;
+      
     });
 
   }
