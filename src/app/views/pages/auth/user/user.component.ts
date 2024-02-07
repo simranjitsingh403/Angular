@@ -32,11 +32,10 @@ export class UserComponent implements OnInit {
         middleName: this.result.middleName,
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
-        roleId: this.result.roleId != "00000000-0000-0000-0000-000000000000"?this.result.roleId:null,
+        roleId: this.result.roleId != "00000000-0000-0000-0000-000000000000"?this.result.roleId:null != '00000000-0000-0000-0000-000000000000' ? this.result.roleId : null,
         stateId: this.result.stateId,
         zipCode: this.result.zipCode,
         address: this.result.address,
-        userName: this.result.userName,
         profilePic: this.result.profilePicture,
       });
       this.roles = this.result.roles;
@@ -49,11 +48,10 @@ export class UserComponent implements OnInit {
       middleName: [''],
       email: ['', Validators.required],
       roleId: [null, Validators.required],
-      stateId: [null, Validators.required],
+      stateId: [null],
       mobileNumber: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      address: ['', Validators.required],
-      userName: ['', Validators.required],
+      zipCode: [],
+      address: [],
       genderId: [null],
       profilePic: [null],
     });
@@ -68,8 +66,6 @@ export class UserComponent implements OnInit {
   formSubmit() {
     debugger;
     if (this.validationForm.valid) {
-      this.isFormSubmitted = true;
-
       this.result.firstName = this.form.firstName.value;
       this.result.lastName = this.form.lastName.value;
       this.result.middleName = this.form.middleName.value;
@@ -79,15 +75,15 @@ export class UserComponent implements OnInit {
       this.result.zipCode = this.form.zipCode.value;
       this.result.roleId = this.form.roleId.value;
       this.result.address = this.form.address.value;
-      this.result.userName = this.form.userName.value;
-
+      this.result.userName = this.form.email.value;
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
         this.navService.post<any>("Account/UserRegister", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
       } else {
         this.navService.put<any>("Account/UpdateUser", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
       }
-      
-      
+    }
+    else{
+      this.isFormSubmitted = true;
     }
 
   }
