@@ -62,6 +62,11 @@ export const MENU: MenuItem[] = [
     link: '/admin/users',
   },
   {
+    label: 'Owner',
+    icon: 'unlock',
+    link: '/admin/owner',
+  },
+  {
     label: 'Components',
     isTitle: true
   },
