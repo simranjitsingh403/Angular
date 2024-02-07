@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
         middleName: this.result.middleName,
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
-        roleId: this.result.roleId,
+        roleId: this.result.roleId != '00000000-0000-0000-0000-000000000000' ? this.result.roleId : null,
         stateId: this.result.stateId,
         zipCode: this.result.zipCode,
         address: this.result.address,
