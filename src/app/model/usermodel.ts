@@ -14,4 +14,5 @@ export class Usermodel {
     states:[]
     profilePicture:string
     zipCode:string
+    files: any
 }
