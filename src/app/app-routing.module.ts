@@ -73,16 +73,7 @@ const routes: Routes = [
     pathMatch:'prefix',
     component:RoleComponent
   },
-  {
-    path:'user',
-    pathMatch:'prefix',
-    component:UserComponent
-  },
-  {
-    path:'users',
-    pathMatch:'prefix',
-    component:UserGridComponent
-  },
+  
   {
     path:'drivers',
     pathMatch:'prefix',

@@ -60,7 +60,7 @@ export class UserGridComponent implements OnInit {
   
 
   columnDefs: ColDef[] = [
-    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/driver/register/' + params.data.id + '">' + params.data.firstName+' '+ params.data.middleName +' '+ params.data.lastName+ '<a/>' } },
+    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/user/' + params.data.id + '">' + params.data.firstName+' '+ params.data.middleName +' '+ params.data.lastName+ '<a/>' } },
     { headerName: 'Email', field: 'email', cellStyle: { 'font-weight': '600' } },
     { headerName: 'Contact Number', field: 'phoneNumber', cellStyle: { 'font-weight': '600' } },
     {
