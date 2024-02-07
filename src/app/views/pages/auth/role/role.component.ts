@@ -45,7 +45,7 @@ export class RoleComponent implements OnInit {
       this.isFormSubmitted = true;
     }
     else{
-      this.navService.post("Role", this.validationForm.value).subscribe(d =>{ if(d){this.clear();this.GetAll();this.toastr.success("Record save successfully.")}else{this.toastr.error("something went wrong.")} });
+      this.navService.post<any>("Role", this.validationForm.value).subscribe(d =>{ if(d.success){this.clear();this.GetAll();this.toastr.success("Record save successfully.")}else{this.toastr.error(d.message)} });
     }
   }
 

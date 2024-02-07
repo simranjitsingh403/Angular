@@ -27,16 +27,16 @@ export class DriverRegistorComponent implements OnInit {
   genders: any = [];
   races: any = [];
   veteran: any = [];
-  documentTypeId : number = 1;
-  apiPath:string = environment.baseURL;
-  driverId:any = this.route.snapshot.params['id'];
+  documentTypeId: number = 1;
+  apiPath: string = environment.baseURL;
+  driverId: any = this.route.snapshot.params['id'];
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route:ActivatedRoute,private router:Router) { }
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    
+
     this.navService.get<Drivermodel>("Driver/Account/Register?Id=" + this.driverId).subscribe((response) => {
       this.result = response;
     }, e => this.toastr.error(e.message), () => {
@@ -48,12 +48,12 @@ export class DriverRegistorComponent implements OnInit {
         middleName: this.result.middleName,
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
-        islegallyallowed: this.result.isLegallyAllowed,
-        isvalidlicense: this.result.licenseClassId != 0 ? true : false,
+        islegallyallowed: this.driverId == null ? '' : this.result.isLegallyAllowed,
+        isvalidlicense: this.driverId == null ? '' : (this.result.licenseClassId != 0 ? true : false),
         licenseclassid: this.result.licenseClassId != 0 ? this.result.licenseClassId : null,
-        isusauthorized: this.result.isUSAuthorized,
-        isimmigrationallowed: this.result.isImmigrationAllowed,
-        salaryexpectation: this.result.salaryExpectation,
+        isusauthorized: this.driverId == null ? '' : this.result.isUSAuthorized,
+        isimmigrationallowed: this.driverId == null ? '' : this.result.isImmigrationAllowed,
+        salaryexpectation: this.driverId == null ? '' : this.result.salaryExpectation,
         jobtype: this.result.jobType != 0 ? this.result.jobType.toString() : '1',
         referredbyname: this.result.referredByName,
         joiningdate: this.result.joiningDate,
@@ -74,10 +74,10 @@ export class DriverRegistorComponent implements OnInit {
       this.isvalidlicense = this.result.licenseClassId != 0 ? true : false;
       this.isreferredshow = this.result.referredByName != null ? true : false;
 
-      if(this.result.documents.length > 0){
+      if (this.result.documents.length > 0) {
         this.validationForm2.controls['documents'].setErrors(null);
       }
-      
+
     });
     /**
      * form1 value validation
@@ -109,7 +109,7 @@ export class DriverRegistorComponent implements OnInit {
      * formw value validation
      */
     this.validationForm2 = this.formBuilder.group({
-      documents:['', [Validators.required]]
+      documents: ['', [Validators.required]]
     });
 
     this.isForm1Submitted = false;
@@ -138,11 +138,11 @@ export class DriverRegistorComponent implements OnInit {
     this.result.genderId = this.form1.genderId.value;
     this.result.raceId = this.form1.raceid.value;
     this.result.veteranId = this.form1.veteranid.value;
-
+    this.result.formStatusId = this.form1.formStatusId;
     if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-      this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d =>{if(d.success==true){this.toastr.success(d.message); this.router.navigate(['/admin/drivers']);}else{this.toastr.error("something went wrong.")}});
+      this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
     } else {
-      this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d =>{if(d.success==true){this.toastr.success(d.message); this.router.navigate(['/admin/drivers']);}else{this.toastr.error("something went wrong.")}});
+      this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
     }
 
   }
@@ -254,23 +254,23 @@ export class DriverRegistorComponent implements OnInit {
     const formData = new FormData();
 
     Array.from(filesToUpload).map((file: any, index: number) => {
-      return formData.append('file_Driver_'+this.documentTypeId, file, file.name);
+      return formData.append('file_Driver_' + this.documentTypeId, file, file.name);
     });
 
     this.navService.post<any>('Driver/Account/UploadFiles', formData, false, undefined, true)
-      .subscribe(v => { 
+      .subscribe(v => {
         for (let i = 0; i < v.length; i++) {
           this.result.documents.push(v[i]);
         }
       });
-   }
+  }
 
-   DeleteDocument(index:any){
-    this.result.documents.splice(index,1);
+  DeleteDocument(index: any) {
+    this.result.documents.splice(index, 1);
 
-    if(this.result.documents.length == 0){
-      this.validationForm2.controls['documents'].setErrors({require:true});
+    if (this.result.documents.length == 0) {
+      this.validationForm2.controls['documents'].setErrors({ require: true });
     }
-   }
+  }
 
 }
