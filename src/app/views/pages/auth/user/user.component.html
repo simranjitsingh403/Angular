@@ -149,14 +149,27 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                              <label for="stateid" class="col-form-label">Select State</label>
+                                              <label for="stateId" class="col-form-label">Select State</label>
                                               <div>
                                                   <ng-select [items]="states"
                                                   bindLabel="name"
                                                   bindValue="id"
                                                   placeholder="Select State"
-                                                  formControlName="stateid">
+                                                  formControlName="stateId">
                                                 </ng-select>
+                                              </div>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                              <label for="profilePic" class="col-form-label">Profile Picture</label>
+                                              <div>
+                                                <input class="form-control" type="file" #file formControlName="profilePic"
+                                                [ngClass]="{'is-invalid': isFormSubmitted && form.profilePic.errors}">
+                                                <div *ngIf="isFormSubmitted && form.profilePic.errors?.required" class="invalid-feedback">
+                                                    Required
+                                                  </div>
                                               </div>
                                             </div>
                                            

@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
     }
     
 
-    this.navService.post("Account",this.form.value).subscribe({
+    this.navService.post("Account/Register",this.form.value).subscribe({
       next: value => console.log(value),
       error: err => console.error('Observable emitted an error: ' + err),
       complete: () =>console.log("success")

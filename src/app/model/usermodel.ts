@@ -6,10 +6,12 @@ export class Usermodel {
     lastName: string
     middleName: string
     email: string
-    roleId: number
+    roleId: string
     stateId:number
     phoneNumber: string
     address:string
     roles: []
     states:[]
+    profilePicture:string
+    zipCode:string
 }
