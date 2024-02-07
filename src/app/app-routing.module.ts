@@ -6,6 +6,7 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
 import { RoleComponent } from './views/pages/auth/role/role.component';
 import { UserComponent } from './views/pages/auth/user/user.component';
+import { UserGridComponent } from './views/pages/auth/user-grid/user-grid.component';
 import { DriverTableComponent } from './views/pages/tables/driver-table/driver-table.component';
 const routes: Routes = [
   { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
@@ -76,6 +77,11 @@ const routes: Routes = [
     path:'user',
     pathMatch:'prefix',
     component:UserComponent
+  },
+  {
+    path:'users',
+    pathMatch:'prefix',
+    component:UserGridComponent
   },
   {
     path:'drivers',

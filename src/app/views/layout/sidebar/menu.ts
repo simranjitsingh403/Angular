@@ -59,7 +59,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Users',
     icon: 'unlock',
-    link: '/admin/user',
+    link: '/admin/users',
   },
   {
     label: 'Components',
