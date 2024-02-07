@@ -166,7 +166,8 @@
                                               <label for="profilePic" class="col-form-label">Profile Picture</label>
                                               <div>
                                                 <input class="form-control" type="file" #file formControlName="profilePic" (change)="UploadProfilePic(file.files)"
-                                                [ngClass]="{'is-invalid': isFormSubmitted && form.profilePic.errors}">
+                                                [ngClass]="{'is-invalid': isFormSubmitted && form.profilePic.errors}"
+                                                accept="image/*">
                                                 <div *ngIf="isFormSubmitted && form.profilePic.errors?.required" class="invalid-feedback">
                                                     Required
                                                   </div>

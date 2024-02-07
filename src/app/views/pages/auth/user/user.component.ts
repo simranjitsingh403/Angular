@@ -22,6 +22,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.navService.get<Usermodel>("Account/UserRegister?Id=00000000-0000-0000-0000-000000000000").subscribe((response) => {
       this.result = response;
+      
     }, e => this.toastr.error(e.message), () => {
       this.validationForm.patchValue({
         firstName: this.result.firstName,
@@ -31,7 +32,7 @@ export class UserComponent implements OnInit {
         middleName: this.result.middleName,
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
-        roleId: this.result.roleId,
+        roleId: this.result.roleId != "00000000-0000-0000-0000-000000000000"?this.result.roleId:null,
         stateId: this.result.stateId,
         zipCode: this.result.zipCode,
         address: this.result.address,
@@ -81,9 +82,9 @@ export class UserComponent implements OnInit {
       this.result.userName = this.form.userName.value;
 
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-        this.navService.post<any>("Account/UserRegister", this.result, false,undefined,true).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
+        this.navService.post<any>("Account/UserRegister", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
       } else {
-        this.navService.put<any>("Account/UpdateUser", this.result,false,undefined,true).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
+        this.navService.put<any>("Account/UpdateUser", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
       }
       
       
@@ -103,8 +104,9 @@ export class UserComponent implements OnInit {
 
     this.navService.post<any>('Account/UploadFile', formData, false, undefined, true)
       .subscribe(v => {
-          this.result.profilePicture = v;
-      });
+           this.result.profilePicture = v.picPath;
+          
+      },e => this.toastr.error(e.error.message));
   }
 
 }
