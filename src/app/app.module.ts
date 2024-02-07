@@ -17,6 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
 import { RoleComponent } from './views/pages/auth/role/role.component';
 import { UserComponent } from './views/pages/auth/user/user.component';
+import { UserGridComponent } from './views/pages/auth/user-grid/user-grid.component';
 import { DriverTableComponent } from './views/pages/tables/driver-table/driver-table.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
@@ -31,7 +32,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     DriverRegistorComponent,
     RoleComponent,
     DriverTableComponent,
-    UserComponent
+    UserComponent,
+    UserGridComponent
   ],
   imports: [
     BrowserModule,

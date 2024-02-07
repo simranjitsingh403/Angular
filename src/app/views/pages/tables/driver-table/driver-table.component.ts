@@ -98,16 +98,10 @@ export class DriverTableComponent implements OnInit {
   onGridReady(params: any) {
     params.api.sizeColumnsToFit();
   }
+  
 
   onCellClicked(params: any) {
     params.node.setSelected(true);
-    if (params.event.srcElement.id == "accept") {
-      this.AcceptDriver(params.data)
-    }
-    if (params.event.srcElement.id == "reject") {
-      this.driver.id = params.data.id;
-      this.openRejectModal(params.data)
-    }
     if (params.event.srcElement.id == "delete") {
       Swal.fire({
         title: 'Are you sure?',
