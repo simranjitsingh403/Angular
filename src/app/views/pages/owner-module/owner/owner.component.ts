@@ -69,6 +69,10 @@ export class OwnerComponent implements OnInit {
       this.cities = this.result.cities;
       this.vehicleBrands = this.result.carBrands;
 
+      if(this.result.parkingStateId != 0){
+        this.newCities = this.cities.filter((s:any) => s.stateId == this.result.parkingStateId);
+      }
+
     });
   }
 
