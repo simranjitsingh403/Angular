@@ -15,29 +15,23 @@ export const MENU: MenuItem[] = [
     isTitle: true
   },
   {
-    label: 'Role',
-    icon: 'layout',
-    link: '/admin/role',
+    label: 'Add User',
+    icon: 'file-text',
+    link: '/admin/user',
   },
- 
   {
     label: 'Users',
     icon: 'layout',
     link: '/admin/users',
   },
   {
-    label: 'Add User',
-    icon: 'file-text',
-    link: '/admin/user',
+    label: 'Role',
+    icon: 'layout',
+    link: '/admin/role',
   },
   {
     label: 'Driver',
     isTitle: true
-  },
-  {
-    label: 'Drivers',
-    icon: 'layout',
-    link: '/admin/drivers',
   },
   {
     label: 'Add Driver',
@@ -45,18 +39,24 @@ export const MENU: MenuItem[] = [
     link: '/admin/driver/register',
   },
   {
-    label: 'Owner',
-    isTitle: true
+    label: 'Drivers',
+    icon: 'layout',
+    link: '/admin/drivers',
   },
   {
-    label: 'Owners',
-    icon: 'layout',
-    link: '/admin/owners',
+    label: 'Owner',
+    isTitle: true
   },
   {
     label: 'Add Owner',
     icon: 'file-text',
     link: '/admin/owner',
   },
+  {
+    label: 'Owners',
+    icon: 'layout',
+    link: '/admin/owners',
+  },
+  
  
 ];

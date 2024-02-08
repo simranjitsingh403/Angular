@@ -29,7 +29,7 @@ export class DriverRegistorComponent implements OnInit {
   veteran: any = [];
   documentTypeId: number = 1;
   apiPath: string = environment.baseURL;
-  driverId: any = this.route.snapshot.params['id'];
+  driverId: any = this.route.snapshot.params['id'] == undefined? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 

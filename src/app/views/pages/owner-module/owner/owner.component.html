@@ -286,6 +286,12 @@
                     </div>
                   </div>
 
+                  <div class="col-md-12">
+                      <div class="row">
+                        <a class="col-md-12" *ngIf="result.dotInspectionPath != null" href="{{apiPath + result.dotInspectionPath}}" target="_blank">Current DOT Inspection</a>
+                        <a class="col-md-12" *ngIf="result.currentRegistrationPath != null" href="{{apiPath + result.currentRegistrationPath}}" target="_blank">Current Registration</a>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>
