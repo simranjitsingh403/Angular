@@ -20,6 +20,7 @@ import { DriverRegistorComponent } from '../driver-register/driver-register.comp
 import { RoleComponent } from '../auth/role/role.component';
 import { UserComponent } from '../auth/user/user.component';
 import { OwnerComponent } from '../owner-module/owner/owner.component';
+import { OwnersComponent } from '../owner-module/owners/owners.component';
 import { UserGridComponent } from '../auth/user-grid/user-grid.component';
 import { DriverTableComponent } from '../tables/driver-table/driver-table.component';
 
@@ -52,6 +53,10 @@ const routes: Routes = [
       {
         path: 'owner',
         component: OwnerComponent
+      },
+      {
+        path: 'owners',
+        component: OwnersComponent
       },
       {
         path: 'user',

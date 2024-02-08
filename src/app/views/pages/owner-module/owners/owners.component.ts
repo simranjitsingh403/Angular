@@ -8,12 +8,13 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-grid',
-  templateUrl: './user-grid.component.html',
-  styleUrls: ['./user-grid.component.scss']
+  selector: 'app-owners',
+  templateUrl: './owners.component.html',
+  styleUrls: ['./owners.component.scss']
 })
-export class UserGridComponent implements OnInit {
+export class OwnersComponent implements OnInit {
 
+  
   constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router) { }
 
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class UserGridComponent implements OnInit {
   }
 
   redirectToAddScreen() {
-    this.router.navigate(['/admin/user']);
+    this.router.navigate(['/admin/owner']);
   }
 
 
@@ -73,4 +74,5 @@ export class UserGridComponent implements OnInit {
   defaultColDef: ColDef = {
     sortable: true, filter: true
   }
+
 }

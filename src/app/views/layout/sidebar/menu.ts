@@ -51,7 +51,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Owners',
     icon: 'layout',
-    link: '/admin/drivers',
+    link: '/admin/owners',
   },
   {
     label: 'Add Owner',
