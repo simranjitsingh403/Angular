@@ -1,0 +1,181 @@
+<div class="row">
+
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Owner Form</h6>
+    
+                <form (ngSubmit)="formSubmit()" [formGroup]="validationForm">
+    
+                  <div class="col-md-12 grid-margin">
+                    <div class="card rounded">
+                      <div class="card-body">
+                        <h6 class="card-title">Personal Information</h6>
+                      <div class="col-md-12">
+                        
+                        <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                          <label for="firstName" class="col-md-3 col-form-label">First name</label>
+                          <input type="text" class="form-control" id="firstName" formControlName="firstName" 
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.firstName.errors}" placeholder="First name">
+                          <div *ngIf="isFormSubmitted && form.firstName.errors?.required" class="invalid-feedback">
+                            Required
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <label for="lastName" class="col-md-3 col-form-label">Last name</label>
+                          <input type="text" class="form-control" id="lastName" formControlName="lastName" 
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}" placeholder="Last name">
+                        <div *ngIf="isFormSubmitted && form.lastName.errors?.required" class="invalid-feedback">
+                          Required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                      </div>
+    
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label for="middleName" class="col-md-3 col-form-label">Middle Name</label>
+                              <input type="text" class="form-control" id="middleName" formControlName="middleName" 
+                              placeholder="Middle Name">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="address" class="col-md-3 col-form-label">Address</label>
+                            <input type="text" class="form-control" id="email" formControlName="address" 
+                            [ngClass]="{'is-invalid': isFormSubmitted && form.address.errors}" placeholder="address">
+                          <div *ngIf="isFormSubmitted && form.address.errors?.required" class="invalid-feedback">
+                            Required
+                          </div>
+                        </div>
+                      </div>
+                        </div>
+                        
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="col-md-12 grid-margin">
+                    <div class="card rounded">
+                      <div class="card-body">
+                        <h6 class="card-title">Vehicle Information</h6>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label for="value" class="col-md-3 col-form-label">$Value</label>
+                              <input type="number" class="form-control" formControlName="value" 
+                              [ngClass]="{'is-invalid': isFormSubmitted && form.value.errors}" placeholder="value">
+                            <div *ngIf="isFormSubmitted && form.value.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="year" class="col-md-3 col-form-label">Year</label>
+                            <input type="number" class="form-control" formControlName="year" 
+                            [ngClass]="{'is-invalid': isFormSubmitted && form.year.errors}"
+                            placeholder="year" >
+                          <div *ngIf="isFormSubmitted && form.year.errors?.required" class="invalid-feedback">
+                            Required
+                          </div>
+                        </div>
+                      </div>
+                        </div>
+                       
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label for="value" class="col-md-3 col-form-label">Make</label>
+                              <div>
+                                <ng-select [items]="vehicleBrands"
+                                bindLabel="name"
+                                bindValue="id"
+                                placeholder="Select Vehicle Brand"
+                                formControlName="brandId">
+                              </ng-select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="modal" class="col-md-3 col-form-label">Modal</label>
+                            <input type="text" class="form-control" formControlName="modal" 
+                            [ngClass]="{'is-invalid': isFormSubmitted && form.modal.errors}"
+                            placeholder="year" >
+                          <div *ngIf="isFormSubmitted && form.modal.errors?.required" class="invalid-feedback">
+                            Required
+                          </div>
+                        </div>
+                      </div>
+                        </div>
+                       
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label for="vinCode" class="col-md-3 col-form-label">Vin#</label>
+                              <input type="text" class="form-control" formControlName="vinCode" 
+                              [ngClass]="{'is-invalid': isFormSubmitted && form.vinCode.errors}" placeholder="value">
+                            <div *ngIf="isFormSubmitted && form.vinCode.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label class="col-md-3 col-form-label">Type</label>
+                            <div>
+                            <div class="form-check form-check-inline mt-2">
+                              <input type="radio" class="form-check-input" formControlName="type" value="1" >
+                              <label class="form-check-label" for="Truck">
+                                Truck
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input type="radio" class="form-check-input" formControlName="type" value="2">
+                              <label class="form-check-label" for="Trailer">
+                                Trailer
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input type="radio" class="form-check-input" formControlName="type" value="3">
+                              <label class="form-check-label" for="Other">
+                                Other (Specify)
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                        </div>
+                       
+                      </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+    
+    
+                  <div class="d-flex justify-content-center mt-2">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                  </div>
+                </form>
+    
+          </div>
+        </div>
+      </div>
+    </div>

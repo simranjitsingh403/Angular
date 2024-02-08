@@ -24,6 +24,7 @@ import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridAngular } from 'ag-grid-angular';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { OwnerComponent } from './views/pages/owner/owner.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     RoleComponent,
     DriverTableComponent,
     UserComponent,
-    UserGridComponent
+    UserGridComponent,
+    OwnerComponent
   ],
   imports: [
     BrowserModule,
