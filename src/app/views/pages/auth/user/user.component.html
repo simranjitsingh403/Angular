@@ -94,6 +94,9 @@
                                                         placeholder="Select Role" formControlName="roleId">
                                                     </ng-select>
                                                 </div>
+                                                <div *ngIf="isFormSubmitted && form.roleId.errors?.required" style="color:red;">
+                                                    Required
+                                                  </div>
                                             </div>
 
                                         </div>

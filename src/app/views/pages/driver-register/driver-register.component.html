@@ -111,6 +111,9 @@
                               formControlName="licenseclassid">
                             </ng-select>
                           </div>
+                          <div *ngIf="isForm1Submitted && form1.licenseclassid.errors?.required" style="color:red;">
+                            Required
+                          </div>
                         </div>
                        
                     </div>
@@ -124,6 +127,9 @@
                             placeholder="Select State"
                             formControlName="stateid">
                           </ng-select>
+                        </div>
+                        <div *ngIf="isForm1Submitted && form1.stateid.errors?.required" style="color:red;">
+                          Required
                         </div>
                       </div>
                      
