@@ -18,10 +18,11 @@ export class UserComponent implements OnInit {
   states = [];
   userId: any = this.route.snapshot.params['id'];
   isEmailDisabled = false;
+  buttonValue: any;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-
+    this.buttonValue = "Update";
     this.validationForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -35,10 +36,12 @@ export class UserComponent implements OnInit {
       genderId: [null],
       profilePic: [null],
     });
-
-    this.navService.get<Usermodel>("Account/UserRegister?Id=00000000-0000-0000-0000-000000000000").subscribe((response) => {
+    if (!this.userId) {
+      this.userId = "00000000-0000-0000-0000-000000000000";
+      this.buttonValue = "Create";
+    }
+    this.navService.get<Usermodel>("Account/UserRegister?Id=" + this.userId + "").subscribe((response) => {
       this.result = response;
-      
     }, e => this.toastr.error(e.message), () => {
       this.validationForm.patchValue({
         firstName: this.result.firstName,
@@ -48,15 +51,15 @@ export class UserComponent implements OnInit {
         middleName: this.result.middleName,
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
-        roleId: this.result.roleId != "00000000-0000-0000-0000-000000000000"?this.result.roleId:null,
+        roleId: this.result.roleId != "00000000-0000-0000-0000-000000000000" ? this.result.roleId : null,
         stateId: this.result.stateId,
         zipCode: this.result.zipCode,
         address: this.result.address,
       });
       this.roles = this.result.roles;
       this.states = this.result.states;
-      this.isEmailDisabled = this.result.email != null? true:false;
-      
+      this.isEmailDisabled = this.result.email != null ? true : false;
+
     });
 
   }
@@ -67,7 +70,6 @@ export class UserComponent implements OnInit {
 
 
   formSubmit() {
-    debugger;
     if (this.validationForm.valid) {
       this.result.firstName = this.form.firstName.value;
       this.result.lastName = this.form.lastName.value;
@@ -80,19 +82,18 @@ export class UserComponent implements OnInit {
       this.result.address = this.form.address.value;
       this.result.userName = this.form.email.value;
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-        this.navService.post<any>("Account/UserRegister", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
+        this.navService.post<any>("Account/UserRegister", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/users']); } else { this.toastr.error(d.message) } });
       } else {
-        this.navService.put<any>("Account/UpdateUser", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/user']); } else { this.toastr.error(d.message) } });
+        this.navService.put<any>("Account/UpdateUser", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/users']); } else { this.toastr.error(d.message) } });
       }
     }
-    else{
+    else {
       this.isFormSubmitted = true;
     }
 
   }
 
-  UploadProfilePic(file:any){
-    debugger;
+  UploadProfilePic(file: any) {
     if (file.length === 0) {
       return;
     }
@@ -103,9 +104,9 @@ export class UserComponent implements OnInit {
 
     this.navService.post<any>('Account/UploadFile', formData, false, undefined, true)
       .subscribe(v => {
-           this.result.profilePicture = v.picPath;
-          
-      },e => this.toastr.error(e.error.message));
+        this.result.profilePicture = v.picPath;
+
+      }, e => this.toastr.error(e.error.message));
   }
 
 }

@@ -58,6 +58,10 @@ const routes: Routes = [
         component: UserComponent
       },
       {
+        path: 'user/:id',
+        component: UserComponent
+      },
+      {
         path: 'users',
         component: UserGridComponent
       },
