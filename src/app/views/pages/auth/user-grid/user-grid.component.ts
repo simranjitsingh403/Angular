@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class UserGridComponent implements OnInit {
 
-  constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder,private router: Router) { }
+  constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.GetAll();
@@ -34,11 +34,11 @@ export class UserGridComponent implements OnInit {
 
   onCellClicked(params: any) {
     params.node.setSelected(true);
-    if(params.event.srcElement.id=="edit"){
-     
+    if (params.event.srcElement.id == "edit") {
+
     }
 
-    if(params.event.srcElement.id=="delete"){
+    if (params.event.srcElement.id == "delete") {
       Swal.fire({
         title: 'Are you sure?',
         text: 'You won\'t be able to revert this!',
@@ -55,12 +55,12 @@ export class UserGridComponent implements OnInit {
         }
       });
     }
-   
+
   }
-  
+
 
   columnDefs: ColDef[] = [
-    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/user/' + params.data.id + '">' + params.data.firstName+' '+ params.data.middleName +' '+ params.data.lastName+ '<a/>' } },
+    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/user/' + params.data.id + '">' + params.data.firstName + ' ' + (params.data.middleName ?? "") + ' ' + params.data.lastName + '<a/>' } },
     { headerName: 'Email', field: 'email', cellStyle: { 'font-weight': '600' } },
     { headerName: 'Contact Number', field: 'phoneNumber', cellStyle: { 'font-weight': '600' } },
     {
