@@ -14,6 +14,7 @@ export class Ownermodel {
     stateId: number
     experience: number
     parkingCityId: number
+    parkingStateId:number
     isDeleted: boolean
     createdBy: string
     createdDateTime: string

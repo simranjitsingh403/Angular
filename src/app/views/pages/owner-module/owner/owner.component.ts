@@ -16,8 +16,9 @@ export class OwnerComponent implements OnInit {
   isFormSubmitted: Boolean;
   apiPath: string = environment.baseURL;
   vehicleBrands = [];
-  cities = [];
+  cities:any = [];
   states = [];
+  newCities=[];
   result: Ownermodel = new Ownermodel();
   ownerId: any = this.route.snapshot.params['id'] == undefined? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
 
@@ -62,6 +63,7 @@ export class OwnerComponent implements OnInit {
         stateId: this.result.stateId != 0 ? this.result.stateId : null,
         license: this.result.license,
         experience: this.result.experience,
+        parkingStateId: this.result.parkingStateId != 0 ? this.result.parkingStateId : null,
       });
       this.states = this.result.states;
       this.cities = this.result.cities;
@@ -138,6 +140,10 @@ export class OwnerComponent implements OnInit {
         this.result.currentRegistrationPath = v.picPath;
 
       }, e => this.toastr.error(e.error.message));
+  }
+
+  stateChange(value:any){
+    this.newCities = this.cities.filter((s:any) => s.stateId == value.id);
   }
 
 }

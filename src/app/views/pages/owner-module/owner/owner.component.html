@@ -173,20 +173,20 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="cityId" class="col-md-3 col-form-label">City</label>
+                        <label for="parkingStateId" class="col-md-3 col-form-label">State</label>
                         <div>
-                          <ng-select [items]="cities" bindLabel="name" bindValue="id" placeholder="Select City"
-                            formControlName="cityId">
+                          <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
+                            formControlName="parkingStateId" (change)="stateChange($event)">
                           </ng-select>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="parkingStateId" class="col-md-3 col-form-label">State</label>
+                        <label for="cityId" class="col-md-3 col-form-label">City</label>
                         <div>
-                          <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
-                            formControlName="parkingStateId">
+                          <ng-select [items]="newCities" bindLabel="name" bindValue="id" placeholder="Select City"
+                            formControlName="cityId">
                           </ng-select>
                         </div>
                       </div>
