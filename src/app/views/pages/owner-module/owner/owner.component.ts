@@ -20,7 +20,7 @@ export class OwnerComponent implements OnInit {
   states = [];
   newCities=[];
   result: Ownermodel = new Ownermodel();
-  ownerId: any = this.route.snapshot.params['id'] == undefined? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
+  ownerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
@@ -35,17 +35,17 @@ export class OwnerComponent implements OnInit {
       brandId: [],
       modal: [''],
       vinCode: [''],
-      type: [],
-      cityId: [],
-      stateId: [],
-      license: [],
-      parkingStateId: [],
-      experience: [],
+      type: ['', Validators.required],
+      cityId: ['', Validators.required],
+      stateId: ['', Validators.required],
+      license: ['', Validators.required],
+      parkingStateId: ['', Validators.required],
+      experience: ['', Validators.required],
       dotInspection: [],
       currentRegistration: []
     });
 
-    this.navService.get<Ownermodel>("Owner/Owner/Register?Id="+this.ownerId).subscribe((response) => {
+    this.navService.get<Ownermodel>("Owner/Owner/Register?Id=" + this.ownerId).subscribe((response) => {
       this.result = response;
     }, e => this.toastr.error(e.message), () => {
       this.validationForm.patchValue({
@@ -58,7 +58,7 @@ export class OwnerComponent implements OnInit {
         brandId: this.result.brandId != 0 ? this.result.brandId : null,
         modal: this.result.modal,
         vinCode: this.result.vinCode,
-        type: this.result.typeId.toString(),
+        type: this.result.typeId == 0 ? '1' : this.result.typeId.toString(),
         cityId: this.result.parkingCityId != 0 ? this.result.parkingCityId : null,
         stateId: this.result.stateId != 0 ? this.result.stateId : null,
         license: this.result.license,
@@ -94,10 +94,10 @@ export class OwnerComponent implements OnInit {
       this.result.experience = this.form.experience.value;
 
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-      this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
-    } else {
-      this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
-    }
+        this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+      } else {
+        this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+      }
 
     }
     this.isFormSubmitted = true;

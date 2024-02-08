@@ -51,6 +51,10 @@ const routes: Routes = [
         component: RoleComponent
       },
       {
+        path: 'owner/:id',
+        component: OwnerComponent
+      },
+      {
         path: 'owner',
         component: OwnerComponent
       },
