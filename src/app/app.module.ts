@@ -24,7 +24,7 @@ import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridAngular } from 'ag-grid-angular';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { OwnerComponent } from './views/pages/owner/owner.component';
+import { OwnerComponent } from './views/pages/owner-module/owner/owner.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
