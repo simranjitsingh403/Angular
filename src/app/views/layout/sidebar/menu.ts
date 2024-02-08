@@ -56,7 +56,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Add Owner',
     icon: 'file-text',
-    link: '/admin/driver/register',
+    link: '/admin/owner',
   },
  
 ];
