@@ -179,6 +179,9 @@
                             formControlName="parkingStateId" (change)="stateChange($event)">
                           </ng-select>
                         </div>
+                        <div *ngIf="isFormSubmitted && form.parkingStateId.errors?.required" style="color:red;">
+                          Required
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -188,6 +191,9 @@
                           <ng-select [items]="newCities" bindLabel="name" bindValue="id" placeholder="Select City"
                             formControlName="cityId">
                           </ng-select>
+                          <div *ngIf="isFormSubmitted && form.cityId.errors?.required" style="color:red;">
+                            Required
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -222,6 +228,9 @@
                           <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
                             formControlName="stateId">
                           </ng-select>
+                        </div>
+                        <div *ngIf="isFormSubmitted && form.stateId.errors?.required" style="color:red;">
+                          Required
                         </div>
                       </div>
                     </div>
