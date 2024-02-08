@@ -20,6 +20,6 @@ export class Ownermodel {
     states: []
     cities: []
     carBrands: []
-    dOTInspectionPath: string
+    dotInspectionPath: string
     currentRegistrationPath: string
 }

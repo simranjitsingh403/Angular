@@ -15,11 +15,11 @@ export class OwnerComponent implements OnInit {
   validationForm: UntypedFormGroup;
   isFormSubmitted: Boolean;
   apiPath: string = environment.baseURL;
-  ownerId: any = this.route.snapshot.params['id'];
   vehicleBrands = [];
   cities = [];
   states = [];
   result: Ownermodel = new Ownermodel();
+  ownerId: any = this.route.snapshot.params['id'] == undefined? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
@@ -44,7 +44,7 @@ export class OwnerComponent implements OnInit {
       currentRegistration: []
     });
 
-    this.navService.get<Ownermodel>("Owner/Owner/Register?Id=00000000-0000-0000-0000-000000000000").subscribe((response) => {
+    this.navService.get<Ownermodel>("Owner/Owner/Register?Id="+this.ownerId).subscribe((response) => {
       this.result = response;
     }, e => this.toastr.error(e.message), () => {
       this.validationForm.patchValue({
@@ -57,7 +57,7 @@ export class OwnerComponent implements OnInit {
         brandId: this.result.brandId != 0 ? this.result.brandId : null,
         modal: this.result.modal,
         vinCode: this.result.vinCode,
-        type: this.result.typeId,
+        type: this.result.typeId.toString(),
         cityId: this.result.parkingCityId != 0 ? this.result.parkingCityId : null,
         stateId: this.result.stateId != 0 ? this.result.stateId : null,
         license: this.result.license,
@@ -90,7 +90,12 @@ export class OwnerComponent implements OnInit {
       this.result.stateId = this.form.stateId.value;
       this.result.license = this.form.license.value;
       this.result.experience = this.form.experience.value;
-      console.log(this.result);
+
+      if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+      this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+    } else {
+      this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+    }
 
     }
     this.isFormSubmitted = true;
@@ -104,11 +109,35 @@ export class OwnerComponent implements OnInit {
   }
 
   UploadDOTInspection(file: any) {
+    if (file.length === 0) {
+      return;
+    }
 
+    let filesToUpload = file[0];
+    const formData = new FormData();
+    formData.append('file_Owner', filesToUpload, filesToUpload.name);
+
+    this.navService.post<any>('Owner/Owner/UploadFile', formData, false, undefined, true)
+      .subscribe(v => {
+        this.result.dotInspectionPath = v.picPath;
+
+      }, e => this.toastr.error(e.error.message));
   }
 
   UploadCurrentRegistration(file: any) {
+    if (file.length === 0) {
+      return;
+    }
 
+    let filesToUpload = file[0];
+    const formData = new FormData();
+    formData.append('file_Owner', filesToUpload, filesToUpload.name);
+
+    this.navService.post<any>('Owner/Owner/UploadFile', formData, false, undefined, true)
+      .subscribe(v => {
+        this.result.currentRegistrationPath = v.picPath;
+
+      }, e => this.toastr.error(e.error.message));
   }
 
 }
