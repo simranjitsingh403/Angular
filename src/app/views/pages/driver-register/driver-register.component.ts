@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormControl, FormBuilder, FormsModule } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ContentChange, SelectionChange } from 'ngx-quill';
@@ -36,6 +36,10 @@ export class DriverRegistorComponent implements OnInit {
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.driverId) {
+      this.driverId = "00000000-0000-0000-0000-000000000000";
+    }
+
 
     this.navService.get<Drivermodel>("Driver/Account/Register?Id=" + this.driverId).subscribe((response) => {
       this.result = response;
@@ -48,12 +52,12 @@ export class DriverRegistorComponent implements OnInit {
         middleName: this.result.middleName,
         email: this.result.email,
         mobileNumber: this.result.phoneNumber,
-        islegallyallowed: this.driverId == null ? '' : this.result.isLegallyAllowed,
-        isvalidlicense: this.driverId == null ? '' : (this.result.licenseClassId != 0 ? true : false),
+        islegallyallowed: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : this.result.isLegallyAllowed,
+        isvalidlicense: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : (this.result.licenseClassId != 0 ? true : false),
         licenseclassid: this.result.licenseClassId != 0 ? this.result.licenseClassId : null,
-        isusauthorized: this.driverId == null ? '' : this.result.isUSAuthorized,
-        isimmigrationallowed: this.driverId == null ? '' : this.result.isImmigrationAllowed,
-        salaryexpectation: this.driverId == null ? '' : this.result.salaryExpectation,
+        isusauthorized: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : this.result.isUSAuthorized,
+        isimmigrationallowed: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : this.result.isImmigrationAllowed,
+        salaryexpectation: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : this.result.salaryExpectation,
         jobtype: this.result.jobType != 0 ? this.result.jobType.toString() : '1',
         referredbyname: this.result.referredByName,
         joiningdate: this.result.joiningDate,
@@ -68,6 +72,8 @@ export class DriverRegistorComponent implements OnInit {
         veteran: this.result.veteran,
         isreferredshow: this.result.referredByName != null ? true : false
       });
+
+      
       this.genders = this.result.genders;
       this.races = this.result.races;
       this.veteran = this.result.veteran;

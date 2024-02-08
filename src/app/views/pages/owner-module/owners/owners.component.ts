@@ -21,7 +21,7 @@ export class OwnersComponent implements OnInit {
     this.GetAll();
   }
   GetAll() {
-    this.rowData$ = this.navService.get<any>("Account/Users");
+    this.rowData$ = this.navService.get<any>("Owner/Owner/GetAll");
   }
 
   onGridReady(params: any) {
