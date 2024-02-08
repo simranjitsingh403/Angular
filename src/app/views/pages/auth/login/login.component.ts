@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
           this.toastr.success(d.message);
           localStorage.setItem('isLoggedin', 'true');
           if (localStorage.getItem('isLoggedin')) {
+            debugger;
+            localStorage.setItem('token', d.token);
             this.router.navigate([this.returnUrl]);
           }
         }

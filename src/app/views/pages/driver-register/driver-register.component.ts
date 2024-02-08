@@ -101,7 +101,7 @@ export class DriverRegistorComponent implements OnInit {
       isusauthorized: ['', Validators.required],
       isimmigrationallowed: ['', Validators.required],
       salaryexpectation: ['', Validators.required],
-      jobtype: ['1', Validators.required],
+      jobtype: ['', Validators.required],
       referredbyname: [''],
       joiningdate: ['', Validators.required],
       comments: [''],

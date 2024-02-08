@@ -51,7 +51,7 @@ export class OwnersComponent implements OnInit {
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
           if (result.value) {
-            this.navService.put("Account/DeleteUser/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
+            this.navService.put("Owner/Owner/Delete/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
           }
         }
       });
@@ -61,9 +61,9 @@ export class OwnersComponent implements OnInit {
 
 
   columnDefs: ColDef[] = [
-    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/user/' + params.data.id + '">' + params.data.firstName + ' ' + (params.data.middleName ?? "") + ' ' + params.data.lastName + '<a/>' } },
-    { headerName: 'Email', field: 'email', cellStyle: { 'font-weight': '600' } },
-    { headerName: 'Contact Number', field: 'phoneNumber', cellStyle: { 'font-weight': '600' } },
+    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/owner/' + params.data.id + '">' + params.data.firstName + ' ' + (params.data.middleName ?? "") + ' ' + params.data.lastName + '<a/>' } },
+    { headerName: 'Driver License', field: 'license', cellStyle: { 'font-weight': '600' }},
+    { headerName: 'Address', field: 'address', cellStyle: { 'font-weight': '600' }},
     {
       headerName: 'Action', field: 'id', filter: false, sortable: false, cellRenderer: function () {
         return '<a><i class="mdi mdi-delete-forever" id="delete" style="color: red; font-size: 20px;"></a>'
