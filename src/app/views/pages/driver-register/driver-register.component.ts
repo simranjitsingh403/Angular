@@ -145,6 +145,7 @@ export class DriverRegistorComponent implements OnInit {
     this.result.raceId = this.form1.raceid.value;
     this.result.veteranId = this.form1.veteranid.value;
     this.result.formStatusId = this.form1.formStatusId;
+    this.result.jwtToken = localStorage.getItem('token');
     if (this.result.id == "00000000-0000-0000-0000-000000000000") {
       this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
     } else {

@@ -25,6 +25,7 @@ export class Drivermodel {
     isDeleted : boolean
     formStatusId : number
     rejectedReason:string
+    jwtToken:string|null
     licenseClasses: [any]
     jobTypes: [any]
     genders: [any]
