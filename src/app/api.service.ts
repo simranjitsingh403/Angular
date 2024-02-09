@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
     public currentUrl = new BehaviorSubject<any>(undefined);
+    jwtToken = localStorage.getItem('token');
 
     constructor(private router: Router,private http: HttpClient) {
         this.router.events.subscribe((event: Event) => {
@@ -19,7 +20,7 @@ export class ApiService {
     }
 
     get<T>(url: string, serverURL?: string): Observable<T> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.jwtToken});
         if (serverURL === undefined) {
           serverURL = environment.baseURL;
         }
@@ -29,12 +30,12 @@ export class ApiService {
       }
     
       post<T>(url: string, data: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
-        let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.jwtToken });
         if (isLoginHeader) {
-          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.jwtToken });
         }
         if(fileInput){
-          headers = new HttpHeaders();
+          headers = new HttpHeaders({'Authorization':'Bearer ' + this.jwtToken});
         }
     
         if (serverURL === undefined) {
@@ -44,9 +45,9 @@ export class ApiService {
       }
     
       put<T>(url: string, data?: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
-        let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.jwtToken });
         if (isLoginHeader) {
-          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.jwtToken });
         }
         if(fileInput){
           headers = new HttpHeaders();

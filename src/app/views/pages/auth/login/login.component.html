@@ -15,7 +15,7 @@
               <div class="mb-3">
                 <label class="form-label">Email address</label>
                 <input type="text" class="form-control" id="email" formControlName="email"
-                  [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}" placeholder="Email">
+                  [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}" placeholder="Email" autocomplete="email">
                 <div *ngIf="isFormSubmitted && form.email.errors?.required" class="invalid-feedback">
                   Required
                 </div>
