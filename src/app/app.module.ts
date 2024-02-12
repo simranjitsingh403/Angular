@@ -26,6 +26,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { OwnerComponent } from './views/pages/owner-module/owner/owner.component';
 import { OwnersComponent } from './views/pages/owner-module/owners/owners.component';
+import { LandingPageComponent } from './views/pages/landing-page/landing-page.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     UserComponent,
     UserGridComponent,
     OwnerComponent,
-    OwnersComponent
+    OwnersComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
