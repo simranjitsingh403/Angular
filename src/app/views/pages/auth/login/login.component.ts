@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   result: Usermodel;
   validationForm: any;
   isFormSubmitted = false;
-  constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) { }
+  constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) {
+   }
 
   ngOnInit(): void {
     // get return url from route parameters or default to '/'
@@ -39,8 +40,8 @@ export class LoginComponent implements OnInit {
           this.toastr.success(d.message);
           localStorage.setItem('isLoggedin', 'true');
           if (localStorage.getItem('isLoggedin')) {
-            debugger;
             localStorage.setItem('token', d.token);
+            localStorage.setItem('userDetails', d.user);
             this.router.navigate([this.returnUrl]);
           }
         }

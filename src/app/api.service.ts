@@ -3,13 +3,13 @@ import { Event, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Usermodel } from './model/usermodel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
     public currentUrl = new BehaviorSubject<any>(undefined);
-    jwtToken = localStorage.getItem('token');
 
     constructor(private router: Router,private http: HttpClient) {
         this.router.events.subscribe((event: Event) => {
@@ -20,7 +20,7 @@ export class ApiService {
     }
 
     get<T>(url: string, serverURL?: string): Observable<T> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.jwtToken});
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.getJwtToken()});
         if (serverURL === undefined) {
           serverURL = environment.baseURL;
         }
@@ -30,12 +30,12 @@ export class ApiService {
       }
     
       post<T>(url: string, data: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
-        let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.jwtToken });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.getJwtToken() });
         if (isLoginHeader) {
-          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.jwtToken });
+          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.getJwtToken() });
         }
         if(fileInput){
-          headers = new HttpHeaders({'Authorization':'Bearer ' + this.jwtToken});
+          headers = new HttpHeaders({'Authorization':'Bearer ' + this.getJwtToken()});
         }
     
         if (serverURL === undefined) {
@@ -45,9 +45,9 @@ export class ApiService {
       }
     
       put<T>(url: string, data?: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
-        let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.jwtToken });
+        let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.getJwtToken() });
         if (isLoginHeader) {
-          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.jwtToken });
+          headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.getJwtToken() });
         }
         if(fileInput){
           headers = new HttpHeaders();
@@ -66,6 +66,10 @@ export class ApiService {
         } 
         // Return an observable with a user-facing error message.
         return throwError(() => new Error('offline...!'));
+      }
+
+      getJwtToken(){
+        return localStorage.getItem('token');
       }
 
 }
