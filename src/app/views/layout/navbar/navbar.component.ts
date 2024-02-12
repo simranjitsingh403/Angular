@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { Usermodel } from 'src/app/model/usermodel';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -8,14 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "");
+  apiPath = environment.baseURL;
 
   constructor(
     @Inject(DOCUMENT) private document: Document, 
     private renderer: Renderer2,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    console.log(this.userdetails.profilePicture);
+    
   }
 
   /**
@@ -33,6 +39,7 @@ export class NavbarComponent implements OnInit {
     e.preventDefault();
     localStorage.removeItem('isLoggedin');
     localStorage.removeItem('token');
+    localStorage.removeItem('userDetails');
     if (!localStorage.getItem('isLoggedin')) {
       this.router.navigate(['/auth/login']);
     }
