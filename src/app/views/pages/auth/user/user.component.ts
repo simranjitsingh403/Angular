@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/api.service';
 import { Usermodel } from 'src/app/model/usermodel';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +20,10 @@ export class UserComponent implements OnInit {
   userId: any = this.route.snapshot.params['id'];
   isEmailDisabled = false;
   buttonValue: any;
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
+  baseUrl:any;
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) {
+    this.baseUrl=environment.baseURL;
+   }
 
   ngOnInit(): void {
     this.buttonValue = "Update";

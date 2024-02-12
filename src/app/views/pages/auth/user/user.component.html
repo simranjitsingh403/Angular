@@ -16,7 +16,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="firstName" class="col-md-3 col-form-label">First
+                                                <label for="firstName" class="col-md-3 col-form-label required">First
                                                     name</label>
                                                 <input type="text" class="form-control" id="firstName"
                                                     formControlName="firstName"
@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="lastName" class="col-md-3 col-form-label">Last name</label>
+                                                <label for="lastName" class="col-md-3 col-form-label required">Last name</label>
                                                 <input type="text" class="form-control" id="lastName"
                                                     formControlName="lastName"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}"
@@ -55,7 +55,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="email" class="col-md-3 col-form-label">Email</label>
+                                                <label for="email" class="col-md-3 col-form-label required">Email</label>
                                                 <input  type="email" class="form-control" id="email"
                                                     formControlName="email"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}"
@@ -73,7 +73,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="mobileNumber" class="col-md-3 col-form-label">Contact
+                                                <label for="mobileNumber" class="col-md-3 col-form-label required">Contact
                                                     Number</label>
                                                 <input class="form-control" prefix="+1 " mask="(000) 000-0000"
                                                     [showMaskTyped]="true" id="mobileNumber"
@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="roleid" class="col-form-label">Select Role</label>
+                                                <label for="roleid" class="col-form-label required">Select Role</label>
                                                 <div>
                                                     <ng-select [items]="roles" bindLabel="name" bindValue="id"
                                                         placeholder="Select Role" formControlName="roleId">
@@ -168,7 +168,7 @@
                                 <div class="col-md-12" *ngIf="this.result.profilePicture != null">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <img [src]="'https://localhost:7215/'+this.result.profilePicture" class="img-fluid rounded-start" style="width: 80px;">
+                                            <img [src]="baseUrl+this.result.profilePicture" class="img-fluid rounded-start" style="width: 80px;">
                                         </div>
                                     </div>
                                 </div>

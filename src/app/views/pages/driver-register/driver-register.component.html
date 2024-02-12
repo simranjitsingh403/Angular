@@ -23,7 +23,7 @@
                     <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                      <label for="firstName" class="col-md-3 col-form-label">First name</label>
+                      <label for="firstName" class="col-md-3 col-form-label required">First name</label>
                       <input type="text" class="form-control" id="firstName" formControlName="firstName" 
                       [ngClass]="{'is-invalid': isForm1Submitted && form1.firstName.errors}" placeholder="First name">
                       <div *ngIf="isForm1Submitted && form1.firstName.errors?.required" class="invalid-feedback">
@@ -33,7 +33,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="lastName" class="col-md-3 col-form-label">Last name</label>
+                      <label for="lastName" class="col-md-3 col-form-label required">Last name</label>
                       <input type="text" class="form-control" id="lastName" formControlName="lastName" 
                       [ngClass]="{'is-invalid': isForm1Submitted && form1.lastName.errors}" placeholder="Last name">
                     <div *ngIf="isForm1Submitted && form1.lastName.errors?.required" class="invalid-feedback">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="email" class="col-md-3 col-form-label">Email</label>
+                        <label for="email" class="col-md-3 col-form-label required">Email</label>
                         <input type="email" class="form-control" id="email" formControlName="email" 
                         [ngClass]="{'is-invalid': isForm1Submitted && form1.email.errors}" placeholder="Email">
                       <div *ngIf="isForm1Submitted && form1.email.errors?.required" class="invalid-feedback">
@@ -71,7 +71,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="mb-3">
-                          <label for="mobileNumber" class="col-md-3 col-form-label">Contact Number</label>
+                          <label for="mobileNumber" class="col-md-3 col-form-label required">Contact Number</label>
                           <input class="form-control"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped] = "true" id="mobileNumber" formControlName="mobileNumber" 
                           [ngClass]="{'is-invalid': isForm1Submitted && form1.mobileNumber.errors}" placeholder="Contact Number">
                         <div *ngIf="isForm1Submitted && form1.mobileNumber.errors?.required" class="invalid-feedback">
@@ -83,7 +83,7 @@
                       <div class="mb-3">
                         <label for="mobileNumber" class="col-md-3 col-form-label">&nbsp;</label><br>
                         <div class="form-check form-check-inline">
-                          <label class="form-check-label" for="isvalidlicense">
+                          <label class="form-check-label required" for="isvalidlicense">
                           <input type="checkbox" class="form-check-input"  (change)="fieldsChange($event)" id="isvalidlicense" formControlName="isvalidlicense" 
                           [ngClass]="{'is-invalid': isForm1Submitted && form1.isvalidlicense.errors}">
                           Do you have a valid driver's license?  
@@ -102,7 +102,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="mb-3">
-                          <label for="licenseclassid" class="col-form-label">Select License Class</label>
+                          <label for="licenseclassid" class="col-form-label required">Select License Class</label>
                           <div>
                               <ng-select [items]="result.licenseClasses"
                               bindLabel="name"
@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="stateid" class="col-form-label">Select State</label>
+                        <label for="stateid" class="col-form-label required">Select State</label>
                         <div>
                             <ng-select [items]="result.states"
                             bindLabel="name"
@@ -150,7 +150,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="mb-3">
-                          <label for="salaryexpectation" class="col-md-3 col-form-label">Salary Expectation</label>
+                          <label for="salaryexpectation" class="col-md-3 col-form-label required">Salary Expectation</label>
                           <input type="number" class="form-control" id="salaryexpectation" formControlName="salaryexpectation" 
                           [ngClass]="{'is-invalid': isForm1Submitted && form1.salaryexpectation.errors}" placeholder="Salary Expectation">
                         <div *ngIf="isForm1Submitted && form1.salaryexpectation.errors?.required" class="invalid-feedback">
@@ -178,7 +178,7 @@
                         <div class="mb-3">
                           <label for="islegallyallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
                           <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="islegallyallowed">
+                            <label class="form-check-label required" for="islegallyallowed">
                             <input type="checkbox" class="form-check-input" id="islegallyallowed" formControlName="islegallyallowed" 
                             [ngClass]="{'is-invalid': isForm1Submitted && form1.islegallyallowed.errors}">
                             Are you legally allowed to drive?   
@@ -193,7 +193,7 @@
                       <div class="mb-3">
                         <label for="isusauthorized" class="col-md-3 col-form-label">&nbsp;</label><br>
                         <div class="form-check form-check-inline">
-                          <label class="form-check-label" for="isusauthorized">
+                          <label class="form-check-label required" for="isusauthorized">
                           <input type="checkbox" class="form-check-input" id="isusauthorized" formControlName="isusauthorized" 
                           [ngClass]="{'is-invalid': isForm1Submitted && form1.isusauthorized.errors}">
                           Are you legally authorized to work in the United States?
@@ -214,7 +214,7 @@
                         <div class="mb-3">
                           <label for="isimmigrationallowed" class="col-md-3 col-form-label">&nbsp;</label><br>
                           <div class="form-check form-check-inline">
-                            <label class="form-check-label" for="isimmigrationallowed">
+                            <label class="form-check-label required" for="isimmigrationallowed">
                             <input type="checkbox" class="form-check-input" id="isimmigrationallowed" formControlName="isimmigrationallowed" 
                             [ngClass]="{'is-invalid': isForm1Submitted && form1.isimmigrationallowed.errors}">
                             Will you now, or in the future, require One Lift Partners to commence an immigration case in order to employ you (for example, H-1B or other employment-based immigration case)?
@@ -381,7 +381,7 @@
 
                       <div class="col-md-5" style="float: left;">
                         <div class="mb-3">
-                          <label class="col-md-3 col-form-label">Upload</label>
+                          <label class="col-md-3 col-form-label required">Upload</label>
                           <input class="form-control" type="file" #file multiple formControlName="documents" (change)="uploadFile(file.files)"
                           [ngClass]="{'is-invalid': isForm2Submitted && form2.documents.errors}">
                           <div *ngIf="isForm2Submitted && form2.documents.errors?.required" class="invalid-feedback">

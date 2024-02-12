@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/api.service';
 import { Usermodel } from 'src/app/model/usermodel';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,9 @@ export class LoginComponent implements OnInit {
   result: Usermodel;
   validationForm: any;
   isFormSubmitted = false;
+  baseUrl:any;
   constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) {
+    this.baseUrl=environment.baseURL;
    }
 
   ngOnInit(): void {

@@ -1,1 +1,4 @@
-// Write your custom css/scss here
+label.required::after {
+    content: " *";
+    color: red;
+}

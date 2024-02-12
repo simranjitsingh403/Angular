@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL:"https://localhost:7215/"
+  baseURL:"https://truckloadapi.azurewebsites.net/"
 };
 
 /*
