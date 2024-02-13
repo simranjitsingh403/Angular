@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ownermodel } from 'src/app/model/ownermodel';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-owner',
@@ -82,7 +83,8 @@ export class OwnerComponent implements OnInit {
     return this.validationForm.controls;
   }
 
-  formSubmit() {
+  formSubmit(event:any) {
+    console.log(event.currentTarget.value);
     
     if (this.validationForm.valid) {
       this.result.firstName = this.form.firstName.value;
@@ -102,10 +104,33 @@ export class OwnerComponent implements OnInit {
       this.result.email = this.form.email.value;
       this.result.jwtToken = localStorage.getItem('token');
 
-      if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-        this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
-      } else {
-        this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+      if(event.currentTarget.value == "submit"){
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'You won\'t be able to edit your details!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Submit'
+        } as SweetAlertOptions).then((sresult) => {
+          if (sresult.value) {
+            this.result.isSubmitted = true;
+            if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+              this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+            } else {
+              this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+            }
+          }
+        });
+        
+      }else{
+        this.result.isSubmitted = false;
+        if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+          this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+        } else {
+          this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+        }
       }
 
     }
