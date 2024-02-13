@@ -15,7 +15,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class SidebarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
-
+  logo="/assets/images/OneLiftM_black.png";
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
 

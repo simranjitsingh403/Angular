@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   validationForm: any;
   isFormSubmitted = false;
   baseUrl:any;
+  logo="/assets/images/OneLift_black.png";
   constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) {
     this.baseUrl=environment.baseURL;
    }
