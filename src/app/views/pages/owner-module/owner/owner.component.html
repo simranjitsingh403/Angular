@@ -19,7 +19,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="firstName" class="col-md-3 col-form-label">First Name</label>
+                        <label for="firstName" class="col-md-3 col-form-label required">First Name</label>
                         <input type="text" class="form-control" id="firstName" formControlName="firstName"
                           [ngClass]="{'is-invalid': isFormSubmitted && form.firstName.errors}" placeholder="First name">
                         <div *ngIf="isFormSubmitted && form.firstName.errors?.required" class="invalid-feedback">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="lastName" class="col-md-3 col-form-label">Last Name</label>
+                        <label for="lastName" class="col-md-3 col-form-label required">Last Name</label>
                         <input type="text" class="form-control" id="lastName" formControlName="lastName"
                           [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}" placeholder="Last name">
                         <div *ngIf="isFormSubmitted && form.lastName.errors?.required" class="invalid-feedback">
@@ -191,7 +191,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="parkingStateId" class="col-md-3 col-form-label">State</label>
+                        <label for="parkingStateId" class="col-md-3 col-form-label required">State</label>
                         <div>
                           <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
                             formControlName="parkingStateId" (change)="stateChange($event)">
@@ -204,7 +204,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="cityId" class="col-md-3 col-form-label">City</label>
+                        <label for="cityId" class="col-md-3 col-form-label required">City</label>
                         <div>
                           <ng-select [items]="newCities" bindLabel="name" bindValue="id" placeholder="Select City"
                             formControlName="cityId">
@@ -230,7 +230,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="license" class="col-md-3 col-form-label">Driver License#</label>
+                        <label for="license" class="col-md-3 col-form-label required">Driver License</label>
                         <input type="text" class="form-control" formControlName="license"
                           [ngClass]="{'is-invalid': isFormSubmitted && form.license.errors}"
                           placeholder="License number">
@@ -241,7 +241,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="stateId" class="col-md-3 col-form-label">Issuing State</label>
+                        <label for="stateId" class="col-md-3 col-form-label required">Issuing State</label>
                         <div>
                           <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
                             formControlName="stateId">
@@ -296,8 +296,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label class="col-form-label">Current Registration (If No Registration : Title copy of
-                          unit)</label>
+                        <label class="col-form-label">Current Registration</label>
                         <div>
                           <input class="form-control" type="file" #currentRegistrationFile
                             formControlName="currentRegistration"

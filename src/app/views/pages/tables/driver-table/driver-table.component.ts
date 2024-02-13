@@ -151,10 +151,10 @@ export class DriverTableComponent implements OnInit {
       headerName: 'Action', field: 'id', filter: false, sortable: false, cellRenderer: function (params: any) {
         let data = '';
         if (params.data.formStatusId == 1) {
-          data += '<a><i class="mdi mdi-account-check" id="accept" style="font-size: 20px;color:green;" title="Accept"></i></a> |';
-          data += '<a><i class="mdi mdi-account-remove" id="reject" title="Reject" style="font-size: 20px;color:red;"></i></a> |';
+          data += '<a><i class="mdi mdi-account-check" id="accept" style="font-size: 20px;color:green;padding-right:10px;" title="Accept"></i></a> |';
+          data += '<a><i class="mdi mdi-account-remove" id="reject" title="Reject" style="font-size: 20px;color:red;padding-left:10px;padding-right:10px;"></i></a> |';
         }
-        data += '<a><i class="mdi mdi-delete-forever" id="delete" title="Delete" style="color: red; font-size: 20px;"></a>';
+        data += '<a><i class="mdi mdi-delete-forever" id="delete" title="Delete" style="color: red; font-size: 20px;padding-left:10px"></a>';
         return data;
       }
     }];

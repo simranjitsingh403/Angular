@@ -27,7 +27,7 @@
           <form (ngSubmit)="formSubmit()" [formGroup]="validationForm">
             <div class="col-md-12">
               <div class="mb-3">
-              <label for="name" class="col-md-3 col-form-label">Role name</label>
+              <label for="name" class="col-md-3 col-form-label required">Role name</label>
               <input type="text" class="form-control" id="name" formControlName="name" 
               [ngClass]="{'is-invalid': isFormSubmitted && form.name.errors}" placeholder="Role name">
               <div *ngIf="isFormSubmitted && form.name.errors?.required" class="invalid-feedback">
