@@ -14,11 +14,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
+import { DriverRegistorComponent } from './views/pages/driver-module/driver-register/driver-register.component';
 import { RoleComponent } from './views/pages/auth/role/role.component';
 import { UserComponent } from './views/pages/auth/user/user.component';
 import { UserGridComponent } from './views/pages/auth/user-grid/user-grid.component';
-import { DriverTableComponent } from './views/pages/tables/driver-table/driver-table.component';
+import { DriverTableComponent } from './views/pages/driver-module/driver-table/driver-table.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { ToastrModule } from 'ngx-toastr';
@@ -26,6 +26,8 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { OwnerComponent } from './views/pages/owner-module/owner/owner.component';
 import { OwnersComponent } from './views/pages/owner-module/owners/owners.component';
+import { DriverDashboardComponent } from './views/pages/driver-module/driver-dashboard/driver-dashboard/driver-dashboard.component';
+import { OwnerDashboardComponent } from './views/pages/owner-module/owner-dashboard/owner-dashboard/owner-dashboard.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     UserComponent,
     UserGridComponent,
     OwnerComponent,
-    OwnersComponent
+    OwnersComponent,
+    DriverDashboardComponent,
+    OwnerDashboardComponent
   ],
   imports: [
     BrowserModule,

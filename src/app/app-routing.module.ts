@@ -3,10 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-import { DriverRegistorComponent } from './views/pages/driver-register/driver-register.component';
+import { DriverRegistorComponent } from './views/pages/driver-module/driver-register/driver-register.component';
 import { RoleComponent } from './views/pages/auth/role/role.component';
 import { OwnerComponent } from './views/pages/owner-module/owner/owner.component';
-import { DriverTableComponent } from './views/pages/tables/driver-table/driver-table.component';
+import { DriverTableComponent } from './views/pages/driver-module/driver-table/driver-table.component';
+import { DriverDashboardComponent } from './views/pages/driver-module/driver-dashboard/driver-dashboard/driver-dashboard.component';
+import { OwnerDashboardComponent } from './views/pages/owner-module/owner-dashboard/owner-dashboard/owner-dashboard.component';
 const routes: Routes = [
   { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
   {
@@ -64,6 +66,11 @@ const routes: Routes = [
     component:DriverRegistorComponent
   },
   {
+    path:'driver/dashboard',
+    pathMatch:'prefix',
+    component:DriverDashboardComponent
+  },
+  {
     path: 'driver/register/:id',
     component: DriverRegistorComponent
   },
@@ -82,6 +89,11 @@ const routes: Routes = [
     path:'owner',
     pathMatch:'prefix',
     component:OwnerComponent
+  },
+  {
+    path:'owner/dashboard',
+    pathMatch:'prefix',
+    component:OwnerDashboardComponent
   },
   { 
     path: 'error',
