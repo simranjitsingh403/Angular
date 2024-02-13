@@ -16,8 +16,6 @@ export class Ownermodel {
     parkingCityId: number
     parkingStateId:number
     isDeleted: boolean
-    createdBy: string
-    createdDateTime: string
     states: []
     cities: []
     carBrands: []
@@ -27,4 +25,5 @@ export class Ownermodel {
     statusId:number
     rejectedReason:string
     jwtToken:string|null
+    isSubmitted:boolean
 }

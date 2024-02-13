@@ -8,6 +8,7 @@ import { Drivermodel } from 'src/app/model/drivermodel';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
   selector: 'app-driver-registor',
@@ -125,7 +126,8 @@ export class DriverRegistorComponent implements OnInit {
   /**
    * Wizard finish function
    */
-  finishFunction() {
+  finishFunction(event:any) {
+    
     this.result.firstName = this.form1.firstName.value;
     this.result.lastName = this.form1.lastName.value;
     this.result.middleName = this.form1.middleName.value;
@@ -146,10 +148,34 @@ export class DriverRegistorComponent implements OnInit {
     this.result.veteranId = this.form1.veteranid.value;
     this.result.formStatusId = this.form1.formStatusId;
     this.result.jwtToken = localStorage.getItem('token');
-    if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-      this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
-    } else {
-      this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+
+    if(event.currentTarget.value == "submit"){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to edit your details!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Submit'
+      } as SweetAlertOptions).then((sresult) => {
+        if (sresult.value) {
+          this.result.isSubmitted = true;
+          if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+            this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+          } else {
+            this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+          }
+        }
+      });
+      
+    }else{
+      this.result.isSubmitted = false;
+      if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+        this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+      } else {
+        this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+      }
     }
 
   }

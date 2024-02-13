@@ -26,6 +26,7 @@ export class Drivermodel {
     formStatusId : number
     rejectedReason:string
     jwtToken:string|null
+    isSubmitted:boolean
     licenseClasses: [any]
     jobTypes: [any]
     genders: [any]
