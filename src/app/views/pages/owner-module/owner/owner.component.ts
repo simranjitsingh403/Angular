@@ -42,7 +42,8 @@ export class OwnerComponent implements OnInit {
       parkingStateId: ['', Validators.required],
       experience: ['', Validators.required],
       dotInspection: [],
-      currentRegistration: []
+      currentRegistration: [],
+      email:[,Validators.required]
     });
 
     this.navService.get<Ownermodel>("Owner/Owner/Register?Id=" + this.ownerId).subscribe((response) => {
@@ -64,6 +65,7 @@ export class OwnerComponent implements OnInit {
         license: this.result.license,
         experience: this.result.experience,
         parkingStateId: this.result.parkingStateId != 0 ? this.result.parkingStateId : null,
+        email:this.result.email,
       });
       this.states = this.result.states;
       this.cities = this.result.cities;
@@ -97,6 +99,8 @@ export class OwnerComponent implements OnInit {
       this.result.stateId = this.form.stateId.value;
       this.result.license = this.form.license.value;
       this.result.experience = this.form.experience.value;
+      this.result.email = this.form.email.value;
+      this.result.jwtToken = localStorage.getItem('token');
 
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
         this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });

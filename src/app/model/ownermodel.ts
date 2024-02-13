@@ -23,4 +23,8 @@ export class Ownermodel {
     carBrands: []
     dotInspectionPath: string
     currentRegistrationPath: string
+    email:string
+    statusId:number
+    rejectedReason:string
+    jwtToken:string|null
 }
