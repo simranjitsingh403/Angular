@@ -3,9 +3,10 @@ import { DOCUMENT } from '@angular/common';
 
 import MetisMenu from 'metismenujs';
 
-import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
+import { Usermodel } from 'src/app/model/usermodel';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,11 +16,11 @@ import { Router, NavigationEnd } from '@angular/router';
 export class SidebarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
-
+  logo="/assets/images/OneLiftM_black.png";
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
-
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router) { 
+  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "");
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router,private navService: ApiService) { 
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
 
@@ -40,7 +41,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.menuItems = MENU;
+    this.navService.get<any>("Module/GetModules?roleId=" + this.userdetails.roleId).subscribe(d => {this.menuItems=d});
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
