@@ -95,6 +95,11 @@ const routes: Routes = [
     pathMatch:'prefix',
     component:OwnerDashboardComponent
   },
+  {
+    path:'owner/:id',
+    pathMatch:'prefix',
+    component:OwnerComponent
+  },
   { 
     path: 'error',
     component: ErrorPageComponent,

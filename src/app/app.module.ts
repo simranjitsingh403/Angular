@@ -57,7 +57,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     SweetAlert2Module.forRoot(),
     NgxMaskModule.forRoot(),
     QuillModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthGuard,

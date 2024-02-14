@@ -7,12 +7,14 @@ export class Usermodel {
     middleName: string
     email: string
     roleId: string
-    stateId:number
+    stateId: number
     phoneNumber: string
-    address:string
+    address: string
     roles: []
-    states:[]
-    profilePicture:string
-    zipCode:string
+    states: []
+    profilePicture: string
+    zipCode: string
     files: any
+    ownerId: string
+    driverId: string
 }
