@@ -17,4 +17,5 @@ export class Usermodel {
     files: any
     ownerId: string
     driverId: string
+    roleName:string
 }

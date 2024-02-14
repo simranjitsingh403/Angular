@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   isFormSubmitted = false;
   baseUrl:any;
   logo="/assets/images/OneLift_black.png";
+  userdetails:Usermodel;
   constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) {
     this.baseUrl=environment.baseURL;
    }
@@ -46,7 +47,15 @@ export class LoginComponent implements OnInit {
           if (localStorage.getItem('isLoggedin')) {
             localStorage.setItem('token', d.token);
             localStorage.setItem('userDetails', d.user);
-            this.router.navigate([this.returnUrl]);
+            this.userdetails = JSON.parse(localStorage.getItem('userDetails') || "{}");
+            
+            if (this.userdetails.roleName == 'Driver') {
+              this.router.navigate(["/driver/dashboard"]);
+            } else if(this.userdetails.roleName == 'Owner'){
+              this.router.navigate(["/owner/dashboard"]);
+            }else{
+              this.router.navigate([this.returnUrl]);
+            }
           }
         }
         else {

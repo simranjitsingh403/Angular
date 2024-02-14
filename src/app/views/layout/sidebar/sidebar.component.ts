@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   logo="/assets/images/OneLiftM_black.png";
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
-  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "");
+  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router,private navService: ApiService) { 
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {

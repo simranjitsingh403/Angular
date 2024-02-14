@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ownermodel } from 'src/app/model/ownermodel';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { Usermodel } from 'src/app/model/usermodel';
 
 @Component({
   selector: 'app-owner',
@@ -22,6 +23,7 @@ export class OwnerComponent implements OnInit {
   newCities=[];
   result: Ownermodel = new Ownermodel();
   ownerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
+  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 

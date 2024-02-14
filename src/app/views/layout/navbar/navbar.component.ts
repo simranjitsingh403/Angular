@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "");
+  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   apiPath = environment.baseURL;
 
   constructor(

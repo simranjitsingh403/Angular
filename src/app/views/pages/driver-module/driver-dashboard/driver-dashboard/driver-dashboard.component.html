@@ -8,6 +8,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title">Driver Application</h3>
+                                <p><b>First Name : </b>{{result.firstName}}</p>
+                                <p><b>Last Name : </b>{{result.lastName}}</p>
+                                <p><b>Email : </b>{{result.email}}</p>
+                                <p><b>Phone Number : </b>{{result.phoneNumber}}</p>
+                                <p><b>Submitted : </b>{{result.isSubmitted == true? "Submitted":"Not Submitted"}}</p>
+                                <button *ngIf="result.isSubmitted == false" class="btn btn-outline-primary" (click)="EditClick()"><i class="mdi mdi-pencil"></i> Edit</button>
                             </div>
                         </div>
                     </div>
@@ -15,6 +21,7 @@
                         <div class="card">
                             <div class="card-body">
                             <h3 class="card-title">Application Status</h3>
+                            <p><b>Status : </b>{{statusName}}</p>
                             </div>
                         </div>
                     </div>

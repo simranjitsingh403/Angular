@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { Usermodel } from 'src/app/model/usermodel';
 
 @Component({
   selector: 'app-driver-registor',
@@ -31,6 +32,7 @@ export class DriverRegistorComponent implements OnInit {
   documentTypeId: number = 1;
   apiPath: string = environment.baseURL;
   driverId: any = this.route.snapshot.params['id'] == undefined? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
+  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
 
 
