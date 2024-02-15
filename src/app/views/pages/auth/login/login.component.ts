@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/api.service';
+import { options } from 'src/app/app.module';
 import { Usermodel } from 'src/app/model/usermodel';
 import { environment } from 'src/environments/environment';
 
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   baseUrl:any;
   logo="/assets/images/OneLift_black.png";
   userdetails:Usermodel = new Usermodel();
+  
   constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService,
     private modalService: NgbModal) {
     this.baseUrl=environment.baseURL;
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.validationForgotForm = this.formBuilder.group({
-      email: [, Validators.required]
+      email: ['', Validators.required]
     });
 
     this.isForgotFormSubmitted = false;
@@ -82,8 +84,9 @@ export class LoginComponent implements OnInit {
   }
 
   ForgotClick(model:any) {
-    this.modalService.open(model, {}).result.then((result) => {
-    }).catch((res) => { });
+    this.modalService.open(model)
+    this.forgotform.email.setValue("");
+    
   }
 
   get forgotform() {
@@ -95,7 +98,7 @@ export class LoginComponent implements OnInit {
       this.userdetails.email = this.forgotform.email.value;
       this.navService.post<any>("Account/ForgotPassword", this.userdetails).subscribe(response => this.toastr.success(response.message),
       e => this.toastr.error(e));
-      this.modalService.dismissAll()
+      this.modalService.dismissAll();
     }
     this.isForgotFormSubmitted = true;
   }
