@@ -31,11 +31,11 @@ export class DriverRegistorComponent implements OnInit {
   veteran: any = [];
   documentTypeId: number = 1;
   apiPath: string = environment.baseURL;
-  driverId: any = this.route.snapshot.params['id'] == undefined? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
-  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
+  driverId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
+  userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
-
-
+  logo = "/assets/images/OneLift_black.png";
+  isLogin=localStorage.getItem('isLoggedin') == null ? false : true;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -76,7 +76,6 @@ export class DriverRegistorComponent implements OnInit {
         isreferredshow: this.result.referredByName != null ? true : false
       });
 
-      
       this.genders = this.result.genders;
       this.races = this.result.races;
       this.veteran = this.result.veteran;
@@ -128,8 +127,8 @@ export class DriverRegistorComponent implements OnInit {
   /**
    * Wizard finish function
    */
-  finishFunction(event:any) {
-    
+  finishFunction(event: any) {
+
     this.result.firstName = this.form1.firstName.value;
     this.result.lastName = this.form1.lastName.value;
     this.result.middleName = this.form1.middleName.value;
@@ -151,7 +150,7 @@ export class DriverRegistorComponent implements OnInit {
     this.result.formStatusId = this.form1.formStatusId;
     this.result.jwtToken = localStorage.getItem('token');
 
-    if(event.currentTarget.value == "submit"){
+    if (event.currentTarget.value == "submit") {
       Swal.fire({
         title: 'Are you sure?',
         text: 'You won\'t be able to edit your details!',
@@ -170,8 +169,8 @@ export class DriverRegistorComponent implements OnInit {
           }
         }
       });
-      
-    }else{
+
+    } else {
       this.result.isSubmitted = false;
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
         this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });

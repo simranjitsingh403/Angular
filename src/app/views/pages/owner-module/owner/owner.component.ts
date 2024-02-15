@@ -24,7 +24,8 @@ export class OwnerComponent implements OnInit {
   result: Ownermodel = new Ownermodel();
   ownerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
   userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
-
+  logo = "/assets/images/OneLift_black.png";
+  isLogin=localStorage.getItem('isLoggedin') == null ? false : true;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
