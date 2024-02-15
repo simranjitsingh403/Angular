@@ -81,6 +81,7 @@
   </div>
   <form [formGroup]="validationForgotForm">
     <div class="modal-body">
+      <label class="form-label required">Email</label>
       <input type="text" class="form-control" formControlName="email" placeholder="email"
         [ngClass]="{'is-invalid': isForgotFormSubmitted && forgotform.email.errors}"/>
       <div *ngIf="isForgotFormSubmitted && forgotform.email.errors?.required" class="invalid-feedback">
@@ -88,8 +89,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Close</button>
-      <button class="btn btn-danger" (click)="forgotFormClick()">Send</button>
+      <button class="btn btn-success" (click)="forgotFormClick()">Send</button>
     </div>
   </form>
 </ng-template>
