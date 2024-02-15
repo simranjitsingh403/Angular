@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/api.service';
 import { Usermodel } from 'src/app/model/usermodel';
@@ -17,10 +18,13 @@ export class LoginComponent implements OnInit {
   result: Usermodel;
   validationForm: any;
   isFormSubmitted = false;
+  validationForgotForm: any;
+  isForgotFormSubmitted = false;
   baseUrl:any;
   logo="/assets/images/OneLift_black.png";
-  userdetails:Usermodel;
-  constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) {
+  userdetails:Usermodel = new Usermodel();
+  constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService,
+    private modalService: NgbModal) {
     this.baseUrl=environment.baseURL;
    }
 
@@ -32,6 +36,12 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       isRemember: [false],
     });
+
+    this.validationForgotForm = this.formBuilder.group({
+      email: [, Validators.required]
+    });
+
+    this.isForgotFormSubmitted = false;
   }
 
 
@@ -48,7 +58,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', d.token);
             localStorage.setItem('userDetails', d.user);
             this.userdetails = JSON.parse(localStorage.getItem('userDetails') || "{}");
-            
+
             if (this.userdetails.roleName == 'Driver') {
               this.router.navigate(["/driver/dashboard"]);
             } else if(this.userdetails.roleName == 'Owner'){
@@ -70,5 +80,25 @@ export class LoginComponent implements OnInit {
   get form() {
     return this.validationForm.controls;
   }
+
+  ForgotClick(model:any) {
+    this.modalService.open(model, {}).result.then((result) => {
+    }).catch((res) => { });
+  }
+
+  get forgotform() {
+    return this.validationForgotForm.controls;
+  }
+
+  forgotFormClick() {
+    if (this.validationForgotForm.valid) {
+      this.userdetails.email = this.forgotform.email.value;
+      this.navService.post<any>("Account/ForgotPassword", this.userdetails).subscribe(response => this.toastr.success(response.message),
+      e => this.toastr.error(e));
+      this.modalService.dismissAll()
+    }
+    this.isForgotFormSubmitted = true;
+  }
+
 
 }

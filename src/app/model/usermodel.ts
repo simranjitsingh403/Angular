@@ -18,4 +18,7 @@ export class Usermodel {
     ownerId: string
     driverId: string
     roleName:string
+    password:string
+    confirmPassword:string
+    passwordToken:string
 }

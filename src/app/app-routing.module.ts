@@ -9,6 +9,8 @@ import { OwnerComponent } from './views/pages/owner-module/owner/owner.component
 import { DriverTableComponent } from './views/pages/driver-module/driver-table/driver-table.component';
 import { DriverDashboardComponent } from './views/pages/driver-module/driver-dashboard/driver-dashboard/driver-dashboard.component';
 import { OwnerDashboardComponent } from './views/pages/owner-module/owner-dashboard/owner-dashboard/owner-dashboard.component';
+import { ForgotPasswordComponent } from './views/pages/auth/forgot-password/forgot-password/forgot-password.component';
+
 const routes: Routes = [
   { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
   {
@@ -99,6 +101,10 @@ const routes: Routes = [
     path:'owner/:id',
     pathMatch:'prefix',
     component:OwnerComponent
+  },{
+    path:'Account/ResetPassword',
+    pathMatch:'prefix',
+    component:ForgotPasswordComponent
   },
   { 
     path: 'error',
@@ -114,6 +120,7 @@ const routes: Routes = [
     component: ErrorPageComponent
   },
   { path: '**', redirectTo: 'error', pathMatch: 'full' }
+  
 ];
 
 @NgModule({
