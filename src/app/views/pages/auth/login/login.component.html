@@ -41,23 +41,24 @@
                   </label>
                 </div>
                 <div class="col-md-6">
-                  <button type="submit" style="float: right;" class="btn btn-primary me-2 mb-2 mb-md-0">Log in</button>
+                  <a style="color: var(--bs-link-color); float: right;" (click)="ForgotClick(forgotModal)">Forgot password? Reset here.</a>
                 </div>
               </div>
-              <div>
-                <a style="color: var(--bs-link-color);" (click)="ForgotClick(forgotModal)">Forgot password? Reset here.</a>
+              <br>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Log in</button>
               </div>
               <hr>
              
               <div class="row mt-3 text-muted">
                 <div class="col-md-3">
-                  <button routerLink="/driver/register" type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
+                  <button routerLink="/driver/register" type="button" class="btn btn-outline-dark btn-icon-text mb-2 mb-md-0">
                     <i class="feather mdi mdi-account-multiple-outline btn-icon-prepend"></i>
                     Driver
                   </button>
                 </div>
                 <div class="col-md-3">
-                  <button routerLink="/owner" type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
+                  <button routerLink="/owner" type="button" class="btn btn-outline-dark btn-icon-text mb-2 mb-md-0">
                     <i class="feather mdi mdi-account-multiple-plus btn-icon-prepend"></i>
                     Owner
                   </button>
