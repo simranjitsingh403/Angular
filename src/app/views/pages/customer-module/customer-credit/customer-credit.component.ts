@@ -38,54 +38,54 @@ export class CustomerCreditComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
-      isPORequired: [, Validators.required],
+      isPORequired: [false, Validators.required],
       isTaxExempt: [],
       taxExemptAttachment: [],
-      businessYears: [, Validators.required],
-      taxID: [, Validators.required],
-      companyName: [, Validators.required],
-      shippingAddress: [, Validators.required],
-      shippingZip: [, Validators.required],
-      shippingCityId: [, Validators.required],
-      shippingStateId: [, Validators.required],
-      billingAddress: [, Validators.required],
-      billingZip: [, Validators.required],
-      billingCityId: [, Validators.required],
-      billingStateId: [, Validators.required],
-      contactNumber: [],
+      businessYears: ['', Validators.required],
+      taxID: ['', Validators.required],
+      companyName: ['', Validators.required],
+      shippingAddress: ['', Validators.required],
+      shippingZip: ['', Validators.required],
+      shippingCityId: [null, Validators.required],
+      shippingStateId: [null, Validators.required],
+      billingAddress: ['', Validators.required],
+      billingZip: ['', Validators.required],
+      billingCityId: [null, Validators.required],
+      billingStateId: [null, Validators.required],
+      contactNumber: [Validators.required],
       apcontactName: [],
       apcontactNumber: [],
       apcontactMail: [],
       invoicePreference: [],
       invoiceEmail: [],
-      bankName: [, Validators.required],
-      bankContactNumber: [, Validators.required],
-      bankAddress: [, Validators.required],
-      bankZip: [, Validators.required],
-      bankStateId: [, Validators.required],
-      bankCityId: [, Validators.required],
+      bankName: ['', Validators.required],
+      bankContactNumber: [ Validators.required],
+      bankAddress: ['', Validators.required],
+      bankZip: ['', Validators.required],
+      bankStateId: [null, Validators.required],
+      bankCityId: [null, Validators.required],
       presidentName: [],
       vicePresidentName: [],
       secretary: [],
       signature: [],
       fax: [],
       tradeRefs: new FormArray([this.formBuilder.group({
-        tradeCompanyName: [, Validators.required],
-        tradeCompanyAddress: [, Validators.required],
-        tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: [, Validators.required],
+        tradeCompanyName: ['', Validators.required],
+        tradeCompanyAddress: ['', Validators.required],
+        tradeCompanyPhone: [,Validators.required],
+        tradeCompanyFax: ['', Validators.required],
         tradeCompanyEmail: []
       }), this.formBuilder.group({
-        tradeCompanyName: [, Validators.required],
-        tradeCompanyAddress: [, Validators.required],
-        tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: [, Validators.required],
+        tradeCompanyName: ['', Validators.required],
+        tradeCompanyAddress: ['', Validators.required],
+        tradeCompanyPhone: [,Validators.required],
+        tradeCompanyFax: ['', Validators.required],
         tradeCompanyEmail: []
       }), this.formBuilder.group({
-        tradeCompanyName: [, Validators.required],
-        tradeCompanyAddress: [, Validators.required],
-        tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: [, Validators.required],
+        tradeCompanyName: ['', Validators.required],
+        tradeCompanyAddress: ['', Validators.required],
+        tradeCompanyPhone: [,Validators.required],
+        tradeCompanyFax: ['', Validators.required],
         tradeCompanyEmail: []
       })])
     });
@@ -175,6 +175,10 @@ this.isFormSubmitted = true;
     return this.validationForm.controls;
   }
 
+   tradeFormValidations(i:any) {
+    return this.validationForm.controls.tradeRefs.controls[i].controls;
+  } 
+  
 
   UploadCertificate(file: any) {
     if (file.length === 0) {
