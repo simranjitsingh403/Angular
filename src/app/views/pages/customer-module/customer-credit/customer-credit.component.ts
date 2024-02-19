@@ -104,6 +104,7 @@ export class CustomerCreditComponent implements OnInit {
   }
 
   formSubmit() {
+    this.trades = [];
     this.result.customerId = this.userdetails.customerId;
     this.result.isPORequired = this.form.isPORequired.value;
     this.result.businessYears = this.form.businessYears.value;
