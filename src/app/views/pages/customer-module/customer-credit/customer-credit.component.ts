@@ -56,7 +56,7 @@ export class CustomerCreditComponent implements OnInit {
       apcontactName: [],
       apcontactNumber: [],
       apcontactMail: [],
-      invoicePreference: [],
+      invoicePreference: ["1"],
       invoiceEmail: [],
       bankName: [, Validators.required],
       bankContactNumber: [, Validators.required],
