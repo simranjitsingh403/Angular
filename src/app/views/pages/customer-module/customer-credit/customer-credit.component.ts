@@ -38,54 +38,54 @@ export class CustomerCreditComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
-      isPORequired: [],
+      isPORequired: [, Validators.required],
       isTaxExempt: [],
       taxExemptAttachment: [],
-      businessYears: [],
-      taxID: [],
-      companyName: [],
-      shippingAddress: [],
-      shippingZip: [],
-      shippingCityId: [],
-      shippingStateId: [],
-      billingAddress: [],
-      billingZip: [],
-      billingCityId: [],
-      billingStateId: [''],
+      businessYears: [, Validators.required],
+      taxID: [, Validators.required],
+      companyName: [, Validators.required],
+      shippingAddress: [, Validators.required],
+      shippingZip: [, Validators.required],
+      shippingCityId: [, Validators.required],
+      shippingStateId: [, Validators.required],
+      billingAddress: [, Validators.required],
+      billingZip: [, Validators.required],
+      billingCityId: [, Validators.required],
+      billingStateId: [, Validators.required],
       contactNumber: [],
       apcontactName: [],
       apcontactNumber: [],
       apcontactMail: [],
       invoicePreference: [],
       invoiceEmail: [],
-      bankName: [],
-      bankContactNumber: [],
-      bankAddress: [],
-      bankZip: [],
-      bankStateId: [],
-      bankCityId: [],
+      bankName: [, Validators.required],
+      bankContactNumber: [, Validators.required],
+      bankAddress: [, Validators.required],
+      bankZip: [, Validators.required],
+      bankStateId: [, Validators.required],
+      bankCityId: [, Validators.required],
       presidentName: [],
       vicePresidentName: [],
       secretary: [],
       signature: [],
       fax: [],
       tradeRefs: new FormArray([this.formBuilder.group({
-        tradeCompanyName: [],
-        tradeCompanyAddress: [],
-        tradeCompanyPhone: [],
-        tradeCompanyFax: [],
+        tradeCompanyName: [, Validators.required],
+        tradeCompanyAddress: [, Validators.required],
+        tradeCompanyPhone: [, Validators.required],
+        tradeCompanyFax: [, Validators.required],
         tradeCompanyEmail: []
       }), this.formBuilder.group({
-        tradeCompanyName: [],
-        tradeCompanyAddress: [],
-        tradeCompanyPhone: [],
-        tradeCompanyFax: [],
+        tradeCompanyName: [, Validators.required],
+        tradeCompanyAddress: [, Validators.required],
+        tradeCompanyPhone: [, Validators.required],
+        tradeCompanyFax: [, Validators.required],
         tradeCompanyEmail: []
       }), this.formBuilder.group({
-        tradeCompanyName: [],
-        tradeCompanyAddress: [],
-        tradeCompanyPhone: [],
-        tradeCompanyFax: [],
+        tradeCompanyName: [, Validators.required],
+        tradeCompanyAddress: [, Validators.required],
+        tradeCompanyPhone: [, Validators.required],
+        tradeCompanyFax: [, Validators.required],
         tradeCompanyEmail: []
       })])
     });
@@ -105,6 +105,7 @@ export class CustomerCreditComponent implements OnInit {
 
   formSubmit() {
     this.trades = [];
+    if (this.validationForm.valid) {
     this.result.customerId = this.userdetails.customerId;
     this.result.isPORequired = this.form.isPORequired.value;
     this.result.businessYears = this.form.businessYears.value;
@@ -153,6 +154,8 @@ export class CustomerCreditComponent implements OnInit {
     } else {
       this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } });
     }
+  }
+this.isFormSubmitted = true;
   }
 
   fieldsChange(event: any) {
