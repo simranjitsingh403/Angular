@@ -24,7 +24,7 @@
                                 <label for="businessYears" class="col-md-3 col-form-label required">Years in Business</label>
                                 <input type="number" class="form-control" formControlName="businessYears"
                                     [ngClass]="{'is-invalid': isFormSubmitted && form.businessYears.errors}"
-                                    placeholder="years">
+                                    placeholder="Years">
                                 <div *ngIf="isFormSubmitted && form.businessYears.errors?.required"
                                     class="invalid-feedback">
                                     Required
@@ -106,7 +106,7 @@
                                                     Company</label>
                                                 <input type="text" class="form-control" formControlName="companyName"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.companyName.errors}"
-                                                    placeholder="name">
+                                                    placeholder="Name">
                                                 <div *ngIf="isFormSubmitted && form.companyName.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -118,7 +118,7 @@
                                                 <label for="contactNumber"
                                                     class="col-md-3 col-form-label required">Telephone</label>
                                                 <input class="form-control" formControlName="contactNumber"
-                                                    placeholder="telephone"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped]="true"  [ngClass]="{'is-invalid': isFormSubmitted && form.contactNumber.errors}">
+                                                    placeholder="Telephone"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped]="true"  [ngClass]="{'is-invalid': isFormSubmitted && form.contactNumber.errors}">
                                                     <div *ngIf="isFormSubmitted && form.contactNumber.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -135,7 +135,7 @@
                                                 <label for="fax" class="col-md-3 col-form-label">Fax</label>
                                                 <input type="text" class="form-control" formControlName="fax"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.fax.errors}"
-                                                    placeholder="fax">
+                                                    placeholder="Fax">
                                                 <div *ngIf="isFormSubmitted && form.fax.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -160,7 +160,7 @@
                                                             <input type="text" class="form-control"
                                                                 formControlName="shippingAddress"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.shippingAddress.errors}"
-                                                                placeholder="address">
+                                                                placeholder="Address">
                                                             <div *ngIf="isFormSubmitted && form.shippingAddress.errors?.required"
                                                                 class="invalid-feedback">
                                                                 Required
@@ -174,7 +174,7 @@
                                                             <input type="text" class="form-control"
                                                                 formControlName="shippingZip"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.shippingZip.errors}"
-                                                                placeholder="zip">
+                                                                placeholder="Zip">
                                                             <div *ngIf="isFormSubmitted && form.shippingZip.errors?.required"
                                                                 class="invalid-feedback">
                                                                 Required
@@ -240,7 +240,7 @@
                                                             <input type="text" class="form-control"
                                                                 formControlName="billingAddress"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.billingAddress.errors}"
-                                                                placeholder="address">
+                                                                placeholder="Address">
                                                             <div *ngIf="isFormSubmitted && form.billingAddress.errors?.required"
                                                                 class="invalid-feedback">
                                                                 Required
@@ -254,7 +254,7 @@
                                                             <input type="text" class="form-control"
                                                                 formControlName="billingZip"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.billingZip.errors}"
-                                                                placeholder="zip">
+                                                                placeholder="Zip">
                                                             <div *ngIf="isFormSubmitted && form.billingZip.errors?.required"
                                                                 class="invalid-feedback">
                                                                 Required
@@ -343,7 +343,7 @@
                                                 <label for="apcontactMail" class="col-md-3 col-form-label">A/P Contact
                                                     E-Mail</label>
                                                 <input type="email" class="form-control" formControlName="apcontactMail"
-                                                    placeholder="email">
+                                                    placeholder="E-mail">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -380,7 +380,7 @@
                                                 <label for="invoiceEmail" class="col-md-3 col-form-label">Invoice
                                                     Submission E-Mail</label>
                                                 <input type="email" class="form-control" formControlName="invoiceEmail"
-                                                    placeholder="email">
+                                                    placeholder="E-mail">
                                             </div>
                                         </div>
                                     </div>
@@ -400,7 +400,7 @@
                                                 <label for="bankName" class="col-md-3 col-form-label required">Bank</label>
                                                 <input type="text" class="form-control" formControlName="bankName"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.bankName.errors}"
-                                                    placeholder="name">
+                                                    placeholder="Name">
                                                 <div *ngIf="isFormSubmitted && form.bankName.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -433,7 +433,7 @@
                                                 <label for="bankAddress" class="col-md-3 col-form-label required">Address</label>
                                                 <input type="text" class="form-control" formControlName="bankAddress"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.bankAddress.errors}"
-                                                    placeholder="address">
+                                                    placeholder="Address">
                                                 <div *ngIf="isFormSubmitted && form.bankAddress.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -445,7 +445,7 @@
                                                 <label for="bankZip" class="col-md-3 col-form-label required">Zip</label>
                                                 <input type="text" class="form-control" formControlName="bankZip"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.bankZip.errors}"
-                                                    placeholder="zip">
+                                                    placeholder="Zip">
                                                 <div *ngIf="isFormSubmitted && form.bankZip.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -505,7 +505,7 @@
                                                     class="col-md-3 col-form-label">President/Owner</label>
                                                 <input type="text" class="form-control" formControlName="presidentName"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.presidentName.errors}"
-                                                    placeholder="name">
+                                                    placeholder="President Name">
                                                 <div *ngIf="isFormSubmitted && form.presidentName.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -518,7 +518,8 @@
                                                     President</label>
                                                 <input type="text" class="form-control"
                                                     formControlName="vicePresidentName"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.vicePresidentName.errors}">
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.vicePresidentName.errors}"
+                                                    placeholder="Vice President Name">
                                                 <div *ngIf="isFormSubmitted && form.vicePresidentName.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -536,14 +537,14 @@
                                                     class="col-md-3 col-form-label">Secretary/Treasurer</label>
                                                 <input type="text" class="form-control" formControlName="secretary"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.secretary.errors}"
-                                                    placeholder="name">
+                                                    placeholder="Secretary Name">
                                                 <div *ngIf="isFormSubmitted && form.secretary.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="signature" class="col-md-3 col-form-label">Signature</label>
                                                 <input type="text" class="form-control" formControlName="signature"
@@ -553,7 +554,7 @@
                                                     Required
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                 </div>
@@ -575,7 +576,7 @@
                                                     <input type="text" class="form-control"
                                                         formControlName="tradeCompanyName"
                                                         [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyName.errors}"
-                                                        placeholder="name">
+                                                        placeholder="Name">
                                                     <div *ngIf="isFormSubmitted && tradeFormValidations(i).tradeCompanyName.errors?.required"
                                                         class="invalid-feedback">
                                                         Required
@@ -588,7 +589,8 @@
                                                         class="col-md-3 col-form-label required">Address</label>
                                                     <input type="text" class="form-control"
                                                         formControlName="tradeCompanyAddress"
-                                                        [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyAddress.errors}">
+                                                        [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyAddress.errors}"
+                                                        placeholder="Address">
                                                     <div *ngIf="isFormSubmitted && tradeFormValidations(i).tradeCompanyAddress.errors?.required"
                                                         class="invalid-feedback">
                                                         Required
@@ -621,7 +623,8 @@
                                                         class="col-md-3 col-form-label required">Fax#</label>
                                                     <input type="text" class="form-control"
                                                         formControlName="tradeCompanyFax"
-                                                        [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyFax.errors}">
+                                                        [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyFax.errors}"
+                                                        placeholder="Fax">
                                                     <div *ngIf="isFormSubmitted && tradeFormValidations(i).tradeCompanyFax.errors?.required"
                                                         class="invalid-feedback">
                                                         Required
@@ -641,7 +644,7 @@
                                                     <input type="email" class="form-control"
                                                         formControlName="tradeCompanyEmail"
                                                         [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyEmail.errors}"
-                                                        placeholder="email">
+                                                        placeholder="E-mail">
                                                     <div *ngIf="isFormSubmitted && tradeFormValidations(i).tradeCompanyEmail.errors?.required"
                                                         class="invalid-feedback">
                                                         Required
