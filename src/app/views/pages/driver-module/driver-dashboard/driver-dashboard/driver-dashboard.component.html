@@ -7,7 +7,7 @@
                     <div class="col-md-6 grid-margin">
                         <div class="card">
                             <div class="card-body" [ngStyle]="{'background-color': (result.formStatusId==2) ? '#E5FFE4' :( (result.formStatusId==3)? '#FFE4E4':'#FFFFFF')}">
-                                <h3 class="card-title">{{result.firstName + ' ' + (result.middleName??'') +' '+result.lastName}}</h3>
+                                <h3 class="card-title">{{result.firstName + ' ' + (result.middleName==null?'':result.middleName) +' '+result.lastName}}</h3>
                                 <table>
                                     <tr>
                                         <th>Email</th>
