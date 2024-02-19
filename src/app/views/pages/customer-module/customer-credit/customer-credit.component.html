@@ -282,8 +282,8 @@
                                             <div class="mb-3">
                                                 <label for="contactNumber"
                                                     class="col-md-3 col-form-label">Telephone</label>
-                                                <input type="text" class="form-control" formControlName="contactNumber"
-                                                    placeholder="telephone">
+                                                <input class="form-control" formControlName="contactNumber"
+                                                    placeholder="telephone"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped]="true">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -316,10 +316,10 @@
                                             <div class="mb-3">
                                                 <label for="apcontactNumber"
                                                     class="col-md-3 col-form-label">Phone</label>
-                                                <input type="text" class="form-control"
+                                                <input class="form-control"
                                                     formControlName="apcontactNumber"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.apcontactNumber.errors}"
-                                                    placeholder="number">
+                                                    placeholder="number"  prefix="+1 " mask="(000) 000-0000" [showMaskTyped]="true">
                                                 <div *ngIf="isFormSubmitted && form.apcontactNumber.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -404,10 +404,11 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="bankContactNumber"
-                                                    class="col-md-3 col-form-label">Phone</label>
-                                                <input type="text" class="form-control"
+                                                    class="col-md-3 col-form-label required">Phone</label>
+                                                <input class="form-control"
                                                     formControlName="bankContactNumber"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankContactNumber.errors}">
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankContactNumber.errors}"
+                                                    prefix="+1 " mask="(000) 000-0000" [showMaskTyped]="true">
                                                 <div *ngIf="isFormSubmitted && form.bankContactNumber.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -596,8 +597,9 @@
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="tradeCompanyPhone"
-                                                        class="col-md-3 col-form-label">Phone#</label>
-                                                    <input type="text" class="form-control"
+                                                        class="col-md-3 col-form-label required">Phone#</label>
+                                                    <input class="form-control"
+                                                    prefix="+1 " mask="(000) 000-0000" [showMaskTyped]="true"
                                                         formControlName="tradeCompanyPhone"
                                                         [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyPhone.errors}"
                                                         placeholder="phone">
@@ -632,9 +634,9 @@
                                                         class="col-md-3 col-form-label">E-Mail(Optional)</label>
                                                     <input type="email" class="form-control"
                                                         formControlName="tradeCompanyEmail"
-                                                        [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyEmail.errors}"
-                                                        placeholder="phone">
-                                                    <div *ngIf="isFormSubmitted && tradeFormValidations(i).tradeCompanyEmail.errors?.required"
+                                                        [ngClass]="{'is-invalid': isFormSubmitted && form.tradeCompanyEmail.errors}"
+                                                        placeholder="email">
+                                                    <div *ngIf="isFormSubmitted && form.tradeCompanyEmail.errors?.required"
                                                         class="invalid-feedback">
                                                         Required
                                                     </div>
