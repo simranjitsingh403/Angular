@@ -1,0 +1,657 @@
+<div class="row">
+
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                
+                <img [src]="logo" routerLink="." style="width: 225px;margin-left: -20px;">
+                <h6 class="card-title">Application for Credit</h6>
+
+                <form (ngSubmit)="formSubmit()" [formGroup]="validationForm">
+                    <p><b>Date : </b>{{date}}</p>
+                    <p><b>Payment Terms : </b>Our Terms are <b>Net 30</b></p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="isPORequired">
+                                        <input type="checkbox" class="form-check-input" (change)="fieldsChange($event)"
+                                            formControlName="isPORequired"
+                                            [ngClass]="{'is-invalid': isFormSubmitted && form.isPORequired.errors}">
+                                        PO Required?
+                                    </label>
+                                    <div *ngIf="isFormSubmitted && form.isPORequired.errors?.required"
+                                        class="invalid-feedback">
+                                        Required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="isTaxExempt">
+                                        <input type="checkbox" class="form-check-input"
+                                            (change)="TaxExemptChange($event)" formControlName="isTaxExempt"
+                                            [ngClass]="{'is-invalid': isFormSubmitted && form.isTaxExempt.errors}">
+                                        Tax Exempt?
+                                    </label>
+                                    <div *ngIf="isFormSubmitted && form.isTaxExempt.errors?.required"
+                                        class="invalid-feedback">
+                                        Required
+                                    </div>
+                                </div>
+                                <p>If yes, please attach signed copy of resale certificate.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isTaxExempt" class="col-md-6">
+                        <div class="mb-3">
+                            <label class="col-form-label">Resale Certificate</label>
+                            <div>
+                                <input class="form-control" type="file" #file formControlName="taxExemptAttachment"
+                                    (change)="UploadCertificate(file.files)"
+                                    [ngClass]="{'is-invalid': isFormSubmitted && form.taxExemptAttachment.errors}">
+                                <div *ngIf="isFormSubmitted && form.taxExemptAttachment.errors?.required"
+                                    class="invalid-feedback">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="businessYears" class="col-md-3 col-form-label">Years in Business</label>
+                            <input type="number" class="form-control" formControlName="businessYears"
+                                [ngClass]="{'is-invalid': isFormSubmitted && form.businessYears.errors}"
+                                placeholder="years">
+                            <div *ngIf="isFormSubmitted && form.businessYears.errors?.required"
+                                class="invalid-feedback">
+                                Required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="taxID" class="col-md-3 col-form-label">Tax ID#</label>
+                            <input type="text" class="form-control" formControlName="taxID"
+                                [ngClass]="{'is-invalid': isFormSubmitted && form.taxID.errors}" placeholder="Tax ID#">
+                            <div *ngIf="isFormSubmitted && form.taxID.errors?.required" class="invalid-feedback">
+                                Required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-body">
+                                <h6 class="card-title">Company Information</h6>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="companyName" class="col-md-3 col-form-label">Name of
+                                                    Company</label>
+                                                <input type="text" class="form-control" formControlName="companyName"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.companyName.errors}"
+                                                    placeholder="name">
+                                                <div *ngIf="isFormSubmitted && form.companyName.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 grid-margin">
+                                    <div class="card rounded">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Shipping Information</h6>
+                                            <div class="col-md-12">
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="shippingAddress"
+                                                                class="col-md-3 col-form-label">Shipping Address</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="shippingAddress"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.shippingAddress.errors}"
+                                                                placeholder="address">
+                                                            <div *ngIf="isFormSubmitted && form.shippingAddress.errors?.required"
+                                                                class="invalid-feedback">
+                                                                Required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="shippingZip"
+                                                                class="col-md-3 col-form-label">Zip</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="shippingZip"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.shippingZip.errors}"
+                                                                placeholder="zip">
+                                                            <div *ngIf="isFormSubmitted && form.shippingZip.errors?.required"
+                                                                class="invalid-feedback">
+                                                                Required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="shippingStateId"
+                                                                class="col-md-3 col-form-label">State</label>
+                                                            <div>
+                                                                <ng-select [items]="states" bindLabel="name"
+                                                                    bindValue="id" placeholder="Select State"
+                                                                    formControlName="shippingStateId"
+                                                                    (change)="shippingStateChange($event)">
+                                                                </ng-select>
+                                                            </div>
+                                                            <div *ngIf="isFormSubmitted && form.shippingStateId.errors?.required"
+                                                                style="color:red;">
+                                                                Required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="shippingCityId"
+                                                                class="col-md-3 col-form-label">City</label>
+                                                            <div>
+                                                                <ng-select [items]="shippingCities" bindLabel="name"
+                                                                    bindValue="id" placeholder="Select City"
+                                                                    formControlName="shippingCityId">
+                                                                </ng-select>
+                                                                <div *ngIf="isFormSubmitted && form.shippingCityId.errors?.required"
+                                                                    style="color:red;">
+                                                                    Required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 grid-margin">
+                                    <div class="card rounded">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Billing Information</h6>
+                                            <div class="col-md-12">
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="billingAddress"
+                                                                class="col-md-3 col-form-label">Billing Address</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="billingAddress"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.billingAddress.errors}"
+                                                                placeholder="address">
+                                                            <div *ngIf="isFormSubmitted && form.billingAddress.errors?.required"
+                                                                class="invalid-feedback">
+                                                                Required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="billingZip"
+                                                                class="col-md-3 col-form-label">Zip</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="billingZip"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.billingZip.errors}"
+                                                                placeholder="zip">
+                                                            <div *ngIf="isFormSubmitted && form.billingZip.errors?.required"
+                                                                class="invalid-feedback">
+                                                                Required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="billingStateId"
+                                                                class="col-md-3 col-form-label">State</label>
+                                                            <div>
+                                                                <ng-select [items]="states" bindLabel="name"
+                                                                    bindValue="id" placeholder="Select State"
+                                                                    formControlName="billingStateId"
+                                                                    (change)="billingStateChange($event)">
+                                                                </ng-select>
+                                                            </div>
+                                                            <div *ngIf="isFormSubmitted && form.billingStateId.errors?.required"
+                                                                style="color:red;">
+                                                                Required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="billingCityId"
+                                                                class="col-md-3 col-form-label">City</label>
+                                                            <div>
+                                                                <ng-select [items]="billingCities" bindLabel="name"
+                                                                    bindValue="id" placeholder="Select City"
+                                                                    formControlName="billingCityId">
+                                                                </ng-select>
+                                                                <div *ngIf="isFormSubmitted && form.billingCityId.errors?.required"
+                                                                    style="color:red;">
+                                                                    Required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="contactNumber"
+                                                    class="col-md-3 col-form-label">Telephone</label>
+                                                <input type="text" class="form-control" formControlName="contactNumber"
+                                                    placeholder="telephone">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="fax" class="col-md-3 col-form-label">Fax</label>
+                                                <input type="text" class="form-control" formControlName="fax"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.fax.errors}"
+                                                    placeholder="fax">
+                                                <div *ngIf="isFormSubmitted && form.fax.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="apcontactName" class="col-md-3 col-form-label">A/P Contact
+                                                    Name</label>
+                                                <input type="text" class="form-control" formControlName="apcontactName"
+                                                    placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="apcontactNumber"
+                                                    class="col-md-3 col-form-label">Phone</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="apcontactNumber"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.apcontactNumber.errors}"
+                                                    placeholder="number">
+                                                <div *ngIf="isFormSubmitted && form.apcontactNumber.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="apcontactMail" class="col-md-3 col-form-label">A/P Contact
+                                                    E-Mail</label>
+                                                <input type="email" class="form-control" formControlName="apcontactMail"
+                                                    placeholder="email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="col-md-3 col-form-label">Invoice Preference</label>
+                                                <div>
+                                                    <div class="form-check form-check-inline mt-2">
+                                                        <input type="radio" class="form-check-input"
+                                                            formControlName="invoicePreference" value="1" (change)="InvoiceEmailSelect($event)">
+                                                        <label class="form-check-label" for="mail">
+                                                            Mail
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="radio" class="form-check-input"
+                                                            formControlName="invoicePreference" value="2" (change)="InvoiceEmailSelect($event)">
+                                                        <label class="form-check-label" for="e-mail">
+                                                            E-Mail
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12" *ngIf="isInvoiceEmail">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="invoiceEmail"
+                                                    class="col-md-3 col-form-label">Invoice Submission E-Mail</label>
+                                                <input type="email" class="form-control" formControlName="invoiceEmail"
+                                                    placeholder="email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-body">
+                                <h6 class="card-title">Banking Information</h6>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="bankName"
+                                                    class="col-md-3 col-form-label">Bank</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="bankName"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankName.errors}"
+                                                    placeholder="name">
+                                                <div *ngIf="isFormSubmitted && form.bankName.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="bankContactNumber" class="col-md-3 col-form-label">Phone</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="bankContactNumber"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankContactNumber.errors}">
+                                                <div *ngIf="isFormSubmitted && form.bankContactNumber.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="bankAddress"
+                                                    class="col-md-3 col-form-label">Address</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="bankAddress"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankAddress.errors}"
+                                                    placeholder="address">
+                                                <div *ngIf="isFormSubmitted && form.bankAddress.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="bankZip"
+                                                    class="col-md-3 col-form-label">Zip</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="bankZip"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankZip.errors}"
+                                                    placeholder="zip">
+                                                <div *ngIf="isFormSubmitted && form.bankZip.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="bankStateId"
+                                                    class="col-md-3 col-form-label">State</label>
+                                                <div>
+                                                    <ng-select [items]="states" bindLabel="name"
+                                                        bindValue="id" placeholder="Select State"
+                                                        formControlName="bankStateId"
+                                                        (change)="bankStateChange($event)">
+                                                    </ng-select>
+                                                </div>
+                                                <div *ngIf="isFormSubmitted && form.bankStateId.errors?.required"
+                                                    style="color:red;">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="bankCityId"
+                                                    class="col-md-3 col-form-label">City</label>
+                                                <div>
+                                                    <ng-select [items]="bankCities" bindLabel="name"
+                                                        bindValue="id" placeholder="Select City"
+                                                        formControlName="bankCityId">
+                                                    </ng-select>
+                                                    <div *ngIf="isFormSubmitted && form.bankCityId.errors?.required"
+                                                        style="color:red;">
+                                                        Required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-body">
+                                <h6 class="card-title">Owner Information</h6>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="presidentName"
+                                                    class="col-md-3 col-form-label">President/Owner</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="presidentName"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.presidentName.errors}"
+                                                    placeholder="name">
+                                                <div *ngIf="isFormSubmitted && form.presidentName.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="vicePresidentName" class="col-md-3 col-form-label">Vice President</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="vicePresidentName"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.vicePresidentName.errors}">
+                                                <div *ngIf="isFormSubmitted && form.vicePresidentName.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="secretary"
+                                                    class="col-md-3 col-form-label">Secretary/Treasurer</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="secretary"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.secretary.errors}"
+                                                    placeholder="name">
+                                                <div *ngIf="isFormSubmitted && form.secretary.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="signature" class="col-md-3 col-form-label">Signature</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="signature"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.signature.errors}">
+                                                <div *ngIf="isFormSubmitted && form.signature.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div formArrayName="tradeRefs">
+                    <div class="col-md-12 grid-margin" *ngFor="let value of tradeRefsControls; index as i">
+                        <div class="card rounded" [formGroupName]="i">
+                            <div class="card-body">
+                                <h6 class="card-title">Trade References {{i+1}}</h6>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="tradeCompanyName"
+                                                    class="col-md-3 col-form-label">Company</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="tradeCompanyName"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.tradeCompanyName.errors}"
+                                                    placeholder="name">
+                                                <div *ngIf="isFormSubmitted && form.tradeCompanyName.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="tradeCompanyAddress" class="col-md-3 col-form-label">Address</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="tradeCompanyAddress"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.tradeCompanyAddress.errors}">
+                                                <div *ngIf="isFormSubmitted && form.tradeCompanyAddress.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="tradeCompanyPhone"
+                                                    class="col-md-3 col-form-label">Phone#</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="tradeCompanyPhone"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.tradeCompanyPhone.errors}"
+                                                    placeholder="phone">
+                                                <div *ngIf="isFormSubmitted && form.tradeCompanyPhone.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="tradeCompanyFax" class="col-md-3 col-form-label">Fax#</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="tradeCompanyFax"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.tradeCompanyFax.errors}">
+                                                <div *ngIf="isFormSubmitted && form.tradeCompanyFax.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="tradeCompanyEmail"
+                                                    class="col-md-3 col-form-label">E-Mail(Optional)</label>
+                                                <input type="email" class="form-control"
+                                                    formControlName="tradeCompanyEmail"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.tradeCompanyEmail.errors}"
+                                                    placeholder="phone">
+                                                <div *ngIf="isFormSubmitted && form.tradeCompanyEmail.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
