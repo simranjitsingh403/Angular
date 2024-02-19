@@ -1,0 +1,76 @@
+<div class="row">
+
+  <div class="col-md-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Customer Form</h6>
+
+        <form [formGroup]="validationForm">
+
+          <div class="col-md-12 grid-margin">
+            <div class="card rounded">
+              <div class="card-body">
+                <h6 class="card-title">Personal Information</h6>
+                <div class="col-md-12">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="firstName" class="col-md-3 col-form-label required">First Name</label>
+                        <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.firstName.errors}" placeholder="First name">
+                        <div *ngIf="isFormSubmitted && form.firstName.errors?.required" class="invalid-feedback">
+                          Required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="lastName" class="col-md-3 col-form-label required">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}" placeholder="Last name">
+                        <div *ngIf="isFormSubmitted && form.lastName.errors?.required" class="invalid-feedback">
+                          Required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="middleName" class="col-md-3 col-form-label">Middle Name</label>
+                        <input type="text" class="form-control" id="middleName" formControlName="middleName"
+                          placeholder="Middle Name">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="email" class="col-md-3 col-form-label required">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email"
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}" placeholder="email">
+                        <div *ngIf="isFormSubmitted && form.email.errors?.required" class="invalid-feedback">
+                          Required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <app-shipment [show]="true" [cities]="result.cities" [states]="result.states" [comodities]="result.comodities"></app-shipment>
+
+          <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-success" type="button" value="submit" (click)="formSubmit($event)">Submit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

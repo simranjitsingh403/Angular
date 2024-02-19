@@ -28,6 +28,8 @@ import { OwnerComponent } from './views/pages/owner-module/owner/owner.component
 import { OwnersComponent } from './views/pages/owner-module/owners/owners.component';
 import { DriverDashboardComponent } from './views/pages/driver-module/driver-dashboard/driver-dashboard/driver-dashboard.component';
 import { OwnerDashboardComponent } from './views/pages/owner-module/owner-dashboard/owner-dashboard/owner-dashboard.component';
+import { CustomerComponent } from './views/pages/customer-module/customer/customer/customer.component';
+import { ShipmentComponent } from './views/pages/shipment/shipment/shipment.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     OwnerComponent,
     OwnersComponent,
     DriverDashboardComponent,
-    OwnerDashboardComponent
+    OwnerDashboardComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     SweetAlert2Module.forRoot(),
     NgxMaskModule.forRoot(),
     QuillModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ShipmentComponent
   ],
   providers: [
     AuthGuard,

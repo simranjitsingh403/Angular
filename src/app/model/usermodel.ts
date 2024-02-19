@@ -21,4 +21,5 @@ export class Usermodel {
     password:string
     confirmPassword:string
     passwordToken:string
+    customerId : string
 }
