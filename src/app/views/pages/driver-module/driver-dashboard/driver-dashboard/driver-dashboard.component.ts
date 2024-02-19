@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { log } from 'console';
@@ -22,7 +23,7 @@ export class DriverDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.navService.get<Drivermodel>("Driver/Account/Register?Id=" + this.driverId).subscribe((response) => {
-      this.result = response;;this.GetStatus(response.formStatusId);}, e => this.toastr.error(e.message));
+      this.result = response;this.GetStatus(response.formStatusId);}, e => this.toastr.error(e.message));
   }
 
   GetStatus(Id:number){
@@ -34,7 +35,7 @@ export class DriverDashboardComponent implements OnInit {
   }
 
   EditClick(){
-    this.router.navigate(['/driver/register/' + this.result.id]);
+    this.router.navigate(['/admin/driver/register/' + this.result.id]);
   }
 
 }

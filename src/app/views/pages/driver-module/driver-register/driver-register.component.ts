@@ -35,7 +35,7 @@ export class DriverRegistorComponent implements OnInit {
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
   logo = "/assets/images/OneLift_black.png";
-  isLogin=localStorage.getItem('isLoggedin') == null ? false : true;
+  isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -165,7 +165,16 @@ export class DriverRegistorComponent implements OnInit {
           if (this.result.id == "00000000-0000-0000-0000-000000000000") {
             this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
           } else {
-            this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+            this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
+              if (d.success == true) {
+                this.toastr.success(d.message);
+                if (this.userdetails.roleName == 'Driver') {
+                  this.router.navigate(['/admin/dashboard']);
+                } else {
+                  this.router.navigate(['/admin/drivers']);
+                }
+              } else { this.toastr.error(d.message) }
+            });
           }
         }
       });
@@ -175,7 +184,15 @@ export class DriverRegistorComponent implements OnInit {
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
         this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
       } else {
-        this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+        this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
+          if (d.success == true) {
+            this.toastr.success(d.message); if (this.userdetails.roleName == 'Driver') {
+              this.router.navigate(['/admin/dashboard']);
+            } else {
+              this.router.navigate(['/admin/drivers']);
+            }
+          } else { this.toastr.error(d.message) }
+        });
       }
     }
 

@@ -7,8 +7,6 @@ import { DriverRegistorComponent } from './views/pages/driver-module/driver-regi
 import { RoleComponent } from './views/pages/auth/role/role.component';
 import { OwnerComponent } from './views/pages/owner-module/owner/owner.component';
 import { DriverTableComponent } from './views/pages/driver-module/driver-table/driver-table.component';
-import { DriverDashboardComponent } from './views/pages/driver-module/driver-dashboard/driver-dashboard/driver-dashboard.component';
-import { OwnerDashboardComponent } from './views/pages/owner-module/owner-dashboard/owner-dashboard/owner-dashboard.component';
 import { ForgotPasswordComponent } from './views/pages/auth/forgot-password/forgot-password/forgot-password.component';
 import { CustomerComponent } from './views/pages/customer-module/customer/customer/customer.component';
 
@@ -69,11 +67,6 @@ const routes: Routes = [
     component:DriverRegistorComponent
   },
   {
-    path:'driver/dashboard',
-    pathMatch:'prefix',
-    component:DriverDashboardComponent
-  },
-  {
     path: 'driver/register/:id',
     component: DriverRegistorComponent
   },
@@ -92,11 +85,6 @@ const routes: Routes = [
     path:'owner',
     pathMatch:'prefix',
     component:OwnerComponent
-  },
-  {
-    path:'owner/dashboard',
-    pathMatch:'prefix',
-    component:OwnerDashboardComponent
   },
   {
     path:'owner/:id',

@@ -62,9 +62,9 @@ export class LoginComponent implements OnInit {
             this.userdetails = JSON.parse(localStorage.getItem('userDetails') || "{}");
 
             if (this.userdetails.roleName == 'Driver') {
-              this.router.navigate(["/driver/dashboard"]);
+              this.router.navigate(["/admin/dashboard"]);
             } else if(this.userdetails.roleName == 'Owner'){
-              this.router.navigate(["/owner/dashboard"]);
+              this.router.navigate(["/admin/ownerdashboard"]);
             }else{
               this.router.navigate([this.returnUrl]);
             }

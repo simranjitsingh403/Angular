@@ -122,7 +122,7 @@ export class OwnerComponent implements OnInit {
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
               this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
             } else {
-              this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+              this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); if(this.userdetails.roleName=="Owner"){ this.router.navigate(['/admin/ownerdashboard']);}else{this.router.navigate(['/admin/owners']);}  } else { this.toastr.error(d.message) } });
             }
           }
         });
@@ -132,7 +132,7 @@ export class OwnerComponent implements OnInit {
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
           this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
         } else {
-          this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+          this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message);if(this.userdetails.roleName=="Owner"){this.router.navigate(['/admin/ownerdashboard']);}else{this.router.navigate(['/admin/owners']); } } else { this.toastr.error(d.message) } });
         }
       }
 

@@ -6,22 +6,27 @@
                 <div class="row">
                     <div class="col-md-6 grid-margin">
                         <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Driver Application</h3>
-                                <p><b>First Name : </b>{{result.firstName}}</p>
-                                <p><b>Last Name : </b>{{result.lastName}}</p>
-                                <p><b>Email : </b>{{result.email}}</p>
-                                <p><b>Phone Number : </b>{{result.phoneNumber}}</p>
-                                <p><b>Submitted : </b>{{result.isSubmitted == true? "Submitted":"Not Submitted"}}</p>
-                                <button *ngIf="result.isSubmitted == false" class="btn btn-outline-primary" (click)="EditClick()"><i class="mdi mdi-pencil"></i> Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 grid-margin">
-                        <div class="card">
-                            <div class="card-body">
-                            <h3 class="card-title">Application Status</h3>
-                            <p><b>Status : </b>{{statusName}}</p>
+                            <div class="card-body" [ngStyle]="{'background-color': (result.formStatusId==2) ? '#E5FFE4' :( (result.formStatusId==3)? '#FFE4E4':'#FFFFFF')}">
+                                <h3 class="card-title">{{result.firstName + ' ' + (result.middleName??'') +' '+result.lastName}}</h3>
+                                <table>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>: {{result.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact Number</th>
+                                        <td>: {{result.phoneNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Application Status</th>
+                                        <td>: <span [ngStyle]="{'color': (result.formStatusId==2) ? 'green' :( (result.formStatusId==3)? 'red':'black')}">{{statusName}}</span></td>
+                                    </tr>
+                                    <tr *ngIf="result.rejectedReason!=null && result.formStatusId==3">
+                                        <th>Rejected Reason</th>
+                                        <td>: {{result.rejectedReason}}</td>
+                                    </tr>
+                                </table>
+                                <button style="float: right;" *ngIf="(result.isSubmitted == false && result.formStatusId!=2) || result.formStatusId==3" class="btn btn-outline-dark" (click)="EditClick()"><i class="mdi mdi-pencil"></i> Edit</button>
                             </div>
                         </div>
                     </div>

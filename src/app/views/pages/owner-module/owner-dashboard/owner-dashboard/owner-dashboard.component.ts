@@ -25,7 +25,7 @@ export class OwnerDashboardComponent implements OnInit {
   }
 
   EditClick(){
-    this.router.navigate(['/owner/' + this.result.id]);
+    this.router.navigate(['admin/owner/' + this.result.id]);
   }
 
   GetStatus(Id:number){
