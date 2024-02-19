@@ -150,7 +150,7 @@ export class CustomerCreditComponent implements OnInit {
     this.result.trades = this.trades;
     
     if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-      this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } });
+      this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message);this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } });
     } else {
       this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } });
     }
