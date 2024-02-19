@@ -9,7 +9,6 @@ import { OwnerComponent } from './views/pages/owner-module/owner/owner.component
 import { DriverTableComponent } from './views/pages/driver-module/driver-table/driver-table.component';
 import { ForgotPasswordComponent } from './views/pages/auth/forgot-password/forgot-password/forgot-password.component';
 import { CustomerComponent } from './views/pages/customer-module/customer/customer/customer.component';
-import { CustomerCreditComponent } from './views/pages/customer-module/customer-credit/customer-credit.component';
 
 const routes: Routes = [
   { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
@@ -100,11 +99,6 @@ const routes: Routes = [
     path:'customer',
     pathMatch:'prefix',
     component:CustomerComponent
-  },
-  {
-    path:'customer/credit',
-    pathMatch:'prefix',
-    component:CustomerCreditComponent
   },
   { 
     path: 'error',

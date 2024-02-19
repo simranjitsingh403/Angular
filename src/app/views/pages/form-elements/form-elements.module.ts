@@ -25,6 +25,7 @@ import { UserGridComponent } from '../auth/user-grid/user-grid.component';
 import { DriverTableComponent } from '../driver-module/driver-table/driver-table.component';
 import { DriverDashboardComponent } from '../driver-module/driver-dashboard/driver-dashboard/driver-dashboard.component';
 import { OwnerDashboardComponent } from '../owner-module/owner-dashboard/owner-dashboard/owner-dashboard.component';
+import { CustomerCreditComponent } from '../customer-module/customer-credit/customer-credit.component';
 const routes: Routes = [
   {
     path: '',
@@ -94,6 +95,10 @@ const routes: Routes = [
       {
         path: 'ownerdashboard',
         component: OwnerDashboardComponent
+      },
+      {
+        path: 'customer/credit',
+        component: CustomerCreditComponent
       }
     ]
   }
