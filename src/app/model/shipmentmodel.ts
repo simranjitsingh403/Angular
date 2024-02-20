@@ -2,11 +2,11 @@ export class Shipmentmodel {
     id: string
     customerId: string
     originAddress: string
-    originCityId: number
+    originCityName: string
     originStateId: number
     originZip: string
     destinationAddress: string
-    destinationCityId: number
+    destinationCityName: string
     destinationStateId: number
     destinationZip: string
     height: number

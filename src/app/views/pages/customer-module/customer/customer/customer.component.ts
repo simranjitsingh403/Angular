@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/api.service';
 import { environment } from 'src/environments/environment';
 import { ShipmentComponent } from '../../../shipment/shipment/shipment.component';
 import { Customermodel } from 'src/app/model/customermodel';
+import { Usermodel } from 'src/app/model/usermodel';
 
 @Component({
   selector: 'app-customer',
@@ -19,6 +20,8 @@ export class CustomerComponent implements OnInit {
   @ViewChild(ShipmentComponent) shipmentComponent: ShipmentComponent;
   result:Customermodel = new Customermodel();
   isLogin=localStorage.getItem('isLoggedin') == null ? false : true;
+  userdetails:Usermodel = new Usermodel();
+  
   logo = "/assets/images/OneLift_black.png";
   customerId: any = this.route.snapshot.params['id'] == undefined? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
 
@@ -29,7 +32,7 @@ export class CustomerComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       middleName: [''],
-      email:[,Validators.required],
+      email:['',Validators.required],
     });
 
     this.navService.get<Customermodel>("Customer/Customer/Register?Id=" + this.customerId).subscribe((response) => {
@@ -64,11 +67,11 @@ export class CustomerComponent implements OnInit {
       this.result.middleName = this.form.middleName.value;
       this.result.email = this.form.email.value;
       this.result.shipment.originAddress = this.shipmentForm.originAddress.value;
-      this.result.shipment.originCityId = this.shipmentForm.originCityId.value;
+      this.result.shipment.originCityName = this.shipmentForm.originCityName.value;
       this.result.shipment.originStateId = this.shipmentForm.originStateId.value;
       this.result.shipment.originZip = this.shipmentForm.originZip.value;
       this.result.shipment.destinationAddress = this.shipmentForm.destinationAddress.value;
-      this.result.shipment.destinationCityId = this.shipmentForm.destinationCityId.value;
+      this.result.shipment.destinationCityName = this.shipmentForm.destinationCityName.value;
       this.result.shipment.destinationStateId = this.shipmentForm.destinationStateId.value;
       this.result.shipment.destinationZip = this.shipmentForm.destinationZip.value;
       this.result.shipment.height = this.shipmentForm.height.value;
@@ -87,8 +90,8 @@ export class CustomerComponent implements OnInit {
           if (localStorage.getItem('isLoggedin')) {
             localStorage.setItem('token', d.token);
             localStorage.setItem('userDetails', d.user);
-
-            this.router.navigate(["/admin/shipper/credit"]);
+            this.userdetails = JSON.parse(localStorage.getItem('userDetails') || "{}");
+            this.router.navigate(["/admin/shipper/credit/"+ this.userdetails.customerId]);
           }
         } else { this.toastr.error(d.message) } });
       }
