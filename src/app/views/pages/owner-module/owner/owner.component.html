@@ -193,6 +193,16 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
+                        <label for="parkingCityName" class="col-md-3 col-form-label required">City</label>
+                        <input type="text" class="form-control" formControlName="parkingCityName"
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.parkingCityName.errors}" placeholder="City Name">
+                        <div *ngIf="isFormSubmitted && form.parkingCityName.errors?.required" class="invalid-feedback">
+                          Required
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
                         <label for="parkingStateId" class="col-md-3 col-form-label required">State</label>
                         <div>
                           <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
@@ -204,19 +214,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="cityId" class="col-md-3 col-form-label required">City</label>
-                        <div>
-                          <ng-select [items]="newCities" bindLabel="name" bindValue="id" placeholder="Select City"
-                            formControlName="cityId">
-                          </ng-select>
-                          <div *ngIf="isFormSubmitted && form.cityId.errors?.required" style="color:red;">
-                            Required
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
               </div>

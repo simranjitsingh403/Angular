@@ -13,7 +13,7 @@ export class Ownermodel {
     license: string
     stateId: number
     experience: number
-    parkingCityId: number
+    parkingCityName: string
     parkingStateId:number
     isDeleted: boolean
     states: []

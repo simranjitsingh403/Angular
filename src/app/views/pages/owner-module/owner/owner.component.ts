@@ -40,7 +40,7 @@ export class OwnerComponent implements OnInit {
       modal: [''],
       vinCode: [''],
       type: ['', Validators.required],
-      cityId: ['', Validators.required],
+      parkingCityName: ['', Validators.required],
       stateId: ['', Validators.required],
       license: ['', Validators.required],
       parkingStateId: ['', Validators.required],
@@ -64,7 +64,7 @@ export class OwnerComponent implements OnInit {
         modal: this.result.modal,
         vinCode: this.result.vinCode,
         type: this.result.typeId == 0 ? '1' : this.result.typeId.toString(),
-        cityId: this.result.parkingCityId != 0 ? this.result.parkingCityId : null,
+        parkingCityName: this.result.parkingCityName,
         stateId: this.result.stateId != 0 ? this.result.stateId : null,
         license: this.result.license,
         experience: this.result.experience,
@@ -100,7 +100,8 @@ export class OwnerComponent implements OnInit {
       this.result.modal = this.form.modal.value;
       this.result.vinCode = this.form.vinCode.value;
       this.result.typeId = this.form.type.value;
-      this.result.parkingCityId = this.form.cityId.value;
+      this.result.parkingCityName = this.form.parkingCityName.value;
+      this.result.parkingStateId = this.form.parkingStateId.value;
       this.result.stateId = this.form.stateId.value;
       this.result.license = this.form.license.value;
       this.result.experience = this.form.experience.value;
