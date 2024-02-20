@@ -98,6 +98,7 @@ export class CustomerComponent implements OnInit {
       
     }
     this.isFormSubmitted = true;
+    this.shipmentComponent.isFormSubmitted = true;
   }
 
 }

@@ -28,14 +28,14 @@ export class ShipmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
-      originAddress: [],
-      originZip: [],
-      originStateId: [],
-      originCityName: [],
-      destinationAddress: [],
-      destinationZip: [],
-      destinationStateId: [],
-      destinationCityName: [],
+      originAddress: [, Validators.required],
+      originZip: [, Validators.required],
+      originStateId: [null, Validators.required],
+      originCityName: [, Validators.required],
+      destinationAddress: [, Validators.required],
+      destinationZip: [, Validators.required],
+      destinationStateId: [null, Validators.required],
+      destinationCityName: [, Validators.required],
       height: [],
       width: [],
       length: [],
