@@ -20,7 +20,6 @@ export class ShipmentComponent implements OnInit {
   isFormSubmitted: Boolean;
   apiPath: string = environment.baseURL;
   @Input() show: boolean;
-  @Input() cities:any = [];
   @Input() states = [];
   originCities=[];
   destinationCities=[];
@@ -29,14 +28,14 @@ export class ShipmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
-      originAddress: [],
-      originZip: [],
-      originStateId: [],
-      originCityName: [],
-      destinationAddress: [],
-      destinationZip: [],
-      destinationStateId: [],
-      destinationCityName: [],
+      originAddress: ['', Validators.required],
+      originZip: ['', Validators.required],
+      originStateId: [null, Validators.required],
+      originCityName: ['', Validators.required],
+      destinationAddress: ['', Validators.required],
+      destinationZip: ['', Validators.required],
+      destinationStateId: [null, Validators.required],
+      destinationCityName: ['', Validators.required],
       height: [],
       width: [],
       length: [],
@@ -47,7 +46,8 @@ export class ShipmentComponent implements OnInit {
     });
   }
 
-  get form() {
+  get shipmentForm() {
+    debugger;
     return this.validationForm.controls;
   }
   

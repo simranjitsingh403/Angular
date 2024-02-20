@@ -29,7 +29,7 @@ export class CustomerComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       middleName: [''],
-      email:[,Validators.required]
+      email:[,Validators.required],
     });
 
     this.navService.get<Customermodel>("Customer/Customer/Register?Id=" + this.customerId).subscribe((response) => {
@@ -53,6 +53,7 @@ export class CustomerComponent implements OnInit {
   }
 
   get shipmentForm(){
+    debugger;
     return this.shipmentComponent.validationForm.controls;
   }
   
