@@ -76,11 +76,20 @@ export class CustomerComponent implements OnInit {
       this.result.shipment.weight = this.shipmentForm.weight.value;
       this.result.shipment.isHazmat = this.shipmentForm.isHazmat.value;
       this.result.shipment.comments = this.shipmentForm.comments.value;
-      this.result.shipment.comodityId = this.shipmentForm.comodityId.value;
+      this.result.shipment.comodity = this.shipmentForm.comodity.value;
       this.result.shipment.jwtToken = localStorage.getItem('token');
       
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-        this.navService.post<any>("Customer/Customer/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/auth/login']); } else { this.toastr.error(d.message) } });
+        this.navService.post<any>("Customer/Customer/Register", this.result).subscribe(d => { if (d.success == true) { 
+          this.toastr.success("Record saved successfully"); 
+          localStorage.setItem('isLoggedin', 'true');
+          if (localStorage.getItem('isLoggedin')) {
+            localStorage.setItem('token', d.token);
+            localStorage.setItem('userDetails', d.user);
+
+            this.router.navigate(["/admin/customer/credit"]);
+          }
+        } else { this.toastr.error(d.message) } });
       }
       
     }

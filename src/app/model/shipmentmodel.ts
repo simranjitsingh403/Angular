@@ -15,7 +15,7 @@ export class Shipmentmodel {
     weight: number
     isHazmat: boolean
     comments: string
-    comodityId: number
+    comodity: string
     statusId: number
     isDeleted: boolean
     createdBy: string

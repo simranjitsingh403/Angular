@@ -14,5 +14,4 @@ export class Customermodel {
     shipment: Shipmentmodel = new Shipmentmodel()
     cities:[] 
     states:[]
-    comodities:[]
 }

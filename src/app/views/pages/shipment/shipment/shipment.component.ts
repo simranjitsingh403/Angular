@@ -24,7 +24,6 @@ export class ShipmentComponent implements OnInit {
   @Input() states = [];
   originCities=[];
   destinationCities=[];
-  @Input() comodities = [];
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
@@ -43,7 +42,7 @@ export class ShipmentComponent implements OnInit {
       length: [],
       weight: [],
       isHazmat: [],
-      comodityId: [],
+      comodity: [],
       comments: []
     });
   }

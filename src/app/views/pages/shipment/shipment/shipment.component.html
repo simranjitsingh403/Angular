@@ -248,15 +248,14 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="comodityId" class="col-md-3 col-form-label">Type of
+                                                <label for="comodity"
+                                                    class="col-md-3 col-form-label">Type of
                                                     comodity</label>
-                                                <div>
-                                                    <ng-select [items]="comodities" bindLabel="name" bindValue="id"
-                                                        placeholder="Select Comodity" formControlName="comodityId">
-                                                    </ng-select>
-                                                </div>
-                                                <div *ngIf="isFormSubmitted && form.comodityId.errors?.required"
-                                                    style="color:red;">
+                                                <input type="text" class="form-control" formControlName="comodity"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.comodity.errors}"
+                                                    placeholder="Comodity">
+                                                <div *ngIf="isFormSubmitted && form.comodity.errors?.required"
+                                                    class="invalid-feedback">
                                                     Required
                                                 </div>
                                             </div>
