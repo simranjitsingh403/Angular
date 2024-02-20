@@ -46,11 +46,11 @@ export class CustomerCreditComponent implements OnInit {
       companyName: ['', Validators.required],
       shippingAddress: ['', Validators.required],
       shippingZip: ['', Validators.required],
-      shippingCityId: [null, Validators.required],
+      shippingCityName: ['', Validators.required],
       shippingStateId: [null, Validators.required],
       billingAddress: ['', Validators.required],
       billingZip: ['', Validators.required],
-      billingCityId: [null, Validators.required],
+      billingCityName: ['', Validators.required],
       billingStateId: [null, Validators.required],
       contactNumber: [,Validators.required],
       apcontactName: [],
@@ -63,7 +63,7 @@ export class CustomerCreditComponent implements OnInit {
       bankAddress: ['', Validators.required],
       bankZip: ['', Validators.required],
       bankStateId: [null, Validators.required],
-      bankCityId: [null, Validators.required],
+      bankCityName: ['', Validators.required],
       presidentName: [],
       vicePresidentName: [],
       secretary: [],
@@ -114,10 +114,10 @@ export class CustomerCreditComponent implements OnInit {
     this.result.shippingAddress = this.form.shippingAddress.value;
     this.result.shippingZip = this.form.shippingZip.value;
     this.result.shippingStateId = this.form.shippingStateId.value;
-    this.result.shippingCityId = this.form.shippingCityId.value;
+    this.result.shippingCityName = this.form.shippingCityName.value;
     this.result.billingAddress = this.form.billingAddress.value;
     this.result.billingZip = this.form.billingZip.value;
-    this.result.billingCityId = this.form.billingCityId.value;
+    this.result.billingCityName = this.form.billingCityName.value;
     this.result.billingStateId = this.form.billingStateId.value;
     this.result.contactNumber = this.form.contactNumber.value;
     this.result.apcontactName = this.form.apcontactName.value;
@@ -129,7 +129,7 @@ export class CustomerCreditComponent implements OnInit {
     this.result.bankAddress = this.form.bankAddress.value;
     this.result.bankZip = this.form.bankZip.value;
     this.result.bankStateId = this.form.bankStateId.value;
-    this.result.bankCityId = this.form.bankCityId.value;
+    this.result.bankCityName = this.form.bankCityName.value;
     this.result.presidentName = this.form.presidentName.value;
     this.result.vicePresidentName = this.form.vicePresidentName.value;
     this.result.secretary = this.form.secretary.value;
@@ -194,18 +194,6 @@ this.isFormSubmitted = true;
         this.result.taxExemptAttachment = v.docPath;
 
       }, e => this.toastr.error(e.error.message));
-  }
-
-  shippingStateChange(value: any) {
-    this.shippingCities = this.cities.filter((s: any) => s.stateId == value.id);
-  }
-
-  billingStateChange(value: any) {
-    this.billingCities = this.cities.filter((s: any) => s.stateId == value.id);
-  }
-
-  bankStateChange(value: any) {
-    this.bankCities = this.cities.filter((s: any) => s.stateId == value.id);
   }
 
   InvoiceEmailSelect(event: any) {
