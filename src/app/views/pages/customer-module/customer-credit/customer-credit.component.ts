@@ -92,6 +92,8 @@ export class CustomerCreditComponent implements OnInit {
 
     this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
+      console.log(response);
+      
 
     }, e => this.toastr.error(e.message), () => {
       this.validationForm.patchValue({

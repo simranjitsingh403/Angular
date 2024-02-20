@@ -98,7 +98,7 @@ const routes: Routes = [
         component: OwnerDashboardComponent
       },
       {
-        path: 'shipper/credit',
+        path: 'shipper/credit/:id',
         component: CustomerCreditComponent
       },
       {
