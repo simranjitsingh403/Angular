@@ -169,18 +169,19 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label for="shippingZip"
-                                                                class="col-md-3 col-form-label required">Zip</label>
-                                                            <input type="text" class="form-control"
-                                                                formControlName="shippingZip"
-                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.shippingZip.errors}"
-                                                                placeholder="Zip">
-                                                            <div *ngIf="isFormSubmitted && form.shippingZip.errors?.required"
+                                                            <label
+                                                                class="col-md-3 col-form-label required">City Name</label>
+                                                                <input type="text" class="form-control"
+                                                                formControlName="shippingCityName"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.shippingCityName.errors}"
+                                                                placeholder="City Name">
+                                                            <div *ngIf="isFormSubmitted && form.shippingCityName.errors?.required"
                                                                 class="invalid-feedback">
                                                                 Required
                                                             </div>
                                                         </div>
                                                     </div>
+                                                  
                                                 </div>
                                             </div>
 
@@ -193,8 +194,7 @@
                                                             <div>
                                                                 <ng-select [items]="states" bindLabel="name"
                                                                     bindValue="id" placeholder="Select State"
-                                                                    formControlName="shippingStateId"
-                                                                    (change)="shippingStateChange($event)">
+                                                                    formControlName="shippingStateId">
                                                                 </ng-select>
                                                             </div>
                                                             <div *ngIf="isFormSubmitted && form.shippingStateId.errors?.required"
@@ -205,17 +205,15 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label for="shippingCityId"
-                                                                class="col-md-3 col-form-label required">City</label>
-                                                            <div>
-                                                                <ng-select [items]="shippingCities" bindLabel="name"
-                                                                    bindValue="id" placeholder="Select City"
-                                                                    formControlName="shippingCityId">
-                                                                </ng-select>
-                                                                <div *ngIf="isFormSubmitted && form.shippingCityId.errors?.required"
-                                                                    style="color:red;">
-                                                                    Required
-                                                                </div>
+                                                            <label for="shippingZip"
+                                                                class="col-md-3 col-form-label required">Zip</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="shippingZip"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.shippingZip.errors}"
+                                                                placeholder="Zip">
+                                                            <div *ngIf="isFormSubmitted && form.shippingZip.errors?.required"
+                                                                class="invalid-feedback">
+                                                                Required
                                                             </div>
                                                         </div>
                                                     </div>
@@ -249,18 +247,19 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label for="billingZip"
-                                                                class="col-md-3 col-form-label required">Zip</label>
-                                                            <input type="text" class="form-control"
-                                                                formControlName="billingZip"
-                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.billingZip.errors}"
-                                                                placeholder="Zip">
-                                                            <div *ngIf="isFormSubmitted && form.billingZip.errors?.required"
+                                                            <label
+                                                                class="col-md-3 col-form-label required">City Name</label>
+                                                                <input type="text" class="form-control"
+                                                                formControlName="billingCityName"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.billingCityName.errors}"
+                                                                placeholder="City Name">
+                                                            <div *ngIf="isFormSubmitted && form.billingCityName.errors?.required"
                                                                 class="invalid-feedback">
                                                                 Required
                                                             </div>
                                                         </div>
                                                     </div>
+                                                   
                                                 </div>
                                             </div>
 
@@ -273,8 +272,7 @@
                                                             <div>
                                                                 <ng-select [items]="states" bindLabel="name"
                                                                     bindValue="id" placeholder="Select State"
-                                                                    formControlName="billingStateId"
-                                                                    (change)="billingStateChange($event)">
+                                                                    formControlName="billingStateId">
                                                                 </ng-select>
                                                             </div>
                                                             <div *ngIf="isFormSubmitted && form.billingStateId.errors?.required"
@@ -285,17 +283,15 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
-                                                            <label for="billingCityId"
-                                                                class="col-md-3 col-form-label required">City</label>
-                                                            <div>
-                                                                <ng-select [items]="billingCities" bindLabel="name"
-                                                                    bindValue="id" placeholder="Select City"
-                                                                    formControlName="billingCityId">
-                                                                </ng-select>
-                                                                <div *ngIf="isFormSubmitted && form.billingCityId.errors?.required"
-                                                                    style="color:red;">
-                                                                    Required
-                                                                </div>
+                                                            <label for="billingZip"
+                                                                class="col-md-3 col-form-label required">Zip</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="billingZip"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.billingZip.errors}"
+                                                                placeholder="Zip">
+                                                            <div *ngIf="isFormSubmitted && form.billingZip.errors?.required"
+                                                                class="invalid-feedback">
+                                                                Required
                                                             </div>
                                                         </div>
                                                     </div>
@@ -442,16 +438,19 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="bankZip" class="col-md-3 col-form-label required">Zip</label>
-                                                <input type="text" class="form-control" formControlName="bankZip"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankZip.errors}"
-                                                    placeholder="Zip">
-                                                <div *ngIf="isFormSubmitted && form.bankZip.errors?.required"
+                                                <label
+                                                    class="col-md-3 col-form-label required">City Name</label>
+                                                    <input type="text" class="form-control"
+                                                    formControlName="bankCityName"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankCityName.errors}"
+                                                    placeholder="City Name">
+                                                <div *ngIf="isFormSubmitted && form.bankCityName.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
                                                 </div>
                                             </div>
                                         </div>
+                                      
                                     </div>
                                 </div>
 
@@ -462,8 +461,7 @@
                                                 <label for="bankStateId" class="col-md-3 col-form-label required">State</label>
                                                 <div>
                                                     <ng-select [items]="states" bindLabel="name" bindValue="id"
-                                                        placeholder="Select State" formControlName="bankStateId"
-                                                        (change)="bankStateChange($event)">
+                                                        placeholder="Select State" formControlName="bankStateId">
                                                     </ng-select>
                                                 </div>
                                                 <div *ngIf="isFormSubmitted && form.bankStateId.errors?.required"
@@ -474,15 +472,13 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="bankCityId" class="col-md-3 col-form-label required">City</label>
-                                                <div>
-                                                    <ng-select [items]="bankCities" bindLabel="name" bindValue="id"
-                                                        placeholder="Select City" formControlName="bankCityId">
-                                                    </ng-select>
-                                                    <div *ngIf="isFormSubmitted && form.bankCityId.errors?.required"
-                                                        style="color:red;">
-                                                        Required
-                                                    </div>
+                                                <label for="bankZip" class="col-md-3 col-form-label required">Zip</label>
+                                                <input type="text" class="form-control" formControlName="bankZip"
+                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.bankZip.errors}"
+                                                    placeholder="Zip">
+                                                <div *ngIf="isFormSubmitted && form.bankZip.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Required
                                                 </div>
                                             </div>
                                         </div>

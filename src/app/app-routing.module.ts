@@ -96,7 +96,7 @@ const routes: Routes = [
     component:ForgotPasswordComponent
   },
   {
-    path:'customer',
+    path:'shipper',
     pathMatch:'prefix',
     component:CustomerComponent
   },

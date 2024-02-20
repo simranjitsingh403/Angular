@@ -31,6 +31,7 @@ import { OwnerDashboardComponent } from './views/pages/owner-module/owner-dashbo
 import { CustomerComponent } from './views/pages/customer-module/customer/customer/customer.component';
 import { ShipmentComponent } from './views/pages/shipment/shipment/shipment.component';
 import { CustomerCreditComponent } from './views/pages/customer-module/customer-credit/customer-credit.component';
+import { CustomerDashboardComponent } from './views/pages/customer-module/customer-dashboard/customer-dashboard.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     DriverDashboardComponent,
     OwnerDashboardComponent,
     CustomerComponent,
-    CustomerCreditComponent
+    CustomerCreditComponent,
+    CustomerDashboardComponent
   ],
   imports: [
     BrowserModule,

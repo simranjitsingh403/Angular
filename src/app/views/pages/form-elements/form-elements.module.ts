@@ -26,6 +26,7 @@ import { DriverTableComponent } from '../driver-module/driver-table/driver-table
 import { DriverDashboardComponent } from '../driver-module/driver-dashboard/driver-dashboard/driver-dashboard.component';
 import { OwnerDashboardComponent } from '../owner-module/owner-dashboard/owner-dashboard/owner-dashboard.component';
 import { CustomerCreditComponent } from '../customer-module/customer-credit/customer-credit.component';
+import { CustomerDashboardComponent } from '../customer-module/customer-dashboard/customer-dashboard.component';
 const routes: Routes = [
   {
     path: '',
@@ -99,6 +100,10 @@ const routes: Routes = [
       {
         path: 'customer/credit',
         component: CustomerCreditComponent
+      },
+      {
+        path: 'shipperdashboard',
+        component: CustomerDashboardComponent
       }
     ]
   }

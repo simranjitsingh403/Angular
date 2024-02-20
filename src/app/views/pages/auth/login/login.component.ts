@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/api.service';
-import { options } from 'src/app/app.module';
 import { Usermodel } from 'src/app/model/usermodel';
 import { environment } from 'src/environments/environment';
 
@@ -67,7 +66,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(["/admin/ownerdashboard"]);
             }
             else if(this.userdetails.roleName == 'Shipper'){
-              this.router.navigate(["/admin/customer/credit"]);
+              this.router.navigate(["/admin/shipperdashboard"]);
             }
             else{
               this.router.navigate([this.returnUrl]);
