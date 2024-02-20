@@ -16,7 +16,7 @@ export class CustomerDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.navService.get<any>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe(x => {
       if (x.id == '00000000-0000-0000-0000-000000000000') {
-        this.router.navigate(["/admin/customer/credit"]);
+        this.router.navigate(["/admin/shipper/credit"]);
       }
     })
   }

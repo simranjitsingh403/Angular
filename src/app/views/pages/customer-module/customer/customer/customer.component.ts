@@ -87,7 +87,7 @@ export class CustomerComponent implements OnInit {
             localStorage.setItem('token', d.token);
             localStorage.setItem('userDetails', d.user);
 
-            this.router.navigate(["/admin/customer/credit"]);
+            this.router.navigate(["/admin/shipper/credit"]);
           }
         } else { this.toastr.error(d.message) } });
       }

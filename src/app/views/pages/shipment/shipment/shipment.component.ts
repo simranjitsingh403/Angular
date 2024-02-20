@@ -32,11 +32,11 @@ export class ShipmentComponent implements OnInit {
       originAddress: [],
       originZip: [],
       originStateId: [],
-      originCityId: [],
+      originCityName: [],
       destinationAddress: [],
       destinationZip: [],
       destinationStateId: [],
-      destinationCityId: [],
+      destinationCityName: [],
       height: [],
       width: [],
       length: [],
@@ -55,14 +55,6 @@ export class ShipmentComponent implements OnInit {
     if (this.validationForm.valid) {
     }
     this.isFormSubmitted = true;
-  }
-
-  originStateChange(value:any){
-    this.originCities = this.cities.filter((s:any) => s.stateId == value.id);
-  }
-
-  destinationStateChange(value:any){
-    this.destinationCities = this.cities.filter((s:any) => s.stateId == value.id);
   }
 
   onSelectionChanged = (event: SelectionChange) => {
