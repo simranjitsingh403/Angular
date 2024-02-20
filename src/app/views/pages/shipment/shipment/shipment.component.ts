@@ -40,7 +40,7 @@ export class ShipmentComponent implements OnInit {
       width: [],
       length: [],
       weight: [],
-      isHazmat: [],
+      isHazmat: [false],
       comodity: [],
       comments: []
     });
