@@ -102,6 +102,10 @@ const routes: Routes = [
         component: CustomerCreditComponent
       },
       {
+        path: 'shipper/credit',
+        component: CustomerCreditComponent
+      },
+      {
         path: 'shipperdashboard',
         component: CustomerDashboardComponent
       }
