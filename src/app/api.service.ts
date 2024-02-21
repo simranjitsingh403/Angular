@@ -3,7 +3,7 @@ import { Event, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Usermodel } from './model/usermodel';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ import { Usermodel } from './model/usermodel';
 export class ApiService {
     public currentUrl = new BehaviorSubject<any>(undefined);
 
-    constructor(private router: Router,private http: HttpClient) {
+    constructor(private router: Router,private http: HttpClient,private spinnerService: NgxSpinnerService) {
+      this.spinnerService.show();
         this.router.events.subscribe((event: Event) => {
             if (event instanceof NavigationEnd) {
                 this.currentUrl.next(event.urlAfterRedirects);
@@ -20,6 +21,7 @@ export class ApiService {
     }
 
     get<T>(url: string, serverURL?: string): Observable<T> {
+      
         const headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.getJwtToken()});
         if (serverURL === undefined) {
           serverURL = environment.baseURL;
@@ -61,6 +63,7 @@ export class ApiService {
       }
 
       private handleError(error: HttpErrorResponse) {
+        this.spinnerService.hide();
         if (error.status === 0) {
           // A client-side or network error occurred. Handle it accordingly.
         } 
