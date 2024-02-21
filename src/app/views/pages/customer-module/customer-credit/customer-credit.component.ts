@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Usermodel } from 'src/app/model/usermodel';
 import { Customercreditmodel } from 'src/app/model/customercreditmodel';
 import { Customertrademodel } from 'src/app/model/customertrademodel';
@@ -34,7 +35,7 @@ export class CustomerCreditComponent implements OnInit {
   bankCities = [];
   trades: Customertrademodel[] = [];
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) {
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private spinnerService: NgxSpinnerService) {
     this.customerId = this.route.snapshot.params['id'] == undefined ? this.userdetails.customerId : this.route.snapshot.params['id'];
   }
 
@@ -97,7 +98,6 @@ export class CustomerCreditComponent implements OnInit {
       this.trades = response.trades != null ? response.trades : [];
 
     }, e => this.toastr.error(e.message), () => {
-      debugger;
       this.validationForm.patchValue({
 
         isPORequired: this.result.isPORequired,
@@ -162,6 +162,7 @@ export class CustomerCreditComponent implements OnInit {
       this.states = this.result.states;
       this.isInvoiceEmail = this.result.invoiceEmail != null ? true : false;
       this.isTaxExempt = this.result.taxExemptAttachment != null ? true : false;
+      this.spinnerService.hide();
     });
     this.isFormSubmitted = false;
   }
@@ -233,9 +234,9 @@ export class CustomerCreditComponent implements OnInit {
           if (sresult.value) {
             this.result.isSubmitted = true;
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-              this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } });
+              this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
             } else {
-              this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } });
+              this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
             }
           }
         });
@@ -243,9 +244,9 @@ export class CustomerCreditComponent implements OnInit {
       }else{
         this.result.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } });
+          this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
         } else {
-          this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } });
+          this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
         }
       }
     }
@@ -287,7 +288,7 @@ export class CustomerCreditComponent implements OnInit {
       .subscribe(v => {
         this.result.taxExemptAttachment = v.docPath;
 
-      }, e => this.toastr.error(e.error.message));
+      }, e => this.toastr.error(e.error.message),()=>this.spinnerService.hide());
   }
 
   InvoiceEmailSelect(event: any) {

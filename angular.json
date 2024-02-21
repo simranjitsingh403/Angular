@@ -57,7 +57,8 @@
               "./node_modules/@fullcalendar/list/main.css",
               "src/styles.scss",
               "./node_modules/ngx-toastr/toastr.css",
-              "node_modules/sweetalert2/src/sweetalert2.scss"
+              "node_modules/sweetalert2/src/sweetalert2.scss",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js"

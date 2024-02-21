@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LayoutModule } from './views/layout/layout.module';
@@ -57,6 +57,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     LayoutModule,
     HttpClientModule,
     FormsModule,
+    NgxSpinnerModule,
     ReactiveFormsModule,
     ArchwizardModule,
     NgSelectModule,
