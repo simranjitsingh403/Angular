@@ -17,9 +17,9 @@ export class Customercreditmodel {
     billingZip: string
     contactNumber: string
     fax: string
-    apcontactName: string
-    apcontactNumber: string
-    apcontactMail: string
+    apContactName: string
+    apContactNumber: string
+    apContactMail: string
     invoiceEmail: string
     bankName: string
     bankContactNumber: string
