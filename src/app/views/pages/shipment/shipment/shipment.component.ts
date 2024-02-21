@@ -36,12 +36,12 @@ export class ShipmentComponent implements OnInit {
       destinationZip: [, Validators.required],
       destinationStateId: [null, Validators.required],
       destinationCityName: [, Validators.required],
-      height: [],
-      width: [],
-      length: [],
-      weight: [],
+      height: [, Validators.required],
+      width: [, Validators.required],
+      length: [, Validators.required],
+      weight: [, Validators.required],
       isHazmat: [false],
-      comodity: [],
+      comodity: [, Validators.required],
       comments: []
     });
   }
