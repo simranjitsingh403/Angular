@@ -43,7 +43,7 @@ export class ApiService {
         if (serverURL === undefined) {
           serverURL = environment.baseURL;
         }
-        return this.http.post<T>(serverURL + url, data, { headers });
+        return this.http.post<T>(serverURL + url, data, { headers }).pipe(catchError(this.handleError));
       }
     
       put<T>(url: string, data?: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
@@ -59,7 +59,7 @@ export class ApiService {
           serverURL = environment.baseURL;
         }
     
-        return this.http.put<T>(serverURL + url, data, { headers });
+        return this.http.put<T>(serverURL + url, data, { headers }).pipe(catchError(this.handleError));
       }
 
       private handleError(error: HttpErrorResponse) {
