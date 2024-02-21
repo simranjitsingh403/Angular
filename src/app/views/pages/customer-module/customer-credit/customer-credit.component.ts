@@ -92,13 +92,68 @@ export class CustomerCreditComponent implements OnInit {
 
     this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
-
+    console.log(response);
+    
     }, e => this.toastr.error(e.message), () => {
+      debugger;
       this.validationForm.patchValue({
+        
+      isPORequired: this.result.isPORequired,
+      isTaxExempt: this.result.taxExemptAttachment != null? true: false,
+      businessYears: this.result.businessYears,
+      taxID: this.result.taxID,
+      companyName: this.result.companyName,
+      shippingAddress: this.result.shippingAddress,
+      shippingZip: this.result.shippingZip,
+      shippingCityName: this.result.shippingCityName,
+      shippingStateId: this.result.shippingStateId,
+      billingAddress: this.result.billingAddress,
+      billingZip: this.result.billingZip,
+      billingCityName: this.result.billingCityName,
+      billingStateId: this.result.billingStateId,
+      contactNumber: this.result.contactNumber,
+      apcontactName: this.result.apContactName,
+      apcontactNumber: this.result.apContactNumber,
+      apcontactMail: this.result.apContactMail,
+      invoicePreference: this.result.invoiceEmail != null?"2":"1",
+      invoiceEmail: this.result.invoiceEmail,
+      bankName: this.result.bankName,
+      bankContactNumber: this.result.bankContactNumber,
+      bankAddress: this.result.bankAddress,
+      bankZip: this.result.bankZip,
+      bankStateId: this.result.bankStateId,
+      bankCityName: this.result.bankCityName,
+      presidentName: this.result.presidentName,
+      vicePresidentName: this.result.vicePresidentName,
+      secretary: this.result.secretary,
+      signature: this.result.signature,
+      fax: this.result.fax,
       });
+
+      this.validationForm.controls["tradeRefs"].patchValue([
+        {tradeCompanyName: this.result.trades != null? this.result.trades[0].name :"",
+        tradeCompanyAddress: this.result.trades != null? this.result.trades[0].address :"",
+        tradeCompanyPhone: this.result.trades != null? this.result.trades[0].contactNumber :"",
+        tradeCompanyFax: this.result.trades != null? this.result.trades[0].fax :"",
+        tradeCompanyEmail: this.result.trades != null? this.result.trades[0].email :""},
+
+        {tradeCompanyName: this.result.trades != null? this.result.trades[1].name :"",
+        tradeCompanyAddress: this.result.trades != null? this.result.trades[1].address :"",
+        tradeCompanyPhone: this.result.trades != null? this.result.trades[1].contactNumber :"",
+        tradeCompanyFax: this.result.trades != null? this.result.trades[1].fax :"",
+        tradeCompanyEmail: this.result.trades != null? this.result.trades[1].email :""},
+
+        {tradeCompanyName: this.result.trades != null? this.result.trades[2].name :"",
+        tradeCompanyAddress: this.result.trades != null? this.result.trades[2].address :"",
+        tradeCompanyPhone: this.result.trades != null? this.result.trades[2].contactNumber :"",
+        tradeCompanyFax: this.result.trades != null? this.result.trades[2].fax :"",
+        tradeCompanyEmail: this.result.trades != null? this.result.trades[2].email :""}
+      ]);
 
       this.cities = this.result.cities;
       this.states = this.result.states;
+      this.isInvoiceEmail = this.result.invoiceEmail != null? true:false;
+      this.isTaxExempt = this.result.taxExemptAttachment != null? true:false;
     });
     this.isFormSubmitted = false;
   }
@@ -120,9 +175,9 @@ export class CustomerCreditComponent implements OnInit {
     this.result.billingCityName = this.form.billingCityName.value;
     this.result.billingStateId = this.form.billingStateId.value;
     this.result.contactNumber = this.form.contactNumber.value;
-    this.result.apcontactName = this.form.apcontactName.value;
-    this.result.apcontactMail = this.form.apcontactMail.value;
-    this.result.apcontactNumber = this.form.apcontactNumber.value;
+    this.result.apContactName = this.form.apcontactName.value;
+    this.result.apContactMail = this.form.apcontactMail.value;
+    this.result.apContactNumber = this.form.apcontactNumber.value;
     this.result.invoiceEmail = this.form.invoiceEmail.value;
     this.result.bankName = this.form.bankName.value;
     this.result.bankContactNumber = this.form.bankContactNumber.value;
