@@ -40,4 +40,6 @@ export class Customercreditmodel {
     bankStateId:string
     states:[]
     cities:[]
+    isSubmitted:boolean
+    rejectedReason:string
 }
