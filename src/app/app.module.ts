@@ -51,7 +51,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     CustomerComponent,
     CustomerCreditComponent,
     CustomerDashboardComponent,
-    CustomerShipmentComponent
+    CustomerShipmentComponent,
     CustomerDashboardComponent,
     CustomersComponent
   ],
