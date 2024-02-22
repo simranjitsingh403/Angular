@@ -106,7 +106,7 @@ export class CustomersComponent implements OnInit {
 
 
   columnDefs: ColDef[] = [
-    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/driver/register/' + params.data.id + '">' + params.data.firstName +' '+ params.data.lastName+'<a/>' } },
+    { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/shipper/credit/' + params.data.id + '">' + params.data.firstName +' '+ params.data.lastName+'<a/>' } },
     { headerName: 'Email', field: 'email', cellStyle: { 'font-weight': '600' } },
     { headerName: 'Account Number', field: 'accountNumber', cellStyle: { 'font-weight': '600' } },
     {
