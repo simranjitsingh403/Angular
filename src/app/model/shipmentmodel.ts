@@ -21,4 +21,5 @@ export class Shipmentmodel {
     createdBy: string
     createdDateTime: string
     jwtToken:string | null
+    states:[]
 }

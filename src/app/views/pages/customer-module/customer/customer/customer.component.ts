@@ -46,7 +46,7 @@ export class CustomerComponent implements OnInit {
         middleName: this.result.middleName,
         email: this.result.email,
       });
-      this.spinnerService.show();
+      this.spinnerService.hide();
     });
 
     this.isFormSubmitted = false;
@@ -95,7 +95,7 @@ export class CustomerComponent implements OnInit {
               this.router.navigate(["/admin/shipper/credit/" + this.userdetails.customerId]);
             }
           } else { this.toastr.error(d.message) };
-          this.spinnerService.show();
+          this.spinnerService.hide();
         });
       }
 

@@ -1,0 +1,10 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="row">
+
+    <app-shipment [show]="true" [states]="result.states"></app-shipment>
+
+    <div class="d-flex justify-content-center mt-2 mb-2">
+        <button class="btn btn-primary" type="button" value="submit" (click)="formSubmit($event)">Submit</button>
+    </div>
+
+</div>
