@@ -1,0 +1,71 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="row">
+    <div class="col-md-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Status</h6>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <div>
+                  <ng-select [items]="status" bindLabel="value" bindValue="key" [ngModel]='4' placeholder="Status"
+                    (change)="GetShippers($event)">
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <button type="button" class="btn btn-primary btn-icon-text" style="float: right;" (click)="redirectToAddDriver()">
+                <i class="feather mdi mdi-account-plus btn-icon-prepend"></i>
+                Add
+              </button>
+              
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Shippers</h6>
+          <div class="table-responsive">
+            <ag-grid-angular 
+            style="height: 500px;" 
+            class="ag-theme-quartz"
+            [rowData]="rowData$ | async" 
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [animateRows]="true"
+            (gridReady)="onGridReady($event)"
+            (cellClicked)="onCellClicked($event)"
+            [getRowStyle]="getRowStyle"
+            >
+          </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <ng-template #rejectModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Rejecting Reason</h5>
+      <button type="button" class="btn-close" (click)="modal.close(false)" aria-label="Close"></button>
+    </div>
+    <form (ngSubmit)="formSubmit()" [formGroup]="rejectForm">
+      <div class="modal-body">
+        <textarea class="form-control" formControlName="reason" placeholder="reason.."
+          [ngClass]="{'is-invalid': isFormSubmitted && form.reason.errors}"></textarea>
+        <div *ngIf="isFormSubmitted && form.reason.errors?.required" class="invalid-feedback">
+          Required
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Close</button>
+        <button type="submit" class="btn btn-danger">Reject</button>
+      </div>
+    </form>
+  </ng-template>
