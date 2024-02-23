@@ -40,10 +40,10 @@ export class CustomersComponent implements OnInit {
 
 
     this.getRowStyle = (params: RowClassParams) => {
-      if (params.data.formStatusId == 3) {
+      if (params.data.status == 3) {
         return { 'background-color': '#FFE4E4' }
       }
-      if (params.data.formStatusId == 2) {
+      if (params.data.status == 2) {
         return { 'background-color': '#E5FFE4' }
       }
       return null;
@@ -135,13 +135,13 @@ export class CustomersComponent implements OnInit {
       headerName: 'Status', field: 'formStatusName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) {
         let data = '';
         if (params.data.status == 1) {
-          data += '<span>Pending</span>'
+          data += '<span>Pending</span>';
         }
         if (params.data.status == 2) {
-          data += '<span><span style="color: green">●</span> Approved</span>'
+          data += '<span><span style="color: green">●</span> Approved</span>';
         }
         if (params.data.status == 3) {
-          data += '<span><span style="color: red">●</span> Rejected</span>'
+          data += '<span><span style="color: red">●</span> Rejected</span>';
         }
         return data;
       }
