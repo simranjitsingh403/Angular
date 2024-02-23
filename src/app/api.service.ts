@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
@@ -65,8 +65,13 @@ export class ApiService {
       }
 
       private handleError(error: HttpErrorResponse) {
-        this.spinnerService.hide();
+        //this.spinnerService.hide();
         if (error.status === 0) {
+          Swal.fire({  
+            icon: 'error',  
+            title: 'Oops...',  
+            text: 'OneLift is offline..!'
+          }) 
           // A client-side or network error occurred. Handle it accordingly.
         } 
         // Return an observable with a user-facing error message.
