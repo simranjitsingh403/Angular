@@ -12,7 +12,7 @@ export class ApiService {
     public currentUrl = new BehaviorSubject<any>(undefined);
 
     constructor(private router: Router,private http: HttpClient,private spinnerService: NgxSpinnerService) {
-      this.spinnerService.show();
+     
         this.router.events.subscribe((event: Event) => {
             if (event instanceof NavigationEnd) {
                 this.currentUrl.next(event.urlAfterRedirects);
@@ -21,7 +21,7 @@ export class ApiService {
     }
 
     get<T>(url: string, serverURL?: string): Observable<T> {
-      
+      this.spinnerService.show();
         const headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.getJwtToken()});
         if (serverURL === undefined) {
           serverURL = environment.baseURL;
@@ -32,6 +32,7 @@ export class ApiService {
       }
     
       post<T>(url: string, data: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
+        this.spinnerService.show();
         let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.getJwtToken() });
         if (isLoginHeader) {
           headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.getJwtToken() });
@@ -47,6 +48,7 @@ export class ApiService {
       }
     
       put<T>(url: string, data?: any, isLoginHeader?: boolean, serverURL?: string, fileInput?:boolean): Observable<T> {
+        this.spinnerService.show();
         let headers = new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer ' + this.getJwtToken() });
         if (isLoginHeader) {
           headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','Authorization':'Bearer ' + this.getJwtToken() });

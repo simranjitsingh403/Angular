@@ -36,10 +36,10 @@ export class CustomersComponent implements OnInit {
 
 
     this.getRowStyle = (params: RowClassParams) => {
-      if (params.data.formStatusId == 3) {
+      if (params.data.status == 3) {
         return { 'background-color': '#FFE4E4' }
       }
-      if (params.data.formStatusId == 2) {
+      if (params.data.status == 2) {
         return { 'background-color': '#E5FFE4' }
       }
       return null;
@@ -112,14 +112,14 @@ export class CustomersComponent implements OnInit {
     {
       headerName: 'Status', field: 'formStatusName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) {
         let data = '';
-        if (params.data.formStatusId == 1) {
-          data += '<span>Pending</span>'
+        if (params.data.status == 1) {
+          data += '<span>Pending</span>';
         }
-        if (params.data.formStatusId == 2) {
-          data += '<span><span style="color: green">●</span> Approved</span>'
+        if (params.data.status == 2) {
+          data += '<span><span style="color: green">●</span> Approved</span>';
         }
-        if (params.data.formStatusId == 3) {
-          data += '<span><span style="color: red">●</span> Rejected</span>'
+        if (params.data.status == 3) {
+          data += '<span><span style="color: red">●</span> Rejected</span>';
         }
         return data;
       }
@@ -127,7 +127,7 @@ export class CustomersComponent implements OnInit {
     {
       headerName: 'Action', field: 'id', filter: false, sortable: false, cellRenderer: function (params: any) {
         let data = '';
-        if (params.data.formStatusId == 1) {
+        if (params.data.status == 1) {
           data += '<a><i class="mdi mdi-account-check" id="accept" style="font-size: 20px;color:green;padding-right:10px;" title="Accept"></i></a> |';
           data += '<a><i class="mdi mdi-account-remove" id="reject" title="Reject" style="font-size: 20px;color:red;padding-left:10px;padding-right:10px;"></i></a> |';
         }
