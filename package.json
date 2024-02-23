@@ -60,6 +60,7 @@
     "quill": "^1.3.7",
     "rtlcss-webpack-plugin": "^4.0.7",
     "rxjs": "~7.5.0",
+    "signature_pad": "^4.1.7",
     "simple-datatables": "^4.0.8",
     "sortablejs": "^1.15.0",
     "sweetalert2": "^11.6.14",

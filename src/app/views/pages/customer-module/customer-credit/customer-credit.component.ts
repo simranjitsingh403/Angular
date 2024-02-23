@@ -9,6 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Usermodel } from 'src/app/model/usermodel';
 import { Customercreditmodel } from 'src/app/model/customercreditmodel';
 import { Customertrademodel } from 'src/app/model/customertrademodel';
+import SignaturePad from 'signature_pad';
 
 @Component({
   selector: 'app-customer-credit',
@@ -22,7 +23,7 @@ export class CustomerCreditComponent implements OnInit {
   result: Customercreditmodel = new Customercreditmodel();
   apiPath: string = environment.baseURL;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
-  customerId: any;
+  customerId = this.route.snapshot.params['id'] == undefined ? this.userdetails.customerId : this.route.snapshot.params['id'];
   logo = "/assets/images/OneLift_black.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   date = new Date();
@@ -34,12 +35,18 @@ export class CustomerCreditComponent implements OnInit {
   billingCities = [];
   bankCities = [];
   trades: Customertrademodel[] = [];
+  @ViewChild('signPadCanvas', {static: false}) signaturePadElement:any;
+  signPad: any;
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private spinnerService: NgxSpinnerService) {
-    this.customerId = this.route.snapshot.params['id'] == undefined ? this.userdetails.customerId : this.route.snapshot.params['id'];
+  }
+
+  ngAfterViewInit() {
+    this.signPad = new SignaturePad(this.signaturePadElement.nativeElement);
   }
 
   ngOnInit(): void {
+
     this.validationForm = this.formBuilder.group({
       isPORequired: [false, Validators.required],
       isTaxExempt: [],
@@ -95,7 +102,7 @@ export class CustomerCreditComponent implements OnInit {
 
     this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
-      console.log(response);
+      
       this.trades = response.trades != null ? response.trades : [];
 
     }, e => {this.toastr.error(e.message);}, () => {
@@ -169,8 +176,9 @@ export class CustomerCreditComponent implements OnInit {
   }
 
   formSubmit(event: any) {
+    
     if (this.validationForm.valid) {
-      this.result.customerId = this.userdetails.customerId;
+      this.result.customerId = this.customerId;
       this.result.isPORequired = this.form.isPORequired.value;
       this.result.businessYears = this.form.businessYears.value;
       this.result.taxID = this.form.taxID.value;
@@ -197,7 +205,7 @@ export class CustomerCreditComponent implements OnInit {
       this.result.presidentName = this.form.presidentName.value;
       this.result.vicePresidentName = this.form.vicePresidentName.value;
       this.result.secretary = this.form.secretary.value;
-      this.result.signature = this.form.signature.value;
+      this.result.signature = this.signPad.toDataURL();
       this.result.fax = this.form.fax.value;
 
       this.tradeRefsControls.forEach((value: any, index) => {
@@ -302,6 +310,17 @@ export class CustomerCreditComponent implements OnInit {
 
   get tradeRefsControls() {
     return (<FormArray>this.validationForm.get('tradeRefs')).controls;
+  }
+
+  clearSignPad() {
+    this.signPad.clear();
+  }
+
+  startSignPadDrawing(event: Event) {
+    console.log(event);
+  }
+
+  movedFinger(event: Event) {
   }
 
 }
