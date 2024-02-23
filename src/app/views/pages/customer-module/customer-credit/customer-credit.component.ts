@@ -95,9 +95,10 @@ export class CustomerCreditComponent implements OnInit {
 
     this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
+      console.log(response);
       this.trades = response.trades != null ? response.trades : [];
 
-    }, e => this.toastr.error(e.message), () => {
+    }, e => {this.toastr.error(e.message);}, () => {
       this.validationForm.patchValue({
 
         isPORequired: this.result.isPORequired,

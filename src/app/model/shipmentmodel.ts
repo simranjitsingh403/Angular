@@ -4,11 +4,11 @@ export class Shipmentmodel {
     originAddress: string
     originCityName: string
     originStateId: number
-    originZip: string
+    originZip: number
     destinationAddress: string
     destinationCityName: string
     destinationStateId: number
-    destinationZip: string
+    destinationZip: number
     height: number
     width: number
     length: number

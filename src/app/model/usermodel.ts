@@ -13,7 +13,7 @@ export class Usermodel {
     roles: []
     states: []
     profilePicture: string
-    zipCode: string
+    zipCode: number
     files: any
     ownerId: string
     driverId: string

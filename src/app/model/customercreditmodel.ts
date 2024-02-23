@@ -11,10 +11,10 @@ export class Customercreditmodel {
     companyName: string
     shippingAddress: string
     shippingCityName: string
-    shippingZip: string
+    shippingZip: number
     billingAddress: string
     billingCityName: string
-    billingZip: string
+    billingZip: number
     contactNumber: string
     fax: string
     apContactName: string
@@ -25,7 +25,7 @@ export class Customercreditmodel {
     bankContactNumber: string
     bankAddress:string
     bankCityName: string
-    bankZip: string
+    bankZip: number
     presidentName: string
     vicePresidentName: string
     secretary: string

@@ -87,7 +87,7 @@ export class OwnerComponent implements OnInit {
   }
 
   formSubmit(event:any) {
-    console.log(event.currentTarget.value);
+    console.log(this.validationForm);
     
     if (this.validationForm.valid) {
       this.result.firstName = this.form.firstName.value;

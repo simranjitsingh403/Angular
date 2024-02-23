@@ -23,13 +23,16 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="businessYears" class="col-md-3 col-form-label required">Years in Business</label>
-                                <input type="number" class="form-control" formControlName="businessYears"
+                                <input type="number" min="0" max="999.99" class="form-control" formControlName="businessYears"
                                     [ngClass]="{'is-invalid': isFormSubmitted && form.businessYears.errors}"
                                     placeholder="Years">
                                 <div *ngIf="isFormSubmitted && form.businessYears.errors?.required"
                                     class="invalid-feedback">
                                     Required
                                 </div>
+                                <div *ngIf="isFormSubmitted && (form.businessYears.errors?.max || form.businessYears.errors?.min)" class="invalid-feedback">
+                                    Min is 0 & Max is 999.99
+                                  </div>
                             </div>
                         </div>
 
@@ -215,7 +218,7 @@
                                                         <div class="mb-3">
                                                             <label for="shippingZip"
                                                                 class="col-md-3 col-form-label required">Zip</label>
-                                                            <input type="text" class="form-control"
+                                                            <input type="number" data-maxlength="5" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control"
                                                                 formControlName="shippingZip"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.shippingZip.errors}"
                                                                 placeholder="Zip">
@@ -293,7 +296,7 @@
                                                         <div class="mb-3">
                                                             <label for="billingZip"
                                                                 class="col-md-3 col-form-label required">Zip</label>
-                                                            <input type="text" class="form-control"
+                                                            <input type="number" data-maxlength="5" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control"
                                                                 formControlName="billingZip"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.billingZip.errors}"
                                                                 placeholder="Zip">
@@ -481,7 +484,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="bankZip" class="col-md-3 col-form-label required">Zip</label>
-                                                <input type="text" class="form-control" formControlName="bankZip"
+                                                <input type="number" data-maxlength="5" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" formControlName="bankZip"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && form.bankZip.errors}"
                                                     placeholder="Zip">
                                                 <div *ngIf="isFormSubmitted && form.bankZip.errors?.required"

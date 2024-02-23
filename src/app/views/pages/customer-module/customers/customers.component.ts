@@ -10,6 +10,8 @@ import { ColDef } from 'ag-grid-community';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { RowClassParams } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Customermodel } from 'src/app/model/customermodel';
+import { Customercreditmodel } from 'src/app/model/customercreditmodel';
 
 @Component({
   selector: 'app-customers',
@@ -22,6 +24,8 @@ export class CustomersComponent implements OnInit {
   isFormSubmitted: boolean;
   status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }, { key: 4, value: "All" }];
   statusId: number = 4;
+  customerCredit: Customercreditmodel = new Customercreditmodel();
+  @ViewChild('rejectModal') rejectModal: HTMLInputElement;
 
   constructor(private navService: ApiService, private toastr: ToastrService, private router: Router, private modalService: NgbModal,
     public formBuilder: UntypedFormBuilder,private spinnerService: NgxSpinnerService) { }
@@ -60,7 +64,11 @@ export class CustomersComponent implements OnInit {
   }
 
   formSubmit() {
-   
+    if (this.rejectForm.valid) {
+      this.customerCredit.rejectedReason = this.rejectForm.controls['reason'].value;
+      this.RejectCustomer(this.customerCredit);
+      this.modalService.dismissAll()
+    }
     this.isFormSubmitted = true;
   }
 
@@ -74,7 +82,8 @@ export class CustomersComponent implements OnInit {
   onCellClicked(params: any) {
     params.node.setSelected(true);
     if (params.event.srcElement.id == "accept") {
-      this.AcceptDriver(params.data)
+      this.customerCredit.customerId = params.data.id;
+      this.AcceptCustomer(this.customerCredit)
     }
     if (params.event.srcElement.id == "reject") {
       //this.driver.id = params.data.id;
@@ -91,17 +100,30 @@ export class CustomersComponent implements OnInit {
         confirmButtonText: 'Yes, delete it!'
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
-          this.navService.put("Driver/Account/DeleteDriver/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
+          this.navService.put("Customer/Customer/DeleteCustomer/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
         }
       });
     }
 
   }
-  AcceptDriver(data: any) {
-    throw new Error('Method not implemented.');
+ 
+
+  AcceptCustomer(model: any) {
+    model.statusId = 2;
+    model.rejectedReason = null;
+    this.navService.put<any>("Customer/Customer/CustomerCreditStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } else{this.toastr.error(d.message);this.GetAll();} }, e => {this.toastr.error(e.message);this.GetAll(); });
   }
-  openRejectModal(data: any) {
-    throw new Error('Method not implemented.');
+
+  RejectCustomer(model: any) {
+    model.statusId = 3;
+    this.navService.put<any>("Customer/Customer/CustomerCreditStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } }, e => {this.toastr.error(e.message);this.GetAll();});
+  }
+
+  openRejectModal(model: any) {
+    this.modalService.open(this.rejectModal, {}).result.then((result) => {
+    }).catch((res) => { });
+
+    this.customerCredit.customerId = model.id;
   }
 
 
@@ -112,13 +134,13 @@ export class CustomersComponent implements OnInit {
     {
       headerName: 'Status', field: 'formStatusName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) {
         let data = '';
-        if (params.data.formStatusId == 1) {
+        if (params.data.status == 1) {
           data += '<span>Pending</span>'
         }
-        if (params.data.formStatusId == 2) {
+        if (params.data.status == 2) {
           data += '<span><span style="color: green">●</span> Approved</span>'
         }
-        if (params.data.formStatusId == 3) {
+        if (params.data.status == 3) {
           data += '<span><span style="color: red">●</span> Rejected</span>'
         }
         return data;
@@ -127,7 +149,7 @@ export class CustomersComponent implements OnInit {
     {
       headerName: 'Action', field: 'id', filter: false, sortable: false, cellRenderer: function (params: any) {
         let data = '';
-        if (params.data.formStatusId == 1) {
+        if (params.data.status == 1) {
           data += '<a><i class="mdi mdi-account-check" id="accept" style="font-size: 20px;color:green;padding-right:10px;" title="Accept"></i></a> |';
           data += '<a><i class="mdi mdi-account-remove" id="reject" title="Reject" style="font-size: 20px;color:red;padding-left:10px;padding-right:10px;"></i></a> |';
         }

@@ -124,7 +124,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="zipCode" class="col-md-3 col-form-label">Zip Code</label>
-                                                <input type="text" class="form-control" id="zipCode"
+                                                <input type="number" data-maxlength="5" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" id="zipCode"
                                                     formControlName="zipCode" placeholder="Zip Code">
                                             </div>
                                         </div>

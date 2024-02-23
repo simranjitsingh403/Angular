@@ -102,7 +102,7 @@
                     <div class="col-md-6">
                       <div class="mb-3">
                         <label for="year" class="col-md-3 col-form-label">Year</label>
-                        <input type="number" class="form-control" formControlName="year"
+                        <input type="number" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" formControlName="year"
                           [ngClass]="{'is-invalid': isFormSubmitted && form.year.errors}" placeholder="year">
                         <div *ngIf="isFormSubmitted && form.year.errors?.required" class="invalid-feedback">
                           Required
@@ -259,11 +259,14 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="experience" class="col-md-3 col-form-label">Years of Experience</label>
-                        <input type="number" class="form-control" formControlName="experience" placeholder="Experience"
+                        <label for="experience" class="col-md-3 col-form-label required">Years of Experience</label>
+                        <input type="number" min="0" max="999" class="form-control" formControlName="experience" placeholder="Experience"
                           [ngClass]="{'is-invalid': isFormSubmitted && form.experience.errors}">
                         <div *ngIf="isFormSubmitted && form.experience.errors?.required" class="invalid-feedback">
                           Required
+                        </div>
+                        <div *ngIf="isFormSubmitted && (form.experience.errors?.max || form.experience.errors?.min)" class="invalid-feedback">
+                          Min is 0 & Max is 999
                         </div>
                       </div>
                     </div>

@@ -8,7 +8,7 @@ export class Customermodel {
     email: string
     accountNumber: string
     userId: string
-    isDeleted: boolean
+    isDeleted: boolean = false
     createdBy: string
     createdDateTime: string
     shipment: Shipmentmodel = new Shipmentmodel()

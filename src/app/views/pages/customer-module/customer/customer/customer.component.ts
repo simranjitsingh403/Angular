@@ -82,7 +82,7 @@ export class CustomerComponent implements OnInit {
       this.result.shipment.comments = this.shipmentForm.comments.value;
       this.result.shipment.comodity = this.shipmentForm.comodity.value;
       this.result.shipment.jwtToken = localStorage.getItem('token');
-
+      
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
         this.navService.post<any>("Customer/Customer/Register", this.result).subscribe(d => {
           if (d.success == true) {
