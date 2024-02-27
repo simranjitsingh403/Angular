@@ -1,3 +1,4 @@
+import { Customercreditmodel } from "./customercreditmodel"
 import { Shipmentmodel } from "./shipmentmodel"
 
 export class Customermodel {
@@ -12,6 +13,7 @@ export class Customermodel {
     createdBy: string
     createdDateTime: string
     shipment: Shipmentmodel = new Shipmentmodel()
+    customerCredit: Customercreditmodel = new Customercreditmodel()
     cities:[] 
     states:[]
 }

@@ -34,6 +34,7 @@ import { CustomerCreditComponent } from './views/pages/customer-module/customer-
 import { CustomerDashboardComponent } from './views/pages/customer-module/customer-dashboard/customer-dashboard.component';
 import { CustomerShipmentComponent } from './views/pages/customer-module/customer-shipment/customer-shipment.component';
 import { CustomersComponent } from './views/pages/customer-module/customers/customers.component';
+import { CreditComponent } from './views/pages/customer-module/credit/credit.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     CustomerDashboardComponent,
     CustomerShipmentComponent,
     CustomerDashboardComponent,
-    CustomersComponent
+    CustomersComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +72,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     NgxMaskModule.forRoot(),
     QuillModule.forRoot(),
     ToastrModule.forRoot(),
-    ShipmentComponent
+    ShipmentComponent,
+    CreditComponent
   ],
   providers: [
     AuthGuard,

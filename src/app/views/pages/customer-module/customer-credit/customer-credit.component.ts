@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from 'src/app/api.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Usermodel } from 'src/app/model/usermodel';
 import { Customercreditmodel } from 'src/app/model/customercreditmodel';
 import { Customertrademodel } from 'src/app/model/customertrademodel';
-import SignaturePad from 'signature_pad';
+import { CreditComponent } from '../credit/credit.component';
+import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-customer-credit',
@@ -17,96 +17,23 @@ import SignaturePad from 'signature_pad';
   styleUrls: ['./customer-credit.component.scss']
 })
 export class CustomerCreditComponent implements OnInit {
-  validationForm: any;
-  tradeForm: any;
-  isFormSubmitted: Boolean;
   result: Customercreditmodel = new Customercreditmodel();
-  apiPath: string = environment.baseURL;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
+  @ViewChild(CreditComponent) creditComponent: CreditComponent;
   customerId = this.route.snapshot.params['id'] == undefined ? this.userdetails.customerId : this.route.snapshot.params['id'];
-  logo = "/assets/images/OneLift_black.png";
-  isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
-  date = new Date();
-  isTaxExempt: boolean;
-  isInvoiceEmail: boolean;
-  cities: any = [];
-  states = [];
-  shippingCities = [];
-  billingCities = [];
-  bankCities = [];
-  trades: Customertrademodel[] = [];
-  @ViewChild('signPadCanvas', {static: false}) signaturePadElement:any;
-  signPad: any;
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private spinnerService: NgxSpinnerService) {
   }
 
-  ngAfterViewInit() {
-    this.signPad = new SignaturePad(this.signaturePadElement.nativeElement);
-  }
-
+  
   ngOnInit(): void {
-
-    this.validationForm = this.formBuilder.group({
-      isPORequired: [false, Validators.required],
-      isTaxExempt: [],
-      taxExemptAttachment: [],
-      businessYears: ['', Validators.required],
-      taxID: ['', Validators.required],
-      companyName: ['', Validators.required],
-      shippingAddress: ['', Validators.required],
-      shippingZip: ['', Validators.required],
-      shippingCityName: ['', Validators.required],
-      shippingStateId: [null, Validators.required],
-      billingAddress: ['', Validators.required],
-      billingZip: ['', Validators.required],
-      billingCityName: ['', Validators.required],
-      billingStateId: [null, Validators.required],
-      contactNumber: [, Validators.required],
-      apcontactName: [],
-      apcontactNumber: [],
-      apcontactMail: [],
-      invoicePreference: ["1"],
-      invoiceEmail: [],
-      bankName: ['', Validators.required],
-      bankContactNumber: [, Validators.required],
-      bankAddress: ['', Validators.required],
-      bankZip: ['', Validators.required],
-      bankStateId: [null, Validators.required],
-      bankCityName: ['', Validators.required],
-      presidentName: [],
-      vicePresidentName: [],
-      secretary: [],
-      signature: [],
-      fax: [],
-      tradeRefs: new FormArray([this.formBuilder.group({
-        tradeCompanyName: ['', Validators.required],
-        tradeCompanyAddress: ['', Validators.required],
-        tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: ['', Validators.required],
-        tradeCompanyEmail: []
-      }), this.formBuilder.group({
-        tradeCompanyName: ['', Validators.required],
-        tradeCompanyAddress: ['', Validators.required],
-        tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: ['', Validators.required],
-        tradeCompanyEmail: []
-      }), this.formBuilder.group({
-        tradeCompanyName: ['', Validators.required],
-        tradeCompanyAddress: ['', Validators.required],
-        tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: ['', Validators.required],
-        tradeCompanyEmail: []
-      })])
-    });
-
     this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
       
-      this.trades = response.trades != null ? response.trades : [];
+      this.creditComponent.trades = response.trades != null ? response.trades : [];
 
     }, e => {this.toastr.error(e.message);}, () => {
-      this.validationForm.patchValue({
+      this.creditComponent.validationForm.patchValue({
 
         isPORequired: this.result.isPORequired,
         isTaxExempt: this.result.taxExemptAttachment != null ? true : false,
@@ -140,7 +67,7 @@ export class CustomerCreditComponent implements OnInit {
         fax: this.result.fax,
       });
 
-      this.validationForm.controls["tradeRefs"].patchValue([
+      this.creditComponent.validationForm.controls["tradeRefs"].patchValue([
         {
           tradeCompanyName: this.result.trades != null ? this.result.trades[0].name : "",
           tradeCompanyAddress: this.result.trades != null ? this.result.trades[0].address : "",
@@ -165,53 +92,54 @@ export class CustomerCreditComponent implements OnInit {
           tradeCompanyEmail: this.result.trades != null ? this.result.trades[2].email : ""
         }
       ]);
-
-      this.cities = this.result.cities;
-      this.states = this.result.states;
-      this.isInvoiceEmail = this.result.invoiceEmail != null ? true : false;
-      this.isTaxExempt = this.result.taxExemptAttachment != null ? true : false;
       this.spinnerService.hide();
+      this.creditComponent.isTaxExempt = this.result.taxExemptAttachment != null? true : false;
+      this.creditComponent.isInvoiceEmail = this.result.invoiceEmail != null? true : false;
     });
-    this.isFormSubmitted = false;
   }
 
   formSubmit(event: any) {
     
-    if (this.validationForm.valid) {
+    if (this.creditComponent.validationForm.valid) {
       this.result.customerId = this.customerId;
-      this.result.isPORequired = this.form.isPORequired.value;
-      this.result.businessYears = this.form.businessYears.value;
-      this.result.taxID = this.form.taxID.value;
-      this.result.companyName = this.form.companyName.value;
-      this.result.shippingAddress = this.form.shippingAddress.value;
-      this.result.shippingZip = this.form.shippingZip.value;
-      this.result.shippingStateId = this.form.shippingStateId.value;
-      this.result.shippingCityName = this.form.shippingCityName.value;
-      this.result.billingAddress = this.form.billingAddress.value;
-      this.result.billingZip = this.form.billingZip.value;
-      this.result.billingCityName = this.form.billingCityName.value;
-      this.result.billingStateId = this.form.billingStateId.value;
-      this.result.contactNumber = this.form.contactNumber.value;
-      this.result.apContactName = this.form.apcontactName.value;
-      this.result.apContactMail = this.form.apcontactMail.value;
-      this.result.apContactNumber = this.form.apcontactNumber.value;
-      this.result.invoiceEmail = this.form.invoiceEmail.value;
-      this.result.bankName = this.form.bankName.value;
-      this.result.bankContactNumber = this.form.bankContactNumber.value;
-      this.result.bankAddress = this.form.bankAddress.value;
-      this.result.bankZip = this.form.bankZip.value;
-      this.result.bankStateId = this.form.bankStateId.value;
-      this.result.bankCityName = this.form.bankCityName.value;
-      this.result.presidentName = this.form.presidentName.value;
-      this.result.vicePresidentName = this.form.vicePresidentName.value;
-      this.result.secretary = this.form.secretary.value;
-      this.result.signature = this.signPad.toDataURL();
-      this.result.fax = this.form.fax.value;
+      this.result.isPORequired = this.creditComponent.form.isPORequired.value;
+      this.result.businessYears = this.creditComponent.form.businessYears.value;
+      this.result.taxID = this.creditComponent.form.taxID.value;
+      this.result.companyName = this.creditComponent.form.companyName.value;
+      this.result.shippingAddress = this.creditComponent.form.shippingAddress.value;
+      this.result.shippingZip = this.creditComponent.form.shippingZip.value;
+      this.result.shippingStateId = this.creditComponent.form.shippingStateId.value;
+      this.result.shippingCityName = this.creditComponent.form.shippingCityName.value;
+      this.result.billingAddress = this.creditComponent.form.billingAddress.value;
+      this.result.billingZip = this.creditComponent.form.billingZip.value;
+      this.result.billingCityName = this.creditComponent.form.billingCityName.value;
+      this.result.billingStateId = this.creditComponent.form.billingStateId.value;
+      this.result.contactNumber = this.creditComponent.form.contactNumber.value;
+      this.result.apContactName = this.creditComponent.form.apcontactName.value;
+      this.result.apContactMail = this.creditComponent.form.apcontactMail.value;
+      this.result.apContactNumber = this.creditComponent.form.apcontactNumber.value;
+      this.result.invoiceEmail = this.creditComponent.form.invoiceEmail.value;
+      this.result.bankName = this.creditComponent.form.bankName.value;
+      this.result.bankContactNumber = this.creditComponent.form.bankContactNumber.value;
+      this.result.bankAddress = this.creditComponent.form.bankAddress.value;
+      this.result.bankZip = this.creditComponent.form.bankZip.value;
+      this.result.bankStateId = this.creditComponent.form.bankStateId.value;
+      this.result.bankCityName = this.creditComponent.form.bankCityName.value;
+      this.result.presidentName = this.creditComponent.form.presidentName.value;
+      this.result.vicePresidentName = this.creditComponent.form.vicePresidentName.value;
+      this.result.secretary = this.creditComponent.form.secretary.value;
+      if(!this.creditComponent.signPad.isEmpty()){
+        this.result.signature =  this.creditComponent.signPad.toDataURL();
+      }
+      this.result.fax = this.creditComponent.form.fax.value;
+      if(!isNullOrUndefined(this.creditComponent.taxExemptAttachment)){
+        this.result.taxExemptAttachment = this.creditComponent.taxExemptAttachment;
+      }
 
-      this.tradeRefsControls.forEach((value: any, index) => {
+      this.creditComponent.tradeRefsControls.forEach((value: any, index) => {
         let trade;
-        if (this.trades.length == 3) {
-          trade = this.trades[index];
+        if (this.creditComponent.trades.length == 3) {
+          trade = this.creditComponent.trades[index];
           trade.name = value.controls.tradeCompanyName.value;
           trade.address = value.controls.tradeCompanyAddress.value;
           trade.contactNumber = value.controls.tradeCompanyPhone.value;
@@ -224,11 +152,11 @@ export class CustomerCreditComponent implements OnInit {
           trade.contactNumber = value.controls.tradeCompanyPhone.value;
           trade.fax = value.controls.tradeCompanyFax.value;
           trade.email = value.controls.tradeCompanyEmail.value;
-          this.trades.push(trade);
+          this.creditComponent.trades.push(trade);
         }
       });
 
-      this.result.trades = this.trades;
+      this.result.trades = this.creditComponent.trades;
 
       if(event.currentTarget.value == "submit"){
         Swal.fire({
@@ -259,68 +187,9 @@ export class CustomerCreditComponent implements OnInit {
         }
       }
     }
-    this.isFormSubmitted = true;
+    this.creditComponent.isFormSubmitted = true;
   }
 
-  fieldsChange(event: any) {
-
-  }
-
-  TaxExemptChange(event: any) {
-    if (event.currentTarget.checked) {
-      this.isTaxExempt = true;
-    }
-    else {
-      this.isTaxExempt = false;
-    }
-  }
-
-  get form() {
-    return this.validationForm.controls;
-  }
-
-  tradeFormValidations(i: any) {
-    return this.validationForm.controls.tradeRefs.controls[i].controls;
-  }
-
-
-  UploadCertificate(file: any) {
-    if (file.length === 0) {
-      return;
-    }
-
-    let filesToUpload = file[0];
-    const formData = new FormData();
-    formData.append('file_Customer', filesToUpload, filesToUpload.name);
-
-    this.navService.post<any>('Customer/Customer/UploadFile', formData, false, undefined, true)
-      .subscribe(v => {
-        this.result.taxExemptAttachment = v.docPath;
-
-      }, e => this.toastr.error(e.error.message),()=>this.spinnerService.hide());
-  }
-
-  InvoiceEmailSelect(event: any) {
-    if (event.target.value == "2") {
-      this.isInvoiceEmail = true;
-    } else {
-      this.isInvoiceEmail = false;
-    }
-  }
-
-  get tradeRefsControls() {
-    return (<FormArray>this.validationForm.get('tradeRefs')).controls;
-  }
-
-  clearSignPad() {
-    this.signPad.clear();
-  }
-
-  startSignPadDrawing(event: Event) {
-    console.log(event);
-  }
-
-  movedFinger(event: Event) {
-  }
+ 
 
 }

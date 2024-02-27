@@ -102,6 +102,11 @@ const routes: Routes = [
     component:CustomerComponent
   },
   {
+    path:'shipper/:id',
+    pathMatch:'prefix',
+    component:CustomerComponent
+  },
+  {
     path:'shipment',
     pathMatch:'prefix',
     component:CustomerShipmentComponent
