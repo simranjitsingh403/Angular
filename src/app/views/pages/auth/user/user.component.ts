@@ -23,6 +23,7 @@ export class UserComponent implements OnInit {
   baseUrl:any;
   jwtdetails: any = this.navService.decodeJwtToken();
   roledetails:any = JSON.parse( this.jwtdetails == null ? "[]" : this.jwtdetails.role);
+  userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   editPermission : boolean = false;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) {
     this.baseUrl=environment.baseURL;
