@@ -6,6 +6,10 @@
         <h6 *ngIf="isLogin" class="card-title">Customer Form</h6>
         <img *ngIf="!isLogin" [src]="logo" routerLink="." style="width: 225px;margin-left: -20px;">
 
+        <div *ngIf="result.customerCredit.rejectedReason != null && result.customerCredit.statusId==3">
+          <h5 class="text-danger">Note:- {{result.customerCredit.rejectedReason}}</h5>
+        </div>
+
         <form [formGroup]="validationForm">
 
           <div class="col-md-12 grid-margin">
@@ -64,9 +68,14 @@
             </div>
           </div>
 
-            <app-shipment [show]="true" [states]="result.states"></app-shipment>
+            <!-- <app-shipment [show]="true" [states]="result.states"></app-shipment> -->
+
+            <app-credit [states]="result.states" [signature]="result.customerCredit.signature" [taxExemptAttachment]="result.customerCredit.taxExemptAttachment"></app-credit>
 
           <div class="d-flex justify-content-center mt-2">
+            <button *ngIf="userdetails.roleName != 'Admin' && !result.customerCredit.isSubmitted"
+                        class="btn btn-primary me-5" type="button" value="save"
+                        (click)="formSubmit($event)">Save</button>
             <button *ngIf="!result.customerCredit.isSubmitted || userdetails.roleName == 'Admin'" class="btn btn-success" type="button" value="submit" (click)="formSubmit($event)">Submit</button>
           </div>
         </form>

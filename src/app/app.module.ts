@@ -35,6 +35,7 @@ import { CustomerDashboardComponent } from './views/pages/customer-module/custom
 import { CustomerShipmentComponent } from './views/pages/customer-module/customer-shipment/customer-shipment.component';
 import { CustomersComponent } from './views/pages/customer-module/customers/customers.component';
 import { CreditComponent } from './views/pages/customer-module/credit/credit.component';
+import { LandingCustomerComponent } from './views/pages/customer-module/landing-customer/landing-customer.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     CustomerShipmentComponent,
     CustomerDashboardComponent,
     CustomersComponent,
+    LandingCustomerComponent,
   ],
   imports: [
     BrowserModule,

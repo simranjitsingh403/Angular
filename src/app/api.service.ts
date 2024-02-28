@@ -5,6 +5,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
+import { jwtDecode } from 'jwt-decode';
+import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 @Injectable({
   providedIn: 'root'
 })
@@ -80,6 +82,15 @@ export class ApiService {
 
       getJwtToken(){
         return localStorage.getItem('token');
+      }
+
+      decodeJwtToken(){
+        let token = this.getJwtToken();
+        if(isNullOrUndefined(token)){
+          return null;
+        }else{
+          return jwtDecode(token);
+        }
       }
 
 }

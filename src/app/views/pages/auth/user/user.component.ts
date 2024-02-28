@@ -21,12 +21,22 @@ export class UserComponent implements OnInit {
   isEmailDisabled = false;
   buttonValue: any;
   baseUrl:any;
+  jwtdetails: any = this.navService.decodeJwtToken();
+  roledetails:any = JSON.parse( this.jwtdetails == null ? "[]" : this.jwtdetails.role);
+  editPermission : boolean = false;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) {
     this.baseUrl=environment.baseURL;
    }
 
   ngOnInit(): void {
     this.buttonValue = "Update";
+
+    this.roledetails.forEach((element:any) => {
+      if(element.ModuleName == "User"){
+        this.editPermission = element.IsEdit;
+      }
+    });
+    
     this.validationForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
