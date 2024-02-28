@@ -29,7 +29,7 @@ export class LandingCustomerComponent implements OnInit {
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   logo = "/assets/images/OneLift_black.png";
   customerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
-  
+
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -201,10 +201,8 @@ export class LandingCustomerComponent implements OnInit {
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
               this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => {
                 if (d.success == true) {
-                  this.toastr.success("Record saved successfully");
-
-                  this.router.navigate(["/auth/login/"]);
-
+                  this.router.navigate([d.redirectUrl]);
+                  this.toastr.success("Record saved successfully. We have sent you an email on : " + this.result.email);
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
               });
@@ -212,9 +210,8 @@ export class LandingCustomerComponent implements OnInit {
             else {
               this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => {
                 if (d.success == true) {
-                  this.toastr.success("Record saved successfully");
-
-                  this.router.navigate(["/auth/login/"]);
+                  this.router.navigate([d.redirectUrl]);
+                  this.toastr.success("Record saved successfully. We have sent you an email on : " + this.result.email);
 
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
@@ -228,8 +225,8 @@ export class LandingCustomerComponent implements OnInit {
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
           this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => {
             if (d.success == true) {
-              this.toastr.success("Record saved successfully");
-              this.router.navigate(["/auth/login"]);
+              this.router.navigate([d.redirectUrl]);
+              this.toastr.success("Record saved successfully. We have sent you an email on : " + this.result.email);
 
             } else { this.toastr.error(d.message) };
             this.spinnerService.hide();
@@ -238,8 +235,6 @@ export class LandingCustomerComponent implements OnInit {
           this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => {
             if (d.success == true) {
               this.toastr.success("Record saved successfully");
-              this.router.navigate(["/auth/login"]);
-
             } else { this.toastr.error(d.message) };
             this.spinnerService.hide();
           });

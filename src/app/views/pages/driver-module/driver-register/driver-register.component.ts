@@ -128,74 +128,75 @@ export class DriverRegistorComponent implements OnInit {
    * Wizard finish function
    */
   finishFunction(event: any) {
+    if (this.validationForm1.valid && this.validationForm2.valid) {
+      this.result.firstName = this.form1.firstName.value;
+      this.result.lastName = this.form1.lastName.value;
+      this.result.middleName = this.form1.middleName.value;
+      this.result.email = this.form1.email.value;
+      this.result.stateId = this.form1.stateid.value;
+      this.result.phoneNumber = this.form1.mobileNumber.value;
+      this.result.isLegallyAllowed = this.form1.islegallyallowed.value;
+      this.result.licenseClassId = this.form1.licenseclassid.value;
+      this.result.isUSAuthorized = this.form1.isusauthorized.value;
+      this.result.isImmigrationAllowed = this.form1.isimmigrationallowed.value;
+      this.result.salaryExpectation = this.form1.salaryexpectation.value;
+      this.result.jobType = this.form1.jobtype.value;
+      this.result.referredByName = this.form1.referredbyname.value;
+      this.result.joiningDate = this.form1.joiningdate.value;
+      this.result.comments = this.form1.comments.value;
+      this.result.genderId = this.form1.genderId.value;
+      this.result.raceId = this.form1.raceid.value;
+      this.result.veteranId = this.form1.veteranid.value;
+      this.result.jwtToken = localStorage.getItem('token');
 
-    this.result.firstName = this.form1.firstName.value;
-    this.result.lastName = this.form1.lastName.value;
-    this.result.middleName = this.form1.middleName.value;
-    this.result.email = this.form1.email.value;
-    this.result.stateId = this.form1.stateid.value;
-    this.result.phoneNumber = this.form1.mobileNumber.value;
-    this.result.isLegallyAllowed = this.form1.islegallyallowed.value;
-    this.result.licenseClassId = this.form1.licenseclassid.value;
-    this.result.isUSAuthorized = this.form1.isusauthorized.value;
-    this.result.isImmigrationAllowed = this.form1.isimmigrationallowed.value;
-    this.result.salaryExpectation = this.form1.salaryexpectation.value;
-    this.result.jobType = this.form1.jobtype.value;
-    this.result.referredByName = this.form1.referredbyname.value;
-    this.result.joiningDate = this.form1.joiningdate.value;
-    this.result.comments = this.form1.comments.value;
-    this.result.genderId = this.form1.genderId.value;
-    this.result.raceId = this.form1.raceid.value;
-    this.result.veteranId = this.form1.veteranid.value;
-    this.result.formStatusId = this.form1.formStatusId;
-    this.result.jwtToken = localStorage.getItem('token');
-
-    if (event.currentTarget.value == "submit") {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to edit your details!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Submit'
-      } as SweetAlertOptions).then((sresult) => {
-        if (sresult.value) {
-          this.result.isSubmitted = true;
-          if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-            this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
-          } else {
-            this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
-              if (d.success == true) {
-                this.toastr.success(d.message);
-                if (this.userdetails.roleName == 'Driver') {
-                  this.router.navigate(['/admin/dashboard']);
-                } else {
-                  this.router.navigate(['/admin/drivers']);
-                }
-              } else { this.toastr.error(d.message) }
-            });
-          }
-        }
-      });
-
-    } else {
-      this.result.isSubmitted = false;
-      if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-        this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
-      } else {
-        this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
-          if (d.success == true) {
-            this.toastr.success(d.message); if (this.userdetails.roleName == 'Driver') {
-              this.router.navigate(['/admin/dashboard']);
+      if (event.currentTarget.value == "submit") {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'You won\'t be able to edit your details!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Submit'
+        } as SweetAlertOptions).then((sresult) => {
+          if (sresult.value) {
+            this.result.isSubmitted = true;
+            if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+              this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
             } else {
-              this.router.navigate(['/admin/drivers']);
+              this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
+                if (d.success == true) {
+                  this.toastr.success(d.message);
+                  if (this.userdetails.roleName == 'Driver') {
+                    this.router.navigate(['/admin/dashboard']);
+                  } else {
+                    this.router.navigate(['/admin/drivers']);
+                  }
+                } else { this.toastr.error(d.message) }
+              });
             }
-          } else { this.toastr.error(d.message) }
+          }
         });
+
+      } else {
+        this.result.isSubmitted = false;
+        if (this.result.id == "00000000-0000-0000-0000-000000000000") {
+          this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+        } else {
+          this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
+            if (d.success == true) {
+              this.toastr.success(d.message); if (this.userdetails.roleName == 'Driver') {
+                this.router.navigate(['/admin/dashboard']);
+              } else {
+                this.router.navigate(['/admin/drivers']);
+              }
+            } else { this.toastr.error(d.message) }
+          });
+        }
       }
     }
-
+    this.isForm1Submitted = true;
+    this.isForm2Submitted = true;
   }
 
   /**
