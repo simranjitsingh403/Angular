@@ -11,7 +11,7 @@
                 <app-credit [states]="result.states" [signature]="result.signature" [taxExemptAttachment]="result.taxExemptAttachment"></app-credit>
 
                 <div class="d-flex justify-content-center mt-2">
-                    <button *ngIf="(userdetails.roleName != 'Admin' && !result.isSubmitted) || result.statusId == 3"
+                    <button *ngIf="userdetails.roleName != 'Admin' && (!result.isSubmitted || result.statusId == 3)"
                         class="btn btn-primary me-5" type="button" value="save"
                         (click)="formSubmit($event)">Save</button>
                     <button *ngIf="!result.isSubmitted || userdetails.roleName == 'Admin' || result.statusId == 3" class="btn btn-success" type="button" value="submit"

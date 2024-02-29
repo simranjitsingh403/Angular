@@ -47,7 +47,9 @@
             [animateRows]="true"
             (gridReady)="onGridReady($event)"
             (cellClicked)="onCellClicked($event)"
-          [getRowStyle]="getRowStyle"
+            [getRowStyle]="getRowStyle"
+            [pagination]="true"
+            [paginationPageSize]="20"
             >
           </ag-grid-angular>
           </div>

@@ -18,9 +18,9 @@
                                             <div class="mb-3">
                                                 <label for="originAddress"
                                                     class="col-md-3 col-form-label required">Address</label>
-                                                <input type="text" class="form-control" formControlName="originAddress"
+                                                <textarea class="form-control" formControlName="originAddress"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originAddress.errors}"
-                                                    placeholder="address">
+                                                    placeholder="address"></textarea>
                                                 <div *ngIf="isFormSubmitted && shipmentForm.originAddress.errors?.required"
                                                     class="invalid-feedback">
                                                     Required
@@ -91,10 +91,10 @@
                                             <div class="mb-3">
                                                 <label for="destinationAddress"
                                                     class="col-md-3 col-form-label required">Address</label>
-                                                <input type="text" class="form-control"
+                                                <textarea class="form-control"
                                                     formControlName="destinationAddress"
                                                     [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationAddress.errors}"
-                                                    placeholder="address">
+                                                    placeholder="address"></textarea>
                                                 <div *ngIf="isFormSubmitted && shipmentForm.destinationAddress.errors?.required"
                                                     class="invalid-feedback">
                                                     Required

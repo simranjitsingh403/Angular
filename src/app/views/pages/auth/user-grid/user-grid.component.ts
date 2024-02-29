@@ -35,7 +35,7 @@ export class UserGridComponent implements OnInit {
   onCellClicked(params: any) {
     params.node.setSelected(true);
     if (params.event.srcElement.id == "edit") {
-
+      this.router.navigateByUrl("/admin/user/" + params.data.id);
     }
 
     if (params.event.srcElement.id == "delete") {
@@ -63,9 +63,13 @@ export class UserGridComponent implements OnInit {
     { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/user/' + params.data.id + '">' + params.data.firstName + ' ' + (params.data.middleName ?? "") + ' ' + params.data.lastName + '<a/>' } },
     { headerName: 'Email', field: 'email', cellStyle: { 'font-weight': '600' } },
     { headerName: 'Contact Number', field: 'phoneNumber', cellStyle: { 'font-weight': '600' } },
+    { headerName: 'Role', field: 'roleName', cellStyle: { 'font-weight': '600' } },
     {
       headerName: 'Action', field: 'id', filter: false, sortable: false, cellRenderer: function () {
-        return '<a><i class="mdi mdi-delete-forever" id="delete" style="color: red; font-size: 20px;"></a>'
+        let data = '';
+        //data += '<a><i class="mdi mdi-tooltip-edit" id="edit" style="font-size: 20px;color:green;padding-right:10px;" title="Edit"></i></a>';
+        data += '<a><i class="mdi mdi-delete-forever" id="delete" style="color: red; font-size: 20px;"></a>';
+        return data;
       }
     }];
 
