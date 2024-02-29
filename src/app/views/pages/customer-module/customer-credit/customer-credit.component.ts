@@ -27,6 +27,7 @@ export class CustomerCreditComponent implements OnInit {
 
   
   ngOnInit(): void {
+    console.log();
     this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
       
@@ -173,7 +174,7 @@ export class CustomerCreditComponent implements OnInit {
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
               this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
             } else {
-              this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
+              this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { debugger; if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
             }
           }
         });
@@ -181,7 +182,7 @@ export class CustomerCreditComponent implements OnInit {
       }else{
         this.result.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
+          this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard/']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
         } else {
           this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
         }

@@ -202,7 +202,7 @@ export class LandingCustomerComponent implements OnInit {
               this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => {
                 if (d.success == true) {
                   this.router.navigate([d.redirectUrl]);
-                  this.toastr.success("Record saved successfully. We have sent you an email on : " + this.result.email);
+                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email,"",{enableHtml: true});
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
               });
@@ -211,7 +211,7 @@ export class LandingCustomerComponent implements OnInit {
               this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => {
                 if (d.success == true) {
                   this.router.navigate([d.redirectUrl]);
-                  this.toastr.success("Record saved successfully. We have sent you an email on : " + this.result.email);
+                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email,"",{enableHtml: true});
 
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
@@ -226,7 +226,7 @@ export class LandingCustomerComponent implements OnInit {
           this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => {
             if (d.success == true) {
               this.router.navigate([d.redirectUrl]);
-              this.toastr.success("Record saved successfully. We have sent you an email on : " + this.result.email);
+              this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email,"",{enableHtml: true});
 
             } else { this.toastr.error(d.message) };
             this.spinnerService.hide();

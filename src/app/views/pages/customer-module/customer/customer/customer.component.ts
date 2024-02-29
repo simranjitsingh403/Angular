@@ -89,6 +89,7 @@ export class CustomerComponent implements OnInit {
               localStorage.setItem('userDetails', d.user);
             }
 
+            this.userdetails = JSON.parse(d.user || "{}");
             this.router.navigateByUrl("/admin/shipper/credit/"+ this.userdetails.customerId);
 
           } else { this.toastr.error(d.message) };

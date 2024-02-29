@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(["/admin/ownerdashboard"]);
             }
             else if(this.userdetails.roleName == 'Shipper'){
-              this.router.navigate(["/admin/shipperdashboard"]);
+              this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || "/admin/shipperdashboard"]);
             }
             else{
               this.router.navigate([this.returnUrl]);
