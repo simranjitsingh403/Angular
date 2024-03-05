@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit {
     dark           : "#060c17",
     muted          : "#7987a1",
     gridBorder     : "rgba(77, 138, 240, .15)",
-    bodyColor      : environment.themeDark?"#b8c3d9":"#000",
-    cardBg         : environment.themeDark?"#0c1427":"#fff",
+    bodyColor      : localStorage.getItem('isDark') == 'true'?"#b8c3d9":"#000",
+    cardBg         : localStorage.getItem('isDark') == 'true'?"#0c1427":"#fff",
     fontFamily     : "'Roboto', Helvetica, sans-serif"
   }
 
@@ -526,7 +526,7 @@ function getMonthlySalesChartOptions(obj: any) {
         },
         track: {
           show: true,
-          background: environment.themeDark?obj.dark:obj.light,
+          background: localStorage.getItem('isDark') == 'true'?obj.dark:obj.light,
           strokeWidth: '100%',
           opacity: 1,
           margin: 5, 

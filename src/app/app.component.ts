@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,20 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'nobleui-angular';
   
+  constructor(@Inject(DOCUMENT) private document: Document){}
+
   ngOnInit(): void {
-    console.log(localStorage.getItem('isDark'));
+    if(localStorage.getItem('isDark') != null){
+      if(localStorage.getItem('isDark') == 'true'){
+        this.document.body.classList.add('sidebar-dark', 'dark-mode');
+      }else{
+        this.document.body.classList.add('sidebar-light');
+      }
+
+    }else{
+      localStorage.setItem('isDark','true');
+      this.document.body.classList.add('sidebar-dark', 'dark-mode');
+    }
   }
 
 }

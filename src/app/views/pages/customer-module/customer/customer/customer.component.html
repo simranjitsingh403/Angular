@@ -1,12 +1,12 @@
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <div style="overflow: hidden;">
 <div class="row">
-  <div class="col-md-12 grid-margin">
+  <div class="col-md-12">
     <div class="card">
       <div class="card-body">
         <h6 *ngIf="isLogin" class="card-title">Customer Form</h6>
-        <img *ngIf="!isLogin" [src]="logo" routerLink="." style="width: 225px;margin-left: -40px;">
-
+        <img *ngIf="!isLogin && isDarkChecked" [src]="logo" routerLink="." style="width: 225px;margin-left: -40px;">
+        <img *ngIf="!isLogin && isLightChecked" [src]="logo" routerLink="." style="width: 225px;margin-left: -20px;">
         <form [formGroup]="validationForm">
 
           <div class="col-md-12 grid-margin">

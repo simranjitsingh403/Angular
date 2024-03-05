@@ -25,7 +25,7 @@ export class OwnersComponent implements OnInit {
   rejectForm: UntypedFormGroup;
   isFormSubmitted: boolean;
   getRowStyle: any;
-  gridTheme:any = environment.themeDark? "ag-theme-quartz-dark":"ag-theme-quartz";
+  gridTheme:any = localStorage.getItem('isDark') == 'true'? "ag-theme-quartz-dark":"ag-theme-quartz";
   constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router, private modalService: NgbModal,
     private spinnerService: NgxSpinnerService) { }
 

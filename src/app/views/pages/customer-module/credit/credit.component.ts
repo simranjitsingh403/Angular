@@ -29,7 +29,9 @@ export class CreditComponent implements OnInit {
   isFormSubmitted: Boolean;
   @Input() taxExemptAttachment: any = null;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
-  logo = "/assets/images/OneLift_white.png";
+  isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
+  isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   date = new Date();
   isTaxExempt: boolean;

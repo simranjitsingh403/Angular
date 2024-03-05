@@ -751,6 +751,14 @@ ngb-datepicker .ngb-dp-content .ngb-dp-month .ngb-dp-week .ngb-dp-day .btn-light
   color: #d0d6e1;
 }
 
+.was-validated .form-control:invalid, .was-validated .dataTable-top .dataTable-search .dataTable-input:invalid, .dataTable-top .dataTable-search .was-validated .dataTable-input:invalid, .was-validated quill-editor .ql-container .ql-tooltip input[type=text]:invalid, quill-editor .ql-container .ql-tooltip .was-validated input[type=text]:invalid, .was-validated .ng-select .ng-select-container:invalid, .ng-select .was-validated .ng-select-container:invalid, .form-control.is-invalid, .dataTable-top .dataTable-search .is-invalid.dataTable-input, quill-editor .ql-container .ql-tooltip input.is-invalid[type=text], .ng-select .is-invalid.ng-select-container {
+  border-color: #ff3366 !important;
+}
+
+.was-validated .form-check-input:invalid, .was-validated .ng-dropdown-panel input[type=checkbox]:invalid, .ng-dropdown-panel .was-validated input[type=checkbox]:invalid, .form-check-input.is-invalid, .ng-dropdown-panel input.is-invalid[type=checkbox] {
+  border-color: #ff3366 !important;
+}
+
 // setting sidebar
 
 .settings-sidebar {

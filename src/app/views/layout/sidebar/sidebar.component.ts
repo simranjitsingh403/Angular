@@ -15,9 +15,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
-
+  isLightChecked = false;
+  isDarkChecked = false;
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
-  logo = "/assets/images/OneLift_white.png";
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLiftM_black.png";
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
@@ -42,6 +43,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
+    this.isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
     this.navService.get<any>("Module/GetModules?roleId=" + this.userdetails.roleId).subscribe(d => {
       this.menuItems = d;
     });
@@ -127,9 +130,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     if(event.target.value == 'sidebar-dark'){
       this.document.body.classList.add((<HTMLInputElement>event.target).value, 'dark-mode');
       localStorage.setItem('isDark','true');
+      window.location.reload();
     }else{
       this.document.body.classList.add((<HTMLInputElement>event.target).value);
       localStorage.setItem('isDark','false');
+      window.location.reload();
     }
     
     this.document.body.classList.remove('settings-open') ;

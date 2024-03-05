@@ -25,7 +25,7 @@ export class DriverTableComponent implements OnInit {
   isFormSubmitted: boolean;
   getRowStyle: any;
   @ViewChild('rejectModal') rejectModal: HTMLInputElement;
-  gridTheme:any = environment.themeDark? "ag-theme-quartz-dark":"ag-theme-quartz";
+  gridTheme:any = localStorage.getItem('isDark') == 'true'? "ag-theme-quartz-dark":"ag-theme-quartz";
 
   constructor(private navService: ApiService, private toastr: ToastrService, private router: Router, private modalService: NgbModal,
     public formBuilder: UntypedFormBuilder, private spinnerService: NgxSpinnerService) { }

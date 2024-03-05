@@ -26,7 +26,7 @@ export class CustomersComponent implements OnInit {
   status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }, { key: 4, value: "All" }];
   statusId: number = 4;
   customerCredit: Customercreditmodel = new Customercreditmodel();
-  gridTheme:any = environment.themeDark? "ag-theme-quartz-dark":"ag-theme-quartz";
+  gridTheme:any = localStorage.getItem('isDark') == 'true'? "ag-theme-quartz-dark":"ag-theme-quartz";
   @ViewChild('rejectModal') rejectModal: HTMLInputElement;
 
   constructor(private navService: ApiService, private toastr: ToastrService, private router: Router, private modalService: NgbModal,

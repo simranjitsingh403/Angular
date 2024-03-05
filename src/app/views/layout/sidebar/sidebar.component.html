@@ -6,7 +6,8 @@
       One<span>Lift</span>
     </a> -->
     <a routerLink="/" class="sidebar-brand nobleui-logo">
-      <img [src]="logo" alt="logo" style="height: 60px;width: 150px;margin-left: -30px;">
+      <img *ngIf="isDarkChecked" [src]="logo" alt="logo" style="height: 60px;width: 150px;margin-left: -30px;">
+      <img *ngIf="isLightChecked" [src]="logo" alt="logo" style="height: 225px;margin-left: -60px;">
     </a>
 
     <!--- Toggler -->
@@ -51,14 +52,14 @@
     <div class="mb-3 pb-3 border-bottom">
       <div class="form-check form-check-inline">
         <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="sidebarThemeSettings" (change)="onSidebarThemeChange($event)" id="sidebarLight" value="sidebar-light" >
+          <input type="radio" class="form-check-input" name="sidebarThemeSettings" (change)="onSidebarThemeChange($event)" id="sidebarLight" value="sidebar-light" [checked]="isLightChecked">
           <i class="input-frame"></i>
           Light
         </label>
       </div>
       <div class="form-check form-check-inline">
         <label class="form-check-label">
-          <input type="radio" class="form-check-input" name="sidebarThemeSettings" (change)="onSidebarThemeChange($event)" id="sidebarDark" value="sidebar-dark" checked>
+          <input type="radio" class="form-check-input" name="sidebarThemeSettings" (change)="onSidebarThemeChange($event)" id="sidebarDark" value="sidebar-dark" [checked]="isDarkChecked">
           <i class="input-frame"></i>
           Dark
         </label>

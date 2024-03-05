@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./user-grid.component.scss']
 })
 export class UserGridComponent implements OnInit {
-  gridTheme:any = environment.themeDark? "ag-theme-quartz-dark":"ag-theme-quartz";
+  gridTheme:any = localStorage.getItem('isDark') == 'true'? "ag-theme-quartz-dark":"ag-theme-quartz";
 
   constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router, private spinnerService: NgxSpinnerService) { }
 
