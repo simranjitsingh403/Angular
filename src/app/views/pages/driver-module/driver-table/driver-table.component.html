@@ -71,7 +71,7 @@
         <div class="table-responsive">
           <ag-grid-angular 
           style="height: 500px;" 
-          class="ag-theme-quartz"
+          class={{gridTheme}}
           [rowData]="rowData$ | async" 
           [columnDefs]="columnDefs"
           [defaultColDef]="defaultColDef"

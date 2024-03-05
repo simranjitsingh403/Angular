@@ -7,6 +7,7 @@ import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { Usermodel } from 'src/app/model/usermodel';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +17,7 @@ import { Usermodel } from 'src/app/model/usermodel';
 export class SidebarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
-  logo = "/assets/images/OneLiftM_black.png";
+  logo = "/assets/images/OneLift_white.png";
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
@@ -121,10 +122,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   /**
    * Switching sidebar light/dark
    */
-  onSidebarThemeChange(event: Event) {
-    this.document.body.classList.remove('sidebar-light', 'sidebar-dark');
-    this.document.body.classList.add((<HTMLInputElement>event.target).value);
-    this.document.body.classList.remove('settings-open');
+  onSidebarThemeChange(event: any) {
+    this.document.body.classList.remove('sidebar-light', 'sidebar-dark', 'dark-mode');
+    if(event.target.value == 'sidebar-dark'){
+      this.document.body.classList.add((<HTMLInputElement>event.target).value, 'dark-mode');
+      localStorage.setItem('isDark','true');
+    }else{
+      this.document.body.classList.add((<HTMLInputElement>event.target).value);
+      localStorage.setItem('isDark','false');
+    }
+    
+    this.document.body.classList.remove('settings-open') ;
   }
 
 

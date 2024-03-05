@@ -567,7 +567,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <canvas #signPadCanvas (touchstart)="startSignPadDrawing($event)"
+                                                <canvas style="background-color: #fff;" #signPadCanvas (touchstart)="startSignPadDrawing($event)"
                                                     (touchmove)="movedFinger($event)"></canvas>
                                                 <button class="btn btn-danger" (click)="clearSignPad()">Clear</button>
                                             </div>
@@ -578,7 +578,7 @@
 
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <img src='{{ signature }}' />
+                                        <img style="background-color: #fff;" src='{{ signature }}' />
                                     </div>
                                 </div>
                             </div>

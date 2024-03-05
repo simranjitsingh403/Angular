@@ -22,7 +22,7 @@ export class CustomerComponent implements OnInit {
   result: Customermodel = new Customermodel();
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
-  logo = "/assets/images/OneLift_black.png";
+  logo = "/assets/images/OneLift_white.png";
   customerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService) { }
@@ -38,7 +38,7 @@ export class CustomerComponent implements OnInit {
     this.navService.get<Customermodel>("Customer/Customer/Register?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
 
-    }, e => this.toastr.error(e.message), () => {
+    }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
       this.validationForm.patchValue({
       });
 
@@ -90,11 +90,11 @@ export class CustomerComponent implements OnInit {
             }
 
             this.userdetails = JSON.parse(d.user || "{}");
-            this.router.navigateByUrl("/admin/shipper/credit/"+ this.userdetails.customerId);
+            this.router.navigateByUrl("/admin/shipper/credit/" + this.userdetails.customerId);
 
           } else { this.toastr.error(d.message) };
           this.spinnerService.hide();
-        });
+        }, e => this.spinnerService.hide());
       }
     }
     this.isFormSubmitted = true;

@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-8 ps-md-0">
           <div class="auth-form-wrapper px-4 py-5">
-            <img [src]="logo" routerLink="." style="width: 225px;margin-left: -20px;">
+            <img [src]="logo" routerLink="." style="width: 225px;margin-left: -40px;">
             <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
             <form class="forms-sample" (ngSubmit)="onLoggedin()" [formGroup]="validationForm">
               <div class="mb-3">
@@ -52,19 +52,19 @@
              
               <div class="row mt-3 text-muted">
                 <div class="col-md-3">
-                  <button routerLink="/driver/register" type="button" class="btn btn-outline-dark btn-icon-text mb-2 mb-md-0">
+                  <button routerLink="/driver/register" type="button" class="btn btn-outline-info btn-icon-text mb-2 mb-md-0">
                     <i class="feather mdi mdi-account-multiple-outline btn-icon-prepend"></i>
                     Driver
                   </button>
                 </div>
                 <div class="col-md-3">
-                  <button routerLink="/owner" type="button" class="btn btn-outline-dark btn-icon-text mb-2 mb-md-0">
+                  <button routerLink="/owner" type="button" class="btn btn-outline-info btn-icon-text mb-2 mb-md-0">
                     <i class="feather mdi mdi-account-multiple-plus btn-icon-prepend"></i>
                     Owner
                   </button>
                 </div>
                 <div class="col-md-3">
-                  <button routerLink="/shipper" type="button" class="btn btn-outline-dark btn-icon-text mb-2 mb-md-0">
+                  <button routerLink="/shipper" type="button" class="btn btn-outline-info btn-icon-text mb-2 mb-md-0">
                     <i class="feather mdi mdi-account-network btn-icon-prepend"></i>
                     Shipper
                   </button>

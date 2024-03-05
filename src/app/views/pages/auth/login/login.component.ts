@@ -20,14 +20,14 @@ export class LoginComponent implements OnInit {
   isFormSubmitted = false;
   validationForgotForm: any;
   isForgotFormSubmitted = false;
-  baseUrl:any;
-  logo="/assets/images/OneLift_black.png";
-  userdetails:Usermodel = new Usermodel();
-  
+  baseUrl: any;
+  logo = "/assets/images/OneLift_white.png";
+  userdetails: Usermodel = new Usermodel();
+
   constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService,
     private modalService: NgbModal) {
-    this.baseUrl=environment.baseURL;
-   }
+    this.baseUrl = environment.baseURL;
+  }
 
   ngOnInit(): void {
     // get return url from route parameters or default to '/'
@@ -62,13 +62,13 @@ export class LoginComponent implements OnInit {
 
             if (this.userdetails.roleName == 'Driver') {
               this.router.navigate(["/admin/dashboard"]);
-            } else if(this.userdetails.roleName == 'Owner'){
+            } else if (this.userdetails.roleName == 'Owner') {
               this.router.navigate(["/admin/ownerdashboard"]);
             }
-            else if(this.userdetails.roleName == 'Shipper'){
+            else if (this.userdetails.roleName == 'Shipper') {
               this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || "/admin/shipperdashboard"]);
             }
-            else{
+            else {
               this.router.navigate([this.returnUrl]);
             }
           }
@@ -86,10 +86,10 @@ export class LoginComponent implements OnInit {
     return this.validationForm.controls;
   }
 
-  ForgotClick(model:any) {
+  ForgotClick(model: any) {
     this.modalService.open(model)
     this.forgotform.email.setValue("");
-    
+
   }
 
   get forgotform() {
@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
     if (this.validationForgotForm.valid) {
       this.userdetails.email = this.forgotform.email.value;
       this.navService.post<any>("Account/ForgotPassword", this.userdetails).subscribe(response => this.toastr.success(response.message),
-      e => this.toastr.error(e));
+        e => this.toastr.error(e));
       this.modalService.dismissAll();
     }
     this.isForgotFormSubmitted = true;

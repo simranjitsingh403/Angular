@@ -8060,7 +8060,7 @@ full-calendar.fc .btn-group-vertical > .btn-group:not(:first-child) > .fc-button
 
 .text-body {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity)) !important;
+  color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity));
 }
 
 .text-muted, .dropzone.dz-clickable .dz-message * {

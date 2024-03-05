@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,8 +33,8 @@ export class DashboardComponent implements OnInit {
     dark           : "#060c17",
     muted          : "#7987a1",
     gridBorder     : "rgba(77, 138, 240, .15)",
-    bodyColor      : "#000",
-    cardBg         : "#fff",
+    bodyColor      : environment.themeDark?"#b8c3d9":"#000",
+    cardBg         : environment.themeDark?"#0c1427":"#fff",
     fontFamily     : "'Roboto', Helvetica, sans-serif"
   }
 
@@ -525,7 +526,7 @@ function getMonthlySalesChartOptions(obj: any) {
         },
         track: {
           show: true,
-          background: obj.light,
+          background: environment.themeDark?obj.dark:obj.light,
           strokeWidth: '100%',
           opacity: 1,
           margin: 5, 

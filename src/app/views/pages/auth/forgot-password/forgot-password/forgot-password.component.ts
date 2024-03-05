@@ -15,21 +15,20 @@ export class ForgotPasswordComponent implements OnInit {
 
   validationForm: any;
   isFormSubmitted = false;
-  baseUrl:any;
-  logo="/assets/images/OneLift_black.png";
-  user:Usermodel = new Usermodel();
-  isPasswordNotValid:boolean = false;
-  isPasswordNotMatch:boolean = false;
+  baseUrl: any;
+  logo = "/assets/images/OneLift_white.png";
+  user: Usermodel = new Usermodel();
+  isPasswordNotValid: boolean = false;
+  isPasswordNotMatch: boolean = false;
 
-  constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) 
-  { 
-    this.baseUrl=environment.baseURL;
+  constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService) {
+    this.baseUrl = environment.baseURL;
   }
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
-      email:[,Validators.required],
-      password: ['', [Validators.required,Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/)]],
+      email: [, Validators.required],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/)]],
       confirmPassword: ['', Validators.required],
     });
   }
@@ -38,8 +37,8 @@ export class ForgotPasswordComponent implements OnInit {
     return this.validationForm.controls;
   }
 
-  onSubmit(){
-    if(this.validationForm.controls.password.errors != null){
+  onSubmit() {
+    if (this.validationForm.controls.password.errors != null) {
       this.isPasswordNotValid = true
     }
     if (this.validationForm.valid) {
@@ -48,23 +47,23 @@ export class ForgotPasswordComponent implements OnInit {
       this.user.confirmPassword = this.form.confirmPassword.value;
       this.user.passwordToken = this.route.snapshot.queryParams['token']
       this.navService.post<any>("Account/PasswordReset", this.user).subscribe(response => this.toastr.success(response.message),
-      e => this.toastr.error(e.error.message),()=>{
-        this.router.navigateByUrl("/auth/login");
-      });
+        e => this.toastr.error(e.error.message), () => {
+          this.router.navigateByUrl("/auth/login");
+        });
     }
     this.isFormSubmitted = true;
   }
 
-  SigninClick(){
+  SigninClick() {
     this.router.navigateByUrl("/auth/login");
   }
 
-  PasswordChange(event:any){
-    if(this.form.password.value != event.target.value){
+  PasswordChange(event: any) {
+    if (this.form.password.value != event.target.value) {
       this.isPasswordNotMatch = true;
-      this.validationForm.controls['confirmPassword'].setErrors({'incorrect': true});
+      this.validationForm.controls['confirmPassword'].setErrors({ 'incorrect': true });
     }
-    
+
   }
 
 }

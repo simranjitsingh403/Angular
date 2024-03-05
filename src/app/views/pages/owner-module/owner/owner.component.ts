@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Ownermodel } from 'src/app/model/ownermodel';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Usermodel } from 'src/app/model/usermodel';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-owner',
@@ -18,15 +19,16 @@ export class OwnerComponent implements OnInit {
   isFormSubmitted: Boolean;
   apiPath: string = environment.baseURL;
   vehicleBrands = [];
-  cities:any = [];
+  cities: any = [];
   states = [];
-  newCities=[];
+  newCities = [];
   result: Ownermodel = new Ownermodel();
   ownerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
-  userdetails:Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
-  logo = "/assets/images/OneLift_black.png";
-  isLogin=localStorage.getItem('isLoggedin') == null ? false : true;
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
+  userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
+  logo = "/assets/images/OneLift_white.png";
+  isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
+    private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
@@ -47,12 +49,12 @@ export class OwnerComponent implements OnInit {
       experience: ['', Validators.required],
       dotInspection: [],
       currentRegistration: [],
-      email:[,Validators.required]
+      email: [, Validators.required]
     });
 
     this.navService.get<Ownermodel>("Owner/Owner/Register?Id=" + this.ownerId).subscribe((response) => {
       this.result = response;
-    }, e => this.toastr.error(e.message), () => {
+    }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
       this.validationForm.patchValue({
         firstName: this.result.firstName,
         lastName: this.result.lastName,
@@ -69,15 +71,17 @@ export class OwnerComponent implements OnInit {
         license: this.result.license,
         experience: this.result.experience,
         parkingStateId: this.result.parkingStateId != 0 ? this.result.parkingStateId : null,
-        email:this.result.email,
+        email: this.result.email,
       });
       this.states = this.result.states;
       this.cities = this.result.cities;
       this.vehicleBrands = this.result.carBrands;
 
-      if(this.result.parkingStateId != 0){
-        this.newCities = this.cities.filter((s:any) => s.stateId == this.result.parkingStateId);
+      if (this.result.parkingStateId != 0) {
+        this.newCities = this.cities.filter((s: any) => s.stateId == this.result.parkingStateId);
       }
+
+      this.spinnerService.hide();
 
     });
   }
@@ -86,7 +90,7 @@ export class OwnerComponent implements OnInit {
     return this.validationForm.controls;
   }
 
-  formSubmit(event:any) {
+  formSubmit(event: any) {
     if (this.validationForm.valid) {
       this.result.firstName = this.form.firstName.value;
       this.result.lastName = this.form.lastName.value;
@@ -106,7 +110,7 @@ export class OwnerComponent implements OnInit {
       this.result.email = this.form.email.value;
       this.result.jwtToken = localStorage.getItem('token');
 
-      if(event.currentTarget.value == "submit"){
+      if (event.currentTarget.value == "submit") {
         Swal.fire({
           title: 'Are you sure?',
           text: 'You won\'t be able to edit your details!',
@@ -119,19 +123,21 @@ export class OwnerComponent implements OnInit {
           if (sresult.value) {
             this.result.isSubmitted = true;
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-              this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+              this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
             } else {
-              this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); if(this.userdetails.roleName=="Owner"){ this.router.navigate(['/admin/ownerdashboard']);}else{this.router.navigate(['/admin/owners']);}  } else { this.toastr.error(d.message) } });
+              this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); if (this.userdetails.roleName == "Owner") { this.router.navigate(['/admin/ownerdashboard']); } else { this.router.navigate(['/admin/owners']); } } else { this.toastr.error(d.message) } this.spinnerService.hide(); }
+                , e => this.spinnerService.hide());
             }
           }
         });
-        
-      }else{
+
+      } else {
         this.result.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } });
+          this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
         } else {
-          this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message);if(this.userdetails.roleName=="Owner"){this.router.navigate(['/admin/ownerdashboard']);}else{this.router.navigate(['/admin/owners']); } } else { this.toastr.error(d.message) } });
+          this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); if (this.userdetails.roleName == "Owner") { this.router.navigate(['/admin/ownerdashboard']); } else { this.router.navigate(['/admin/owners']); } } else { this.toastr.error(d.message) } this.spinnerService.hide(); }
+            , e => this.spinnerService.hide());
         }
       }
 
@@ -158,8 +164,8 @@ export class OwnerComponent implements OnInit {
     this.navService.post<any>('Owner/Owner/UploadFile', formData, false, undefined, true)
       .subscribe(v => {
         this.result.dotInspectionPath = v.picPath;
-
-      }, e => this.toastr.error(e.error.message));
+        this.spinnerService.hide();
+      }, e => { this.toastr.error(e.error.message); this.spinnerService.hide(); });
   }
 
   UploadCurrentRegistration(file: any) {
@@ -174,12 +180,12 @@ export class OwnerComponent implements OnInit {
     this.navService.post<any>('Owner/Owner/UploadFile', formData, false, undefined, true)
       .subscribe(v => {
         this.result.currentRegistrationPath = v.picPath;
-
-      }, e => this.toastr.error(e.error.message));
+        this.spinnerService.hide();
+      }, e => { this.toastr.error(e.error.message); this.spinnerService.hide(); });
   }
 
-  stateChange(value:any){
-    this.newCities = this.cities.filter((s:any) => s.stateId == value.id);
+  stateChange(value: any) {
+    this.newCities = this.cities.filter((s: any) => s.stateId == value.id);
   }
 
 }

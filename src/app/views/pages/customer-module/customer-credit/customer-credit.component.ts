@@ -22,18 +22,18 @@ export class CustomerCreditComponent implements OnInit {
   @ViewChild(CreditComponent) creditComponent: CreditComponent;
   customerId = this.route.snapshot.params['id'] == undefined ? this.userdetails.customerId : this.route.snapshot.params['id'];
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,private spinnerService: NgxSpinnerService) {
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService) {
   }
 
-  
+
   ngOnInit(): void {
     console.log();
     this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
-      
+
       this.creditComponent.trades = response.trades != null ? response.trades : [];
 
-    }, e => {this.toastr.error(e.message);}, () => {
+    }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
       this.creditComponent.validationForm.patchValue({
 
         isPORequired: this.result.isPORequired,
@@ -94,13 +94,13 @@ export class CustomerCreditComponent implements OnInit {
         }
       ]);
       this.spinnerService.hide();
-      this.creditComponent.isTaxExempt = this.result.taxExemptAttachment != null? true : false;
-      this.creditComponent.isInvoiceEmail = this.result.invoiceEmail != null? true : false;
+      this.creditComponent.isTaxExempt = this.result.taxExemptAttachment != null ? true : false;
+      this.creditComponent.isInvoiceEmail = this.result.invoiceEmail != null ? true : false;
     });
   }
 
   formSubmit(event: any) {
-    
+
     if (this.creditComponent.validationForm.valid) {
       this.result.customerId = this.customerId;
       this.result.isPORequired = this.creditComponent.form.isPORequired.value;
@@ -129,11 +129,11 @@ export class CustomerCreditComponent implements OnInit {
       this.result.presidentName = this.creditComponent.form.presidentName.value;
       this.result.vicePresidentName = this.creditComponent.form.vicePresidentName.value;
       this.result.secretary = this.creditComponent.form.secretary.value;
-      if(!this.creditComponent.signPad.isEmpty()){
-        this.result.signature =  this.creditComponent.signPad.toDataURL();
+      if (!this.creditComponent.signPad.isEmpty()) {
+        this.result.signature = this.creditComponent.signPad.toDataURL();
       }
       this.result.fax = this.creditComponent.form.fax.value;
-      if(!isNullOrUndefined(this.creditComponent.taxExemptAttachment)){
+      if (!isNullOrUndefined(this.creditComponent.taxExemptAttachment)) {
         this.result.taxExemptAttachment = this.creditComponent.taxExemptAttachment;
       }
 
@@ -159,7 +159,7 @@ export class CustomerCreditComponent implements OnInit {
 
       this.result.trades = this.creditComponent.trades;
 
-      if(event.currentTarget.value == "submit"){
+      if (event.currentTarget.value == "submit") {
         Swal.fire({
           title: 'Are you sure?',
           text: 'You won\'t be able to edit your details!',
@@ -172,25 +172,25 @@ export class CustomerCreditComponent implements OnInit {
           if (sresult.value) {
             this.result.isSubmitted = true;
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-              this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
+              this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
             } else {
-              this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { debugger; if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
+              this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
             }
           }
         });
-        
-      }else{
+
+      } else {
         this.result.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard/']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
+          this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard/']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
         } else {
-          this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); });
+          this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
         }
       }
     }
     this.creditComponent.isFormSubmitted = true;
   }
 
- 
+
 
 }

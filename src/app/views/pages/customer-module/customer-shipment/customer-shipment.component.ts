@@ -27,10 +27,8 @@ export class CustomerShipmentComponent implements OnInit {
   ngOnInit(): void {
     this.navService.get<Shipmentmodel>("Customer/Customer/Shipment?Id=" + this.shipmentId).subscribe((response) => {
       this.result = response;
-      console.log(response);
 
-
-    }, e => this.toastr.error(e.message), () => {
+    }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
       this.shipmentComponent.validationForm.patchValue({
         originAddress: this.result.originAddress,
         originZip: this.result.originZip,

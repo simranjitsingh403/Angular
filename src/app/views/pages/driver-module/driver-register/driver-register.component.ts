@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Usermodel } from 'src/app/model/usermodel';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-driver-registor',
@@ -34,9 +35,10 @@ export class DriverRegistorComponent implements OnInit {
   driverId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
-  logo = "/assets/images/OneLift_black.png";
+  logo = "/assets/images/OneLift_white.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
+    private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     if (!this.driverId) {
@@ -46,7 +48,7 @@ export class DriverRegistorComponent implements OnInit {
 
     this.navService.get<Drivermodel>("Driver/Account/Register?Id=" + this.driverId).subscribe((response) => {
       this.result = response;
-    }, e => this.toastr.error(e.message), () => {
+    }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
       this.validationForm1.patchValue({
         firstName: this.result.firstName,
         states: this.result.states,
@@ -85,6 +87,8 @@ export class DriverRegistorComponent implements OnInit {
       if (this.result.documents.length > 0) {
         this.validationForm2.controls['documents'].setErrors(null);
       }
+
+      this.spinnerService.hide();
 
     });
     /**
@@ -162,7 +166,7 @@ export class DriverRegistorComponent implements OnInit {
           if (sresult.value) {
             this.result.isSubmitted = true;
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-              this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+              this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
             } else {
               this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
                 if (d.success == true) {
@@ -173,7 +177,8 @@ export class DriverRegistorComponent implements OnInit {
                     this.router.navigate(['/admin/drivers']);
                   }
                 } else { this.toastr.error(d.message) }
-              });
+                this.spinnerService.hide();
+              }, e => this.spinnerService.hide());
             }
           }
         });
@@ -181,7 +186,7 @@ export class DriverRegistorComponent implements OnInit {
       } else {
         this.result.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } });
+          this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
         } else {
           this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
             if (d.success == true) {
@@ -191,7 +196,8 @@ export class DriverRegistorComponent implements OnInit {
                 this.router.navigate(['/admin/drivers']);
               }
             } else { this.toastr.error(d.message) }
-          });
+            this.spinnerService.hide();
+          }, e => this.spinnerService.hide());
         }
       }
     }
@@ -314,7 +320,8 @@ export class DriverRegistorComponent implements OnInit {
         for (let i = 0; i < v.length; i++) {
           this.result.documents.push(v[i]);
         }
-      });
+        this.spinnerService.hide();
+      }, e => this.spinnerService.hide());
   }
 
   DeleteDocument(index: any) {

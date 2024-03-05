@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { ColDef } from 'ag-grid-community';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { RowClassParams } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-driver-table',
   templateUrl: './driver-table.component.html',
@@ -23,9 +25,10 @@ export class DriverTableComponent implements OnInit {
   isFormSubmitted: boolean;
   getRowStyle: any;
   @ViewChild('rejectModal') rejectModal: HTMLInputElement;
+  gridTheme:any = environment.themeDark? "ag-theme-quartz-dark":"ag-theme-quartz";
 
   constructor(private navService: ApiService, private toastr: ToastrService, private router: Router, private modalService: NgbModal,
-    public formBuilder: UntypedFormBuilder) { }
+    public formBuilder: UntypedFormBuilder, private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.GetAll();
@@ -38,10 +41,10 @@ export class DriverTableComponent implements OnInit {
 
     this.getRowStyle = (params: RowClassParams) => {
       if (params.data.formStatusId == 3) {
-        return { 'background-color': '#FFE4E4' }
+        return { '--ag-data-color': '#FF3366' }
       }
       if (params.data.formStatusId == 2) {
-        return { 'background-color': '#E5FFE4' }
+        return { '--ag-data-color': '#05A34A' }
       }
       return null;
     }
@@ -50,6 +53,7 @@ export class DriverTableComponent implements OnInit {
 
   GetAll() {
     this.rowData$ = this.navService.get<any>("Driver/Account/GetDrivers?status=" + this.statusId);
+    this.spinnerService.hide();
   }
 
   get form() {
@@ -76,12 +80,12 @@ export class DriverTableComponent implements OnInit {
 
   AcceptDriver(model: Drivermodel) {
     model.formStatusId = 2;
-    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } else{this.toastr.error(d.message);this.GetAll();} }, e => {this.toastr.error(e.message);this.GetAll(); });
+    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } else { this.toastr.error(d.message); this.spinnerService.hide(); } }, e => this.spinnerService.hide());
   }
 
   RejectDriver(model: Drivermodel) {
     model.formStatusId = 3;
-    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } }, e => {this.toastr.error(e.message);this.GetAll();});
+    this.navService.put<any>("Driver/Account/DriverStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } else { this.toastr.error(d.message); this.spinnerService.hide(); } }, e => this.spinnerService.hide());
   }
 
   openRejectModal(model: Drivermodel) {
@@ -98,7 +102,7 @@ export class DriverTableComponent implements OnInit {
   onGridReady(params: any) {
     params.api.sizeColumnsToFit();
   }
-  
+
 
   onCellClicked(params: any) {
     params.node.setSelected(true);
@@ -120,7 +124,7 @@ export class DriverTableComponent implements OnInit {
         confirmButtonText: 'Yes, delete it!'
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
-          this.navService.put("Driver/Account/DeleteDriver/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
+          this.navService.put("Driver/Account/DeleteDriver/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong"); this.spinnerService.hide(); } }, e => this.spinnerService.hide());
         }
       });
     }
@@ -139,10 +143,10 @@ export class DriverTableComponent implements OnInit {
           data += '<span>Pending</span>'
         }
         if (params.data.formStatusId == 2) {
-          data += '<span><span style="color: green">●</span> Approved</span>'
+          data += '<span><span style="color: green"><i class="mdi mdi-checkbox-marked-circle"></i></span> Approved</span>'
         }
         if (params.data.formStatusId == 3) {
-          data += '<span><span style="color: red">●</span> Rejected</span>'
+          data += '<span><span style="color: red"><i class="mdi mdi-close-circle"></i></span> Rejected</span>'
         }
         return data;
       }

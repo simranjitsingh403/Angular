@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder,FormGroup }  from '@angular/forms';
+import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import Validation from 'src/app/utils/validation';
@@ -10,10 +10,10 @@ import Validation from 'src/app/utils/validation';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, private navService:ApiService,private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private navService: ApiService, private formBuilder: FormBuilder) { }
 
-  data:any;
- submitted = false;
+  data: any;
+  submitted = false;
 
   form = new FormGroup({
     userName: new FormControl(''),
@@ -58,19 +58,18 @@ export class RegisterComponent implements OnInit {
     // console.log(this.form.value);
     this.router.navigate(['/dashboard']);
   }
-  signUp()
-  {
+  signUp() {
     debugger;
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
-    
 
-    this.navService.post("Account/Register",this.form.value).subscribe({
+
+    this.navService.post("Account/Register", this.form.value).subscribe({
       next: value => console.log(value),
       error: err => console.error('Observable emitted an error: ' + err),
-      complete: () =>console.log("success")
+      complete: () => console.log("success")
     });
 
   }

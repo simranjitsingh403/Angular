@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <h6 *ngIf="isLogin" class="card-title">Customer Form</h6>
-        <img *ngIf="!isLogin" [src]="logo" routerLink="." style="width: 225px;margin-left: -20px;">
+        <img *ngIf="!isLogin" [src]="logo" routerLink="." style="width: 225px;margin-left: -40px;">
 
         <div *ngIf="result.customerCredit.rejectedReason != null && result.customerCredit.statusId==3">
           <h5 class="text-danger">Note:- {{result.customerCredit.rejectedReason}}</h5>

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  themeDark : true,
   baseURL:"https://truckloadapi.azurewebsites.net/"
 };
 

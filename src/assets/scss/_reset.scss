@@ -54,3 +54,9 @@ input:-webkit-autofill:active  {
   -webkit-box-shadow: 0 0 0 30px $input-bg inset;
   -webkit-text-fill-color: $body-color;
 }
+
+.input-dark{
+  input{
+    background-color: #0c1427;
+  }
+}

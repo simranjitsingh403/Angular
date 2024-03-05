@@ -6,6 +6,8 @@ import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 import { Observable } from 'rxjs';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-grid',
@@ -13,14 +15,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-grid.component.scss']
 })
 export class UserGridComponent implements OnInit {
+  gridTheme:any = environment.themeDark? "ag-theme-quartz-dark":"ag-theme-quartz";
 
-  constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router) { }
+  constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router, private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.GetAll();
   }
   GetAll() {
     this.rowData$ = this.navService.get<any>("Account/Users");
+    this.spinnerService.hide();
   }
 
   onGridReady(params: any) {
@@ -50,7 +54,7 @@ export class UserGridComponent implements OnInit {
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
           if (result.value) {
-            this.navService.put("Account/DeleteUser/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
+            this.navService.put("Account/DeleteUser/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong"); this.GetAll() } }, e => this.spinnerService.hide());
           }
         }
       });

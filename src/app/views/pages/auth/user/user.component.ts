@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/api.service';
 import { Usermodel } from 'src/app/model/usermodel';
@@ -20,24 +21,25 @@ export class UserComponent implements OnInit {
   userId: any = this.route.snapshot.params['id'];
   isEmailDisabled = false;
   buttonValue: any;
-  baseUrl:any;
+  baseUrl: any;
   jwtdetails: any = this.navService.decodeJwtToken();
-  roledetails:any = JSON.parse( this.jwtdetails == null ? "[]" : this.jwtdetails.role);
+  roledetails: any = JSON.parse(this.jwtdetails == null ? "[]" : this.jwtdetails.role);
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
-  editPermission : boolean = false;
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) {
-    this.baseUrl=environment.baseURL;
-   }
+  editPermission: boolean = false;
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
+    private spinnerService: NgxSpinnerService) {
+    this.baseUrl = environment.baseURL;
+  }
 
   ngOnInit(): void {
     this.buttonValue = "Update";
 
-    this.roledetails.forEach((element:any) => {
-      if(element.ModuleName == "User"){
+    this.roledetails.forEach((element: any) => {
+      if (element.ModuleName == "User") {
         this.editPermission = element.IsEdit;
       }
     });
-    
+
     this.validationForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -57,7 +59,7 @@ export class UserComponent implements OnInit {
     }
     this.navService.get<Usermodel>("Account/UserRegister?Id=" + this.userId + "").subscribe((response) => {
       this.result = response;
-    }, e => this.toastr.error(e.message), () => {
+    }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
       this.validationForm.patchValue({
         firstName: this.result.firstName,
         states: this.result.states,
@@ -74,7 +76,7 @@ export class UserComponent implements OnInit {
       this.roles = this.result.roles;
       this.states = this.result.states;
       this.isEmailDisabled = this.result.email != null ? true : false;
-
+      this.spinnerService.hide();
     });
 
   }
@@ -97,9 +99,9 @@ export class UserComponent implements OnInit {
       this.result.address = this.form.address.value;
       this.result.userName = this.form.email.value;
       if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-        this.navService.post<any>("Account/UserRegister", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/users']); } else { this.toastr.error(d.message) } });
+        this.navService.post<any>("Account/UserRegister", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/users']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
       } else {
-        this.navService.put<any>("Account/UpdateUser", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/users']); } else { this.toastr.error(d.message) } });
+        this.navService.put<any>("Account/UpdateUser", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/users']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
       }
     }
     else {
@@ -120,8 +122,8 @@ export class UserComponent implements OnInit {
     this.navService.post<any>('Account/UploadFile', formData, false, undefined, true)
       .subscribe(v => {
         this.result.profilePicture = v.picPath;
-
-      }, e => this.toastr.error(e.error.message));
+        this.spinnerService.hide();
+      }, e => { this.toastr.error(e.error.message); this.spinnerService.hide(); });
   }
 
 }

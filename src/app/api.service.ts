@@ -67,7 +67,6 @@ export class ApiService {
       }
 
       private handleError(error: HttpErrorResponse) {
-        //this.spinnerService.hide();
         if (error.status === 0) {
           Swal.fire({  
             icon: 'error',  

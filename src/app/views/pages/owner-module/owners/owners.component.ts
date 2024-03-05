@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { Ownermodel } from 'src/app/model/ownermodel';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RowClassParams } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-owners',
@@ -17,14 +19,15 @@ import { RowClassParams } from 'ag-grid-community';
 })
 export class OwnersComponent implements OnInit {
   status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }, { key: 4, value: "All" }];
-  statusId:number = 4;
-  owner:Ownermodel = new Ownermodel();
+  statusId: number = 4;
+  owner: Ownermodel = new Ownermodel();
   @ViewChild('rejectModal') rejectModal: HTMLInputElement;
   rejectForm: UntypedFormGroup;
   isFormSubmitted: boolean;
   getRowStyle: any;
-
-  constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router, private modalService: NgbModal) { }
+  gridTheme:any = environment.themeDark? "ag-theme-quartz-dark":"ag-theme-quartz";
+  constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router, private modalService: NgbModal,
+    private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.GetAll();
@@ -37,16 +40,17 @@ export class OwnersComponent implements OnInit {
 
     this.getRowStyle = (params: RowClassParams) => {
       if (params.data.statusId == 3) {
-        return { 'background-color': '#FFE4E4' }
+        return { '--ag-data-color': '#FF3366' }
       }
       if (params.data.statusId == 2) {
-        return { 'background-color': '#E5FFE4' }
+        return { '--ag-data-color': '#05A34A' }
       }
       return null;
     }
   }
   GetAll() {
     this.rowData$ = this.navService.get<any>("Owner/Owner/GetAll?status=" + this.statusId);
+    this.spinnerService.hide();
   }
 
   GetOwners(event: any) {
@@ -65,12 +69,12 @@ export class OwnersComponent implements OnInit {
   AcceptOwner(model: Ownermodel) {
     debugger;
     model.statusId = 2;
-    this.navService.put<any>("Owner/Owner/OwnerStatus",model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } else{this.toastr.error(d.message);this.GetAll();} }, e => {this.toastr.error(e.message);this.GetAll(); });
+    this.navService.put<any>("Owner/Owner/OwnerStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record accepted successfully."); this.GetAll(); } else { this.toastr.error(d.message); this.GetAll(); } }, e => this.spinnerService.hide());
   }
 
   RejectOwner(model: Ownermodel) {
     model.statusId = 3;
-    this.navService.put<any>("Owner/Owner/OwnerStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } }, e => {this.toastr.error(e.message);this.GetAll();});
+    this.navService.put<any>("Owner/Owner/OwnerStatus", model).subscribe(d => { if (d.success) { this.toastr.success("Record rejected successfully."); this.GetAll(); } else { this.toastr.error(d.message); this.GetAll(); } }, e => this.spinnerService.hide());
   }
 
   openRejectModal(model: Ownermodel) {
@@ -118,7 +122,7 @@ export class OwnersComponent implements OnInit {
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
           if (result.value) {
-            this.navService.put("Owner/Owner/Delete/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong") } });
+            this.navService.put("Owner/Owner/Delete/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong"); this.GetAll() } }, e => this.spinnerService.hide());
           }
         }
       });
@@ -129,8 +133,8 @@ export class OwnersComponent implements OnInit {
 
   columnDefs: ColDef[] = [
     { headerName: 'Name', field: 'firstName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) { return '<a href="/admin/owner/' + params.data.id + '">' + params.data.firstName + ' ' + (params.data.middleName ?? "") + ' ' + params.data.lastName + '<a/>' } },
-    { headerName: 'Driver License', field: 'license', cellStyle: { 'font-weight': '600' }},
-    { headerName: 'Address', field: 'address', cellStyle: { 'font-weight': '600' }},
+    { headerName: 'Driver License', field: 'license', cellStyle: { 'font-weight': '600' } },
+    { headerName: 'Address', field: 'address', cellStyle: { 'font-weight': '600' } },
     {
       headerName: 'Status', field: 'formStatusName', cellStyle: { 'font-weight': '600' }, cellRenderer: function (params: any) {
         let data = '';
@@ -138,10 +142,10 @@ export class OwnersComponent implements OnInit {
           data += '<span>Pending</span>'
         }
         if (params.data.statusId == 2) {
-          data += '<span><span style="color: green">●</span> Approved</span>'
+          data += '<span><span style="color: green"><i class="mdi mdi-checkbox-marked-circle"></i></span> Approved</span>'
         }
         if (params.data.statusId == 3) {
-          data += '<span><span style="color: red">●</span> Rejected</span>'
+          data += '<span><span style="color: red"><i class="mdi mdi-close-circle"></i></span> Rejected</span>'
         }
         return data;
       }
