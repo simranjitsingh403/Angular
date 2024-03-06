@@ -789,4 +789,19 @@ ngb-datepicker .ngb-dp-content .ngb-dp-month .ngb-dp-week .ngb-dp-day .btn-light
   background: rgba(101, 113, 255, 0.2);
 }
 
+body{
+background: #070d19;
+color: #d0d6e1;
+}
+
+.spinner-wrapper{
+  background: #070d19;
+}
+
+.spinner{
+  &.spinner:after {
+    background: #070d19;
+  }
+}
+
 }
