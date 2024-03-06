@@ -395,6 +395,9 @@
 
 
 .dark-mode {
+
+  background-color: #070d19;
+
   .navbar {
     background: #0c1427;
     border-bottom: 1px solid #172340;
@@ -472,6 +475,10 @@ input:-webkit-autofill:active  {
 input, input:focus{
   color: #d0d6e1;
   border: 1px solid #172340;
+}
+
+input[type=date]{
+  color-scheme: dark;
 }
 
 .badge{
@@ -789,11 +796,6 @@ ngb-datepicker .ngb-dp-content .ngb-dp-month .ngb-dp-week .ngb-dp-day .btn-light
   background: rgba(101, 113, 255, 0.2);
 }
 
-body{
-background: #070d19;
-color: #d0d6e1;
-}
-
 .spinner-wrapper{
   background: #070d19;
 }
@@ -802,6 +804,14 @@ color: #d0d6e1;
   &.spinner:after {
     background: #070d19;
   }
+}
+
+.spinner-wrapper .spinner.spinner:after {
+  background: #070d19;
+}
+
+.main-wrapper .page-wrapper {
+  background: #070d19;
 }
 
 }
