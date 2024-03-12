@@ -1,38 +1,38 @@
 export class Drivermodel {
 
-    id: string
-    userName: string
-    firstName: string
-    lastName: string
-    middleName: string
-    email: string
-    stateId: number
-    phoneNumber: string
-    isLegallyAllowed: boolean
-    licenseClassId: number
-    isUSAuthorized: boolean
-    isImmigrationAllowed: boolean
-    salaryExpectation: number
-    jobType: number
-    referredByName: string
-    joiningDate: Date
-    comments: string
-    genderId: number
-    raceId: number
-    veteranId: number
-    createdBy: string
-    createdDateTime: Date
-    isDeleted : boolean
-    formStatusId : number
-    rejectedReason:string
-    jwtToken:string|null
-    isSubmitted:boolean
-    licenseClasses: [any]
-    jobTypes: [any]
-    genders: [any]
-    races: [any]
-    veteran: [any]
-    states: [any]
-    documentTypes: [any]
-    documents:any = []
+    id: string = "00000000-0000-0000-0000-000000000000"
+    userName: string | null = null
+    firstName: string | null = null
+    lastName: string | null = null
+    middleName: string | null = null
+    email: string | null = null
+    stateId: number | null = null
+    phoneNumber: string | null = null
+    isLegallyAllowed: boolean = false
+    licenseClassId: number | null = null
+    isUSAuthorized: boolean = false
+    isImmigrationAllowed: boolean = false
+    salaryExpectation: number | null = null
+    jobType: number = 0
+    referredByName: string | null = null
+    joiningDate: Date | null = null
+    comments: string | null = null
+    genderId: number | null = null
+    raceId: number | null = null
+    veteranId: number | null = null
+    createdBy: string | null = null
+    createdDateTime: Date | null = null
+    isDeleted : boolean | null = null
+    formStatusId : number = 0
+    rejectedReason:string | null = null
+    jwtToken:string|null = null
+    isSubmitted:boolean = false
+    licenseClasses: [] = []
+    jobTypes: [] = []
+    genders: [] = []
+    races: [] = []
+    veteran: [] = []
+    states: [] = []
+    documentTypes: [] = []
+    documents:any = [] 
 }

@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from '../../../../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 import { Observable } from 'rxjs';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
-import { Ownermodel } from 'src/app/model/ownermodel';
+import { Ownermodel } from '../../../../model/ownermodel';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RowClassParams } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-owners',
@@ -21,9 +21,9 @@ export class OwnersComponent implements OnInit {
   status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }, { key: 4, value: "All" }];
   statusId: number = 4;
   owner: Ownermodel = new Ownermodel();
-  @ViewChild('rejectModal') rejectModal: HTMLInputElement;
-  rejectForm: UntypedFormGroup;
-  isFormSubmitted: boolean;
+  @ViewChild('rejectModal') rejectModal!: HTMLInputElement;
+  rejectForm: any;
+  isFormSubmitted: boolean = false;
   getRowStyle: any;
   gridTheme:any = localStorage.getItem('isDark') == 'true'? "ag-theme-quartz-dark":"ag-theme-quartz";
   constructor(private navService: ApiService, private toastr: ToastrService, public formBuilder: UntypedFormBuilder, private router: Router, private modalService: NgbModal,
@@ -162,7 +162,7 @@ export class OwnersComponent implements OnInit {
       }
     }];
 
-  rowData$: Observable<any[]>;
+  rowData$: Observable<any[]> = new Observable<any[]>;
   defaultColDef: ColDef = {
     sortable: true, filter: true
   }

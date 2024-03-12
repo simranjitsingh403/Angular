@@ -12,7 +12,7 @@ export class ErrorPageComponent implements OnInit, OnDestroy {
   type: any;
   title: any;
   desc: any;
-  private sub: Subscription;
+  private sub?: Subscription;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -20,7 +20,7 @@ export class ErrorPageComponent implements OnInit, OnDestroy {
     this.type = this.route.snapshot.paramMap.get('type');
     console.log(this.type);
     
-    this.sub = this.route.data.subscribe( param => {
+    this.sub = this.route.data.subscribe( (param:any) => {
       if(param.type) {
         this.type = param.type;
       }
@@ -63,7 +63,7 @@ export class ErrorPageComponent implements OnInit, OnDestroy {
   }
 
 	ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.sub?.unsubscribe();
   }
 
 }

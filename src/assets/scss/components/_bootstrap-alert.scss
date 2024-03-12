@@ -22,7 +22,7 @@
 
   // Fill alerts
   .alert-fill-#{$state} {
-    @include alert-variant($value, $value, $white);
+    //@include alert-variant($value, $value, $white);
     &.alert-fill-light {
       color: $text-muted;
     }

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { Ownermodel } from 'src/app/model/ownermodel';
-import { Usermodel } from 'src/app/model/usermodel';
+import { ApiService } from '../../../../../api.service';
+import { Ownermodel } from '../../../../../model/ownermodel';
+import { Usermodel } from '../../../../../model/usermodel';
 
 @Component({
   selector: 'app-owner-dashboard',
@@ -16,7 +16,8 @@ export class OwnerDashboardComponent implements OnInit {
   ownerId = this.userdetails.ownerId;
   result: Ownermodel = new Ownermodel();
   status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }];
-  statusName: string;
+  statusName: string = "";
+  isDark = localStorage.getItem('isDark') == 'true'?true:false;
 
   constructor(private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService) { }
 

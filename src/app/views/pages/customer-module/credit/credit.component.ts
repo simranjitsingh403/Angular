@@ -7,11 +7,11 @@ import { NgxMaskModule } from 'ngx-mask';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import SignaturePad from 'signature_pad';
-import { ApiService } from 'src/app/api.service';
-import { Customercreditmodel } from 'src/app/model/customercreditmodel';
-import { Customertrademodel } from 'src/app/model/customertrademodel';
-import { Usermodel } from 'src/app/model/usermodel';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../../api.service';
+import { Customercreditmodel } from '../../../../model/customercreditmodel';
+import { Customertrademodel } from '../../../../model/customertrademodel';
+import { Usermodel } from '../../../../model/usermodel';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -26,7 +26,7 @@ export class CreditComponent implements OnInit {
   apiPath: string = environment.baseURL;
   validationForm: any;
   tradeForm: any;
-  isFormSubmitted: Boolean;
+  isFormSubmitted: Boolean = false;
   @Input() taxExemptAttachment: any = null;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
@@ -34,8 +34,8 @@ export class CreditComponent implements OnInit {
   logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   date = new Date();
-  isTaxExempt: boolean;
-  isInvoiceEmail: boolean;
+  isTaxExempt: boolean = false;
+  isInvoiceEmail: boolean = false;
   trades: Customertrademodel[] = [];
   @ViewChild('signPadCanvas', { static: false }) signaturePadElement: any;
   signPad: any;
@@ -48,7 +48,7 @@ export class CreditComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
-      isPORequired: [false, Validators.required],
+      isPORequired: [false, Validators.requiredTrue],
       isTaxExempt: [],
       taxExemptAttachment: [],
       businessYears: ['', Validators.required],
@@ -138,7 +138,7 @@ export class CreditComponent implements OnInit {
       .subscribe(v => {
         this.taxExemptAttachment = v.docPath;
 
-      }, e => { this.toastr.error(e.error.message); this.spinnerService.hide(); }, () => this.spinnerService.hide());
+      }, e => { this.spinnerService.hide(); this.toastr.error(e.error.message); }, () => this.spinnerService.hide());
   }
 
   InvoiceEmailSelect(event: any) {

@@ -18,8 +18,9 @@
     </div>
 
   </div>
-  <div class="sidebar-body" (mouseenter)="operSidebarFolded()" (mouseleave)="closeSidebarFolded()" [perfectScrollbar]>
-
+  
+  <div class="sidebar-body" (mouseenter)="operSidebarFolded()" (mouseleave)="closeSidebarFolded()">
+    <ng-scrollbar>
     <!--- Sidemenu start -->
 
     <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
@@ -40,8 +41,9 @@
     </ul>
 
     <!--- Sidemenu end -->
-
+  </ng-scrollbar>
   </div>
+
 </nav>
 <nav class="settings-sidebar">
   <div class="sidebar-body">
@@ -49,7 +51,7 @@
       <i class="icon feather icon-settings"></i>
     </a>
     <h6 class="text-muted mb-2">Theme:</h6>
-    <div class="mb-3 pb-3 border-bottom">
+    <div>
       <div class="form-check form-check-inline">
         <label class="form-check-label">
           <input type="radio" class="form-check-input" name="sidebarThemeSettings" (change)="onSidebarThemeChange($event)" id="sidebarLight" value="sidebar-light" [checked]="isLightChecked">

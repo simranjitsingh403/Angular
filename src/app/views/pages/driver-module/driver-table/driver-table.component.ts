@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from 'src/app/api.service';
-import { Drivermodel } from 'src/app/model/drivermodel';
+import { ApiService } from '../../../../api.service';
+import { Drivermodel } from '../../../../model/drivermodel';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { ColDef } from 'ag-grid-community';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { RowClassParams } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-driver-table',
   templateUrl: './driver-table.component.html',
@@ -21,10 +21,10 @@ export class DriverTableComponent implements OnInit {
   statusId: number = 4;
   drivers: Drivermodel[] = [];
   driver: Drivermodel = new Drivermodel();
-  rejectForm: UntypedFormGroup;
-  isFormSubmitted: boolean;
+  rejectForm: any;
+  isFormSubmitted: boolean = false;
   getRowStyle: any;
-  @ViewChild('rejectModal') rejectModal: HTMLInputElement;
+  @ViewChild('rejectModal') rejectModal!: HTMLInputElement;
   gridTheme:any = localStorage.getItem('isDark') == 'true'? "ag-theme-quartz-dark":"ag-theme-quartz";
 
   constructor(private navService: ApiService, private toastr: ToastrService, private router: Router, private modalService: NgbModal,
@@ -163,7 +163,7 @@ export class DriverTableComponent implements OnInit {
       }
     }];
 
-  rowData$: Observable<any[]>;
+  rowData$: Observable<any[]> = new Observable<any[]>;
   defaultColDef: ColDef = {
     sortable: true, filter: true
   }

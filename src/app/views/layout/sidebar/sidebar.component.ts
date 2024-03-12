@@ -5,9 +5,9 @@ import MetisMenu from 'metismenujs';
 
 import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
-import { ApiService } from 'src/app/api.service';
-import { Usermodel } from 'src/app/model/usermodel';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../api.service';
+import { Usermodel } from '../../../model/usermodel';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,10 +17,10 @@ import { environment } from 'src/environments/environment';
 export class SidebarComponent implements OnInit, AfterViewInit {
   isLightChecked = false;
   isDarkChecked = false;
-  @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
+  @ViewChild('sidebarToggler') sidebarToggler!: ElementRef;
   logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLiftM_black.png";
   menuItems: MenuItem[] = [];
-  @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
+  @ViewChild('sidebarMenu') sidebarMenu!: ElementRef;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router, private navService: ApiService) {
     router.events.forEach((event) => {
@@ -123,7 +123,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
 
   /**
-   * Switching sidebar light/dark
+   * Switching Theme light/dark
    */
   onSidebarThemeChange(event: any) {
     if(event.target.value == 'sidebar-dark'){

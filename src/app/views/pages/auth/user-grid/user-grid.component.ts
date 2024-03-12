@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from '../../../../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 import { Observable } from 'rxjs';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-user-grid',
@@ -77,7 +77,7 @@ export class UserGridComponent implements OnInit {
       }
     }];
 
-  rowData$: Observable<any[]>;
+  rowData$: Observable<any[]> = new Observable<any[]>;
   defaultColDef: ColDef = {
     sortable: true, filter: true
   }

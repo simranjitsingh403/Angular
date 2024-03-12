@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../../api.service';
+import { environment } from '../../../../../environments/environment';
 import { ShipmentComponent } from '../../shipment/shipment/shipment.component';
-import { Usermodel } from 'src/app/model/usermodel';
+import { Usermodel } from '../../../../model/usermodel';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Shipmentmodel } from 'src/app/model/shipmentmodel';
+import { Shipmentmodel } from '../../../../model/shipmentmodel';
 
 @Component({
   selector: 'app-customer-shipment',
@@ -16,7 +16,7 @@ import { Shipmentmodel } from 'src/app/model/shipmentmodel';
 })
 export class CustomerShipmentComponent implements OnInit {
   apiPath: string = environment.baseURL;
-  @ViewChild(ShipmentComponent) shipmentComponent: ShipmentComponent;
+  @ViewChild(ShipmentComponent) shipmentComponent!: ShipmentComponent;
   result: Shipmentmodel = new Shipmentmodel();
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");

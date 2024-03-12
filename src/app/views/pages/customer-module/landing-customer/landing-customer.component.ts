@@ -2,15 +2,15 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../../api.service';
+import { environment } from '../../../../../environments/environment';
 import { ShipmentComponent } from '../../shipment/shipment/shipment.component';
-import { Customermodel } from 'src/app/model/customermodel';
-import { Usermodel } from 'src/app/model/usermodel';
+import { Customermodel } from '../../../../model/customermodel';
+import { Usermodel } from '../../../../model/usermodel';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CreditComponent } from '../credit/credit.component';
 import { isNullOrUndefined } from '@swimlane/ngx-datatable';
-import { Customertrademodel } from 'src/app/model/customertrademodel';
+import { Customertrademodel } from '../../../../model/customertrademodel';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Component({
@@ -19,11 +19,11 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
   styleUrls: ['./landing-customer.component.scss']
 })
 export class LandingCustomerComponent implements OnInit {
-  validationForm: UntypedFormGroup;
-  isFormSubmitted: Boolean;
+  validationForm: any;
+  isFormSubmitted: Boolean = false;
   apiPath: string = environment.baseURL;
   // @ViewChild(ShipmentComponent) shipmentComponent: ShipmentComponent;
-  @ViewChild(CreditComponent) creditComponent: CreditComponent;
+  @ViewChild(CreditComponent) creditComponent!: CreditComponent;
   result: Customermodel = new Customermodel();
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
@@ -62,11 +62,11 @@ export class LandingCustomerComponent implements OnInit {
         taxID: this.result.customerCredit.taxID,
         companyName: this.result.customerCredit.companyName,
         shippingAddress: this.result.customerCredit.shippingAddress,
-        shippingZip: this.result.customerCredit.shippingZip,
+        shippingZip: this.result.customerCredit.shippingZip == 0? null : this.result.customerCredit.shippingZip,
         shippingCityName: this.result.customerCredit.shippingCityName,
         shippingStateId: this.result.customerCredit.shippingStateId,
         billingAddress: this.result.customerCredit.billingAddress,
-        billingZip: this.result.customerCredit.billingZip,
+        billingZip: this.result.customerCredit.billingZip == 0? null : this.result.customerCredit.billingZip,
         billingCityName: this.result.customerCredit.billingCityName,
         billingStateId: this.result.customerCredit.billingStateId,
         contactNumber: this.result.customerCredit.contactNumber,
@@ -78,7 +78,7 @@ export class LandingCustomerComponent implements OnInit {
         bankName: this.result.customerCredit.bankName,
         bankContactNumber: this.result.customerCredit.bankContactNumber,
         bankAddress: this.result.customerCredit.bankAddress,
-        bankZip: this.result.customerCredit.bankZip,
+        bankZip: this.result.customerCredit.bankZip == 0? null : this.result.customerCredit.bankZip,
         bankStateId: this.result.customerCredit.bankStateId,
         bankCityName: this.result.customerCredit.bankCityName,
         presidentName: this.result.customerCredit.presidentName,
@@ -128,10 +128,10 @@ export class LandingCustomerComponent implements OnInit {
 
   formSubmit(event: any) {
     if (this.validationForm.valid && this.creditComponent.validationForm.valid) {
-      this.result.firstName = this.form.firstName.value;
-      this.result.lastName = this.form.lastName.value;
-      this.result.middleName = this.form.middleName.value;
-      this.result.email = this.form.email.value;
+      this.result.firstName = this.form['firstName'].value;
+      this.result.lastName = this.form['lastName'].value;
+      this.result.middleName = this.form['middleName'].value;
+      this.result.email = this.form['email'].value;
       this.result.customerCredit.isPORequired = this.creditComponent.form.isPORequired.value;
       this.result.customerCredit.businessYears = this.creditComponent.form.businessYears.value;
       this.result.customerCredit.taxID = this.creditComponent.form.taxID.value;

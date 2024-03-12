@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ApiService } from 'src/app/api.service';
-import { Usermodel } from 'src/app/model/usermodel';
+import { ApiService } from '../../../../api.service';
+import { Usermodel } from '../../../../model/usermodel';
 
 @Component({
   selector: 'app-customer-dashboard',

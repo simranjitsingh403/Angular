@@ -3,9 +3,9 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { Usermodel } from 'src/app/model/usermodel';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../../api.service';
+import { Usermodel } from '../../../../model/usermodel';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
 
   returnUrl: any;
-  result: Usermodel;
+  result: Usermodel = new Usermodel();
   validationForm: any;
   isFormSubmitted = false;
   validationForgotForm: any;
@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
     if (this.validationForgotForm.valid) {
       this.userdetails.email = this.forgotform.email.value;
       this.navService.post<any>("Account/ForgotPassword", this.userdetails).subscribe(response => this.toastr.success(response.message),
-        e => this.toastr.error(e));
+        e => this.toastr.error(e.error.title));
       this.modalService.dismissAll();
     }
     this.isForgotFormSubmitted = true;

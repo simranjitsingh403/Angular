@@ -14,9 +14,9 @@ import { Subscription } from 'rxjs';
 export class ContentAnimateDirective implements OnInit, OnDestroy {
   
 	// Public properties
-	player: AnimationPlayer;
+	player!: AnimationPlayer;
 	// Private properties
-	private events: Subscription;
+	private events!: Subscription;
 
 	constructor(
 		private el: ElementRef,

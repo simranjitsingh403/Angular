@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
 import { isNullOrUndefined } from '@swimlane/ngx-datatable';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
     public currentUrl = new BehaviorSubject<any>(undefined);
 
-    constructor(private router: Router,private http: HttpClient,private spinnerService: NgxSpinnerService) {
+    constructor(private router: Router,private http: HttpClient,private spinnerService: NgxSpinnerService,private toastr: ToastrService) {
      
         this.router.events.subscribe((event: Event) => {
             if (event instanceof NavigationEnd) {
@@ -72,11 +73,12 @@ export class ApiService {
             icon: 'error',  
             title: 'Oops...',  
             text: 'OneLift is offline..!'
-          }) 
-          // A client-side or network error occurred. Handle it accordingly.
-        } 
+          })
+
+          return throwError(() => new Error('Offline...!'));
+        }
         // Return an observable with a user-facing error message.
-        return throwError(() => new Error('offline...!'));
+        return throwError(() => error);
       }
 
       getJwtToken(){

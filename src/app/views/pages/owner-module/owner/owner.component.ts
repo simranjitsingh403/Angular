@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormControl, FormBuilder, FormsModule } from '@angular/forms';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from '../../../../api.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Ownermodel } from 'src/app/model/ownermodel';
+import { Ownermodel } from '../../../../model/ownermodel';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { Usermodel } from 'src/app/model/usermodel';
+import { Usermodel } from '../../../../model/usermodel';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -15,8 +15,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./owner.component.scss']
 })
 export class OwnerComponent implements OnInit {
-  validationForm: UntypedFormGroup;
-  isFormSubmitted: Boolean;
+  validationForm: any;
+  isFormSubmitted: Boolean = false;
   apiPath: string = environment.baseURL;
   vehicleBrands = [];
   cities: any = [];
@@ -167,7 +167,7 @@ export class OwnerComponent implements OnInit {
       .subscribe(v => {
         this.result.dotInspectionPath = v.picPath;
         this.spinnerService.hide();
-      }, e => { this.toastr.error(e.error.message); this.spinnerService.hide(); });
+      }, e => { this.spinnerService.hide(); this.toastr.error(e.error.message); });
   }
 
   UploadCurrentRegistration(file: any) {
@@ -183,7 +183,7 @@ export class OwnerComponent implements OnInit {
       .subscribe(v => {
         this.result.currentRegistrationPath = v.picPath;
         this.spinnerService.hide();
-      }, e => { this.toastr.error(e.error.message); this.spinnerService.hide(); });
+      }, e => { this.spinnerService.hide(); this.toastr.error(e.error.message); });
   }
 
   stateChange(value: any) {

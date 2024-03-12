@@ -1,7 +1,7 @@
 ngb-datepicker {
   @extend .border;
   .ngb-dp-header {
-    background-color: darken($card-bg, 3%);
+    background-color: $card-bg;
     padding: .5rem 0;
     direction: ltr;
     .ngb-dp-arrow {

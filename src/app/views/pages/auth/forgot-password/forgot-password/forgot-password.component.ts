@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { Usermodel } from 'src/app/model/usermodel';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../../../api.service';
+import { Usermodel } from '../../../../../model/usermodel';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-forgot-password',

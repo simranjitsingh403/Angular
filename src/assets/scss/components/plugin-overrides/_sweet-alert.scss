@@ -4,12 +4,12 @@
 .swal2-container {
   .swal2-popup {
     font-size: $font-size-base;
-    background: lighten($card-bg, 5%);
+    background: $card-bg;
     box-shadow: $card-box-shadow;
     
     &.swal2-toast {
       box-shadow: $card-box-shadow;
-      background: lighten($card-bg, 5%);
+      background: $card-bg;
     }
 
     .swal2-title {

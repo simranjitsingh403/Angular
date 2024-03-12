@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { log } from 'console';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { Drivermodel } from 'src/app/model/drivermodel';
-import { Usermodel } from 'src/app/model/usermodel';
+import { ApiService } from '../../../../../api.service';
+import { Drivermodel } from '../../../../../model/drivermodel';
+import { Usermodel } from '../../../../../model/usermodel';
 
 @Component({
   selector: 'app-driver-dashboard',
@@ -18,7 +18,8 @@ export class DriverDashboardComponent implements OnInit {
   driverId = this.userdetails.driverId;
   result: Drivermodel = new Drivermodel();
   status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }];
-  statusName: string;
+  statusName: string = "";
+  isDark = localStorage.getItem('isDark') == 'true'?true:false;
 
   constructor(private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService) { }
 

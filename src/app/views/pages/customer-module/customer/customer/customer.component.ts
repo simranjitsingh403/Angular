@@ -2,11 +2,11 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../../../api.service';
+import { environment } from '../../../../../../environments/environment';
 import { ShipmentComponent } from '../../../shipment/shipment/shipment.component';
-import { Customermodel } from 'src/app/model/customermodel';
-import { Usermodel } from 'src/app/model/usermodel';
+import { Customermodel } from '../../../../../model/customermodel';
+import { Usermodel } from '../../../../../model/usermodel';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -15,10 +15,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-  validationForm: UntypedFormGroup;
-  isFormSubmitted: Boolean;
+  validationForm: any;
+  isFormSubmitted: Boolean = false;
   apiPath: string = environment.baseURL;
-  @ViewChild(ShipmentComponent) shipmentComponent: ShipmentComponent;
+  @ViewChild(ShipmentComponent) shipmentComponent!: ShipmentComponent;
   result: Customermodel = new Customermodel();
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");

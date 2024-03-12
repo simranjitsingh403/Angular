@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL:"https://truckloadapi.azurewebsites.net/"
+  baseURL:"https://oneliftapp.azurewebsites.net/"
 };
 
 

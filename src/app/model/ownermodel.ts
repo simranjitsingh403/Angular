@@ -1,29 +1,29 @@
 export class Ownermodel {
-    id: string
-    firstName: string
-    middleName: string
-    lastName: string
-    address: string
-    typeId: number
-    value: number
-    year: number
-    brandId: number
-    modal: string
-    vinCode: string
-    license: string
-    stateId: number
-    experience: number
-    parkingCityName: string
-    parkingStateId:number
-    isDeleted: boolean
-    states: []
-    cities: []
-    carBrands: []
-    dotInspectionPath: string
-    currentRegistrationPath: string
-    email:string
-    statusId:number
-    rejectedReason:string
-    jwtToken:string|null
-    isSubmitted:boolean
+    id: string = "00000000-0000-0000-0000-000000000000"
+    firstName: string | null = null
+    middleName: string | null = null
+    lastName: string | null = null
+    address: string | null = null
+    typeId: number = 0
+    value: number | null = null
+    year: number | null = null
+    brandId: number | null = null
+    modal: string | null = null
+    vinCode: string | null = null
+    license: string | null = null
+    stateId: number | null = null
+    experience: number | null = null
+    parkingCityName: string | null = null
+    parkingStateId:number | null = null
+    isDeleted: boolean = false
+    states: [] = []
+    cities: [] = []
+    carBrands: [] = []
+    dotInspectionPath: string | null = null
+    currentRegistrationPath: string | null = null
+    email:string | null = null
+    statusId:number = 0
+    rejectedReason:string | null = null
+    jwtToken:string|null = null
+    isSubmitted:boolean = false
 }

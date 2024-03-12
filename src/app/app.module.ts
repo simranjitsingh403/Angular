@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ApplicationRef, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +9,6 @@ import { AuthGuard } from './core/guard/auth.guard';
 
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-import { ArchwizardModule } from 'angular-archwizard';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
@@ -36,6 +35,9 @@ import { CustomerShipmentComponent } from './views/pages/customer-module/custome
 import { CustomersComponent } from './views/pages/customer-module/customers/customers.component';
 import { CreditComponent } from './views/pages/customer-module/credit/credit.component';
 import { LandingCustomerComponent } from './views/pages/customer-module/landing-customer/landing-customer.component';
+import { MatStepperIcon, MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCommonModule } from '@angular/material/core';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -56,7 +58,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     CustomerShipmentComponent,
     CustomerDashboardComponent,
     CustomersComponent,
-    LandingCustomerComponent,
+    LandingCustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,6 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     FormsModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
-    ArchwizardModule,
     NgSelectModule,
     AgGridAngular,
     SweetAlert2Module.forRoot(),
@@ -75,7 +76,9 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     QuillModule.forRoot(),
     ToastrModule.forRoot(),
     ShipmentComponent,
-    CreditComponent
+    CreditComponent,
+    MatStepperModule,
+    MatIconModule
   ],
   providers: [
     AuthGuard,
@@ -91,6 +94,6 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
       }
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap:[AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import {MatStepper, MatStepperIcon} from '@angular/material/stepper'
 import { ContentChange, SelectionChange } from 'ngx-quill';
-import { ApiService } from 'src/app/api.service';
-import { Drivermodel } from 'src/app/model/drivermodel';
+import { ApiService } from '../../../../api.service';
+import { Drivermodel } from '../../../../model/drivermodel';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
-import { Usermodel } from 'src/app/model/usermodel';
+import { Usermodel } from '../../../../model/usermodel';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -21,12 +21,12 @@ export class DriverRegistorComponent implements OnInit {
   isvalidlicense: any;
   isreferredshow: any;
   validationForm1: any;
-  validationForm2: UntypedFormGroup;
-  isForm1Submitted: Boolean;
-  isForm2Submitted: Boolean;
+  validationForm2: any;
+  isForm1Submitted: Boolean = false;
+  isForm2Submitted: Boolean = false;
   result: Drivermodel = new Drivermodel();
   selectedstate: any = null;
-  joiningdate: NgbDateStruct;
+  joiningdate: any;
   genders: any = [];
   races: any = [];
   veteran: any = [];
@@ -34,11 +34,12 @@ export class DriverRegistorComponent implements OnInit {
   apiPath: string = environment.baseURL;
   driverId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
-  @ViewChild('wizardForm') wizardForm: BaseWizardComponent;
+  @ViewChild('wizardForm') wizardForm!: BaseWizardComponent;
   isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
   isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
   logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
+  @ViewChild('stepper') stepper!: MatStepper;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
     private spinnerService: NgxSpinnerService) { }
 
@@ -103,11 +104,11 @@ export class DriverRegistorComponent implements OnInit {
       email: ['', Validators.required],
       stateid: ['0', Validators.required],
       mobileNumber: ['', Validators.required],
-      islegallyallowed: ['', Validators.required],
-      isvalidlicense: ['', Validators.required],
+      islegallyallowed: ['', Validators.requiredTrue],
+      isvalidlicense: ['', Validators.requiredTrue],
       licenseclassid: ['', Validators.required],
-      isusauthorized: ['', Validators.required],
-      isimmigrationallowed: ['', Validators.required],
+      isusauthorized: ['', Validators.requiredTrue],
+      isimmigrationallowed: ['', Validators.requiredTrue],
       salaryexpectation: ['', Validators.required],
       jobtype: ['', Validators.required],
       referredbyname: [''],
@@ -227,7 +228,7 @@ export class DriverRegistorComponent implements OnInit {
   form1Submit() {
     debugger;
     if (this.validationForm1.valid) {
-      this.wizardForm.goToNextStep();
+      this.stepper.next();
     }
     this.isForm1Submitted = true;
   }
@@ -237,7 +238,7 @@ export class DriverRegistorComponent implements OnInit {
    */
   form2Submit() {
     if (this.validationForm2.valid) {
-      this.wizardForm.goToNextStep();
+      this.stepper.next();
     }
     this.isForm2Submitted = true;
   }

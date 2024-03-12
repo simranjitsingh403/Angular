@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
-import { Usermodel } from 'src/app/model/usermodel';
-import { environment } from 'src/environments/environment';
+import { Usermodel } from '../../../model/usermodel';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',

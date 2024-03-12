@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ContentChange, QuillModule, SelectionChange } from 'ngx-quill';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from 'src/app/api.service';
-import { environment } from 'src/environments/environment';
+import { ApiService } from '../../../../api.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   standalone:true,
@@ -16,10 +16,10 @@ import { environment } from 'src/environments/environment';
   imports:[CommonModule, ReactiveFormsModule, NgSelectModule, QuillModule]
 })
 export class ShipmentComponent implements OnInit {
-  validationForm: UntypedFormGroup;
-  isFormSubmitted: Boolean;
+  validationForm: any;
+  isFormSubmitted: Boolean = false;
   apiPath: string = environment.baseURL;
-  @Input() show: boolean;
+  @Input() show: boolean = false;
   @Input() states = [];
   originCities=[];
   destinationCities=[];

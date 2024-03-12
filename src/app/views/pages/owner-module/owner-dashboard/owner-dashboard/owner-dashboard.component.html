@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-6 grid-margin">
                         <div class="card">
-                            <div class="card-body" [ngStyle]="{'background-color': (result.statusId==2) ? '#E5FFE4' :( (result.statusId==3)? '#FFE4E4':'#FFFFFF')}">
+                            <div class="card-body" [ngStyle]="{'background-color': (result.statusId==2) ? isDark? '#005F29':'#E5FFE4' :( (result.statusId==3)? isDark? '#990026':'#FFE4E4':'')}">
                                 <h3 class="card-title">{{result.firstName + ' ' + (result.middleName==null?'':result.middleName) +' '+result.lastName}}</h3>
                                 <table>
                                     <tr>
@@ -20,14 +20,14 @@
                                     </tr>
                                     <tr>
                                         <th>Application Status</th>
-                                        <td>: <span [ngStyle]="{'color': (result.statusId==2) ? 'green' :( (result.statusId==3)? 'red':'black')}">{{statusName}}</span></td>
+                                        <td>: <span [ngStyle]="{'color': (result.statusId==2) ? '#05A34A' :( (result.statusId==3)? '#FF3366':'')}">{{statusName}}</span></td>
                                     </tr>
                                     <tr *ngIf="result.rejectedReason!=null && result.statusId==3">
                                         <th>Rejected Reason</th>
                                         <td>: {{result.rejectedReason}}</td>
                                     </tr>
                                 </table>
-                                <button style="float: right;" *ngIf="(result.isSubmitted == false && result.statusId!=2) || result.statusId==3" class="btn btn-outline-dark" (click)="EditClick()"><i class="mdi mdi-pencil"></i> Edit</button>
+                                <button style="float: right;" *ngIf="(result.isSubmitted == false && result.statusId!=2) || result.statusId==3" class="btn btn-outline-info" (click)="EditClick()"><i class="mdi mdi-pencil"></i> Edit</button>
                             </div>
                         </div>
                     </div>
