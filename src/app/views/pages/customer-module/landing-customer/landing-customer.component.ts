@@ -12,6 +12,7 @@ import { CreditComponent } from '../credit/credit.component';
 import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 import { Customertrademodel } from '../../../../model/customertrademodel';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-landing-customer',
@@ -22,8 +23,9 @@ export class LandingCustomerComponent implements OnInit {
   validationForm: any;
   isFormSubmitted: Boolean = false;
   apiPath: string = environment.baseURL;
-  // @ViewChild(ShipmentComponent) shipmentComponent: ShipmentComponent;
+  @ViewChild(ShipmentComponent) shipmentComponent!: ShipmentComponent;
   @ViewChild(CreditComponent) creditComponent!: CreditComponent;
+  @ViewChild('stepper') stepper!: MatStepper;
   result: Customermodel = new Customermodel();
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
@@ -114,6 +116,24 @@ export class LandingCustomerComponent implements OnInit {
         }
       ]);
 
+      this.shipmentComponent.validationForm.patchValue({
+        originAddress: this.result.shipment.originAddress,
+        originZip: this.result.shipment.originZip,
+        originStateId: this.result.shipment.originStateId,
+        originCityName: this.result.shipment.originCityName,
+        destinationAddress: this.result.shipment.destinationAddress,
+        destinationZip: this.result.shipment.destinationZip,
+        destinationStateId: this.result.shipment.destinationStateId,
+        destinationCityName: this.result.shipment.destinationCityName,
+        height: this.result.shipment.height,
+        width: this.result.shipment.width,
+        length: this.result.shipment.length,
+        weight: this.result.shipment.weight,
+        isHazmat: this.result.shipment.isHazmat,
+        comodity: this.result.shipment.comodity,
+        comments: this.result.shipment.comments
+      });
+
       this.creditComponent.isTaxExempt = this.result.customerCredit.taxExemptAttachment != null ? true : false;
       this.creditComponent.isInvoiceEmail = this.result.customerCredit.invoiceEmail != null ? true : false;
       this.spinnerService.hide();
@@ -126,8 +146,19 @@ export class LandingCustomerComponent implements OnInit {
     return this.validationForm.controls;
   }
 
+    /**
+   * Go to next step while form value is valid
+   */
+    form1Submit() {
+      if (this.validationForm.valid && this.shipmentComponent.validationForm.valid) {
+        this.stepper.next();
+      }
+      this.isFormSubmitted = true;
+      this.shipmentComponent.isFormSubmitted = true;
+    }
+
   formSubmit(event: any) {
-    if (this.validationForm.valid && this.creditComponent.validationForm.valid) {
+    if (this.validationForm.valid && this.creditComponent.validationForm.valid && this.shipmentComponent.validationForm.valid) {
       this.result.firstName = this.form['firstName'].value;
       this.result.lastName = this.form['lastName'].value;
       this.result.middleName = this.form['middleName'].value;
@@ -188,6 +219,22 @@ export class LandingCustomerComponent implements OnInit {
 
       this.result.customerCredit.trades = this.creditComponent.trades;
 
+      this.result.shipment.originAddress = this.shipmentComponent.shipmentForm.originAddress.value;
+      this.result.shipment.originZip = this.shipmentComponent.shipmentForm.originZip.value;
+      this.result.shipment.originStateId = this.shipmentComponent.shipmentForm.originStateId.value;
+      this.result.shipment.originCityName = this.shipmentComponent.shipmentForm.originCityName.value;
+      this.result.shipment.destinationAddress = this.shipmentComponent.shipmentForm.destinationAddress.value;
+      this.result.shipment.destinationZip = this.shipmentComponent.shipmentForm.destinationZip.value;
+      this.result.shipment.destinationStateId = this.shipmentComponent.shipmentForm.destinationStateId.value;
+      this.result.shipment.destinationCityName = this.shipmentComponent.shipmentForm.destinationCityName.value;
+      this.result.shipment.height = this.shipmentComponent.shipmentForm.height.value;
+      this.result.shipment.width = this.shipmentComponent.shipmentForm.width.value;
+      this.result.shipment.length = this.shipmentComponent.shipmentForm.length.value;
+      this.result.shipment.weight = this.shipmentComponent.shipmentForm.weight.value;
+      this.result.shipment.isHazmat = this.shipmentComponent.shipmentForm.isHazmat.value;
+      this.result.shipment.comodity = this.shipmentComponent.shipmentForm.comodity.value;
+      this.result.shipment.comments = this.shipmentComponent.shipmentForm.comments.value;
+
       if (event.currentTarget.value == "submit") {
         Swal.fire({
           title: 'Are you sure?',
@@ -212,9 +259,7 @@ export class LandingCustomerComponent implements OnInit {
             else {
               this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => {
                 if (d.success == true) {
-                  this.router.navigate([d.redirectUrl]);
-                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true });
-
+                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 1000 }).onHidden.subscribe(d => window.location.reload());
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
               }, e => this.spinnerService.hide());
@@ -247,6 +292,7 @@ export class LandingCustomerComponent implements OnInit {
     }
     this.isFormSubmitted = true;
     this.creditComponent.isFormSubmitted = true;
+    this.shipmentComponent.isFormSubmitted = true;
   }
 
 }

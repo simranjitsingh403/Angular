@@ -6,10 +6,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Usermodel } from '../../../../model/usermodel';
-import { Customercreditmodel } from '../../../../model/customercreditmodel';
 import { Customertrademodel } from '../../../../model/customertrademodel';
 import { CreditComponent } from '../credit/credit.component';
 import { isNullOrUndefined } from '@swimlane/ngx-datatable';
+import { ShipmentComponent } from '../../shipment/shipment/shipment.component';
+import { Customermodel } from '../../../../model/customermodel';
 
 @Component({
   selector: 'app-customer-credit',
@@ -17,8 +18,9 @@ import { isNullOrUndefined } from '@swimlane/ngx-datatable';
   styleUrls: ['./customer-credit.component.scss']
 })
 export class CustomerCreditComponent implements OnInit {
-  result: Customercreditmodel = new Customercreditmodel();
+  result: Customermodel = new Customermodel();
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
+  @ViewChild(ShipmentComponent) shipmentComponent!: ShipmentComponent;
   @ViewChild(CreditComponent) creditComponent!: CreditComponent;
   customerId = this.route.snapshot.params['id'] == undefined ? this.userdetails.customerId : this.route.snapshot.params['id'];
 
@@ -27,113 +29,131 @@ export class CustomerCreditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.navService.get<Customercreditmodel>("Customer/Customer/CustomerCredit?Id=" + this.customerId).subscribe((response) => {
+    this.navService.get<Customermodel>("Customer/Customer/LandingCustomerRegister?Id=" + this.customerId).subscribe((response) => {
       this.result = response;
 
-      this.creditComponent.trades = response.trades != null ? response.trades : [];
+      this.creditComponent.trades = response.customerCredit.trades != null ? response.customerCredit.trades : [];
 
     }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
       this.creditComponent.validationForm.patchValue({
 
-        isPORequired: this.result.isPORequired,
-        isTaxExempt: this.result.taxExemptAttachment != null ? true : false,
-        businessYears: this.result.businessYears,
-        taxID: this.result.taxID,
-        companyName: this.result.companyName,
-        shippingAddress: this.result.shippingAddress,
-        shippingZip: this.result.shippingZip == 0 ? null : this.result.shippingZip,
-        shippingCityName: this.result.shippingCityName,
-        shippingStateId: this.result.shippingStateId,
-        billingAddress: this.result.billingAddress,
-        billingZip: this.result.billingZip == 0 ? null : this.result.billingZip,
-        billingCityName: this.result.billingCityName,
-        billingStateId: this.result.billingStateId,
-        contactNumber: this.result.contactNumber,
-        apcontactName: this.result.apContactName,
-        apcontactNumber: this.result.apContactNumber,
-        apcontactMail: this.result.apContactMail,
-        invoicePreference: this.result.invoiceEmail != null ? "2" : "1",
-        invoiceEmail: this.result.invoiceEmail,
-        bankName: this.result.bankName,
-        bankContactNumber: this.result.bankContactNumber,
-        bankAddress: this.result.bankAddress,
-        bankZip: this.result.bankZip == 0 ? null : this.result.bankZip,
-        bankStateId: this.result.bankStateId,
-        bankCityName: this.result.bankCityName,
-        presidentName: this.result.presidentName,
-        vicePresidentName: this.result.vicePresidentName,
-        secretary: this.result.secretary,
-        signature: this.result.signature,
-        fax: this.result.fax,
+        isPORequired: this.result.customerCredit.isPORequired,
+        isTaxExempt: this.result.customerCredit.taxExemptAttachment != null ? true : false,
+        businessYears: this.result.customerCredit.businessYears,
+        taxID: this.result.customerCredit.taxID,
+        companyName: this.result.customerCredit.companyName,
+        shippingAddress: this.result.customerCredit.shippingAddress,
+        shippingZip: this.result.customerCredit.shippingZip == 0 ? null : this.result.customerCredit.shippingZip,
+        shippingCityName: this.result.customerCredit.shippingCityName,
+        shippingStateId: this.result.customerCredit.shippingStateId,
+        billingAddress: this.result.customerCredit.billingAddress,
+        billingZip: this.result.customerCredit.billingZip == 0 ? null : this.result.customerCredit.billingZip,
+        billingCityName: this.result.customerCredit.billingCityName,
+        billingStateId: this.result.customerCredit.billingStateId,
+        contactNumber: this.result.customerCredit.contactNumber,
+        apcontactName: this.result.customerCredit.apContactName,
+        apcontactNumber: this.result.customerCredit.apContactNumber,
+        apcontactMail: this.result.customerCredit.apContactMail,
+        invoicePreference: this.result.customerCredit.invoiceEmail != null ? "2" : "1",
+        invoiceEmail: this.result.customerCredit.invoiceEmail,
+        bankName: this.result.customerCredit.bankName,
+        bankContactNumber: this.result.customerCredit.bankContactNumber,
+        bankAddress: this.result.customerCredit.bankAddress,
+        bankZip: this.result.customerCredit.bankZip == 0 ? null : this.result.customerCredit.bankZip,
+        bankStateId: this.result.customerCredit.bankStateId,
+        bankCityName: this.result.customerCredit.bankCityName,
+        presidentName: this.result.customerCredit.presidentName,
+        vicePresidentName: this.result.customerCredit.vicePresidentName,
+        secretary: this.result.customerCredit.secretary,
+        signature: this.result.customerCredit.signature,
+        fax: this.result.customerCredit.fax,
       });
 
       this.creditComponent.validationForm.controls["tradeRefs"].patchValue([
         {
-          tradeCompanyName: this.result.trades != null ? this.result.trades[0].name : "",
-          tradeCompanyAddress: this.result.trades != null ? this.result.trades[0].address : "",
-          tradeCompanyPhone: this.result.trades != null ? this.result.trades[0].contactNumber : "",
-          tradeCompanyFax: this.result.trades != null ? this.result.trades[0].fax : "",
-          tradeCompanyEmail: this.result.trades != null ? this.result.trades[0].email : ""
+          tradeCompanyName: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[0].name : "",
+          tradeCompanyAddress: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[0].address : "",
+          tradeCompanyPhone: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[0].contactNumber : "",
+          tradeCompanyFax: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[0].fax : "",
+          tradeCompanyEmail: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[0].email : ""
         },
 
         {
-          tradeCompanyName: this.result.trades != null ? this.result.trades[1].name : "",
-          tradeCompanyAddress: this.result.trades != null ? this.result.trades[1].address : "",
-          tradeCompanyPhone: this.result.trades != null ? this.result.trades[1].contactNumber : "",
-          tradeCompanyFax: this.result.trades != null ? this.result.trades[1].fax : "",
-          tradeCompanyEmail: this.result.trades != null ? this.result.trades[1].email : ""
+          tradeCompanyName: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[1].name : "",
+          tradeCompanyAddress: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[1].address : "",
+          tradeCompanyPhone: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[1].contactNumber : "",
+          tradeCompanyFax: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[1].fax : "",
+          tradeCompanyEmail: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[1].email : ""
         },
 
         {
-          tradeCompanyName: this.result.trades != null ? this.result.trades[2].name : "",
-          tradeCompanyAddress: this.result.trades != null ? this.result.trades[2].address : "",
-          tradeCompanyPhone: this.result.trades != null ? this.result.trades[2].contactNumber : "",
-          tradeCompanyFax: this.result.trades != null ? this.result.trades[2].fax : "",
-          tradeCompanyEmail: this.result.trades != null ? this.result.trades[2].email : ""
+          tradeCompanyName: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[2].name : "",
+          tradeCompanyAddress: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[2].address : "",
+          tradeCompanyPhone: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[2].contactNumber : "",
+          tradeCompanyFax: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[2].fax : "",
+          tradeCompanyEmail: this.result.customerCredit.trades != null ? this.result.customerCredit.trades[2].email : ""
         }
       ]);
+
+      this.shipmentComponent.validationForm.patchValue({
+        originAddress: this.result.shipment.originAddress,
+        originZip: this.result.shipment.originZip,
+        originStateId: this.result.shipment.originStateId,
+        originCityName: this.result.shipment.originCityName,
+        destinationAddress: this.result.shipment.destinationAddress,
+        destinationZip: this.result.shipment.destinationZip,
+        destinationStateId: this.result.shipment.destinationStateId,
+        destinationCityName: this.result.shipment.destinationCityName,
+        height: this.result.shipment.height,
+        width: this.result.shipment.width,
+        length: this.result.shipment.length,
+        weight: this.result.shipment.weight,
+        isHazmat: this.result.shipment.isHazmat,
+        comodity: this.result.shipment.comodity,
+        comments: this.result.shipment.comments
+      });
       this.spinnerService.hide();
-      this.creditComponent.isTaxExempt = this.result.taxExemptAttachment != null ? true : false;
-      this.creditComponent.isInvoiceEmail = this.result.invoiceEmail != null ? true : false;
+      this.creditComponent.isTaxExempt = this.result.customerCredit.taxExemptAttachment != null ? true : false;
+      this.creditComponent.isInvoiceEmail = this.result.customerCredit.invoiceEmail != null ? true : false;
     });
   }
 
   formSubmit(event: any) {
 
-    if (this.creditComponent.validationForm.valid) {
-      this.result.customerId = this.customerId;
-      this.result.isPORequired = this.creditComponent.form.isPORequired.value;
-      this.result.businessYears = this.creditComponent.form.businessYears.value;
-      this.result.taxID = this.creditComponent.form.taxID.value;
-      this.result.companyName = this.creditComponent.form.companyName.value;
-      this.result.shippingAddress = this.creditComponent.form.shippingAddress.value;
-      this.result.shippingZip = this.creditComponent.form.shippingZip.value;
-      this.result.shippingStateId = this.creditComponent.form.shippingStateId.value;
-      this.result.shippingCityName = this.creditComponent.form.shippingCityName.value;
-      this.result.billingAddress = this.creditComponent.form.billingAddress.value;
-      this.result.billingZip = this.creditComponent.form.billingZip.value;
-      this.result.billingCityName = this.creditComponent.form.billingCityName.value;
-      this.result.billingStateId = this.creditComponent.form.billingStateId.value;
-      this.result.contactNumber = this.creditComponent.form.contactNumber.value;
-      this.result.apContactName = this.creditComponent.form.apcontactName.value;
-      this.result.apContactMail = this.creditComponent.form.apcontactMail.value;
-      this.result.apContactNumber = this.creditComponent.form.apcontactNumber.value;
-      this.result.invoiceEmail = this.creditComponent.form.invoiceEmail.value;
-      this.result.bankName = this.creditComponent.form.bankName.value;
-      this.result.bankContactNumber = this.creditComponent.form.bankContactNumber.value;
-      this.result.bankAddress = this.creditComponent.form.bankAddress.value;
-      this.result.bankZip = this.creditComponent.form.bankZip.value;
-      this.result.bankStateId = this.creditComponent.form.bankStateId.value;
-      this.result.bankCityName = this.creditComponent.form.bankCityName.value;
-      this.result.presidentName = this.creditComponent.form.presidentName.value;
-      this.result.vicePresidentName = this.creditComponent.form.vicePresidentName.value;
-      this.result.secretary = this.creditComponent.form.secretary.value;
+    if (this.creditComponent.validationForm.valid && this.shipmentComponent.validationForm.valid) {
+      this.result.customerCredit.customerId = this.customerId;
+      this.result.customerCredit.isPORequired = this.creditComponent.form.isPORequired.value;
+      this.result.customerCredit.businessYears = this.creditComponent.form.businessYears.value;
+      this.result.customerCredit.taxID = this.creditComponent.form.taxID.value;
+      this.result.customerCredit.companyName = this.creditComponent.form.companyName.value;
+      this.result.customerCredit.shippingAddress = this.creditComponent.form.shippingAddress.value;
+      this.result.customerCredit.shippingZip = this.creditComponent.form.shippingZip.value;
+      this.result.customerCredit.shippingStateId = this.creditComponent.form.shippingStateId.value;
+      this.result.customerCredit.shippingCityName = this.creditComponent.form.shippingCityName.value;
+      this.result.customerCredit.billingAddress = this.creditComponent.form.billingAddress.value;
+      this.result.customerCredit.billingZip = this.creditComponent.form.billingZip.value;
+      this.result.customerCredit.billingCityName = this.creditComponent.form.billingCityName.value;
+      this.result.customerCredit.billingStateId = this.creditComponent.form.billingStateId.value;
+      this.result.customerCredit.contactNumber = this.creditComponent.form.contactNumber.value;
+      this.result.customerCredit.apContactName = this.creditComponent.form.apcontactName.value;
+      this.result.customerCredit.apContactMail = this.creditComponent.form.apcontactMail.value;
+      this.result.customerCredit.apContactNumber = this.creditComponent.form.apcontactNumber.value;
+      this.result.customerCredit.invoiceEmail = this.creditComponent.form.invoiceEmail.value;
+      this.result.customerCredit.bankName = this.creditComponent.form.bankName.value;
+      this.result.customerCredit.bankContactNumber = this.creditComponent.form.bankContactNumber.value;
+      this.result.customerCredit.bankAddress = this.creditComponent.form.bankAddress.value;
+      this.result.customerCredit.bankZip = this.creditComponent.form.bankZip.value;
+      this.result.customerCredit.bankStateId = this.creditComponent.form.bankStateId.value;
+      this.result.customerCredit.bankCityName = this.creditComponent.form.bankCityName.value;
+      this.result.customerCredit.presidentName = this.creditComponent.form.presidentName.value;
+      this.result.customerCredit.vicePresidentName = this.creditComponent.form.vicePresidentName.value;
+      this.result.customerCredit.secretary = this.creditComponent.form.secretary.value;
       if (!this.creditComponent.signPad.isEmpty()) {
-        this.result.signature = this.creditComponent.signPad.toDataURL();
+        this.result.customerCredit.signature = this.creditComponent.signPad.toDataURL();
       }
-      this.result.fax = this.creditComponent.form.fax.value;
+      this.result.customerCredit.fax = this.creditComponent.form.fax.value;
       if (!isNullOrUndefined(this.creditComponent.taxExemptAttachment)) {
-        this.result.taxExemptAttachment = this.creditComponent.taxExemptAttachment;
+        this.result.customerCredit.taxExemptAttachment = this.creditComponent.taxExemptAttachment;
       }
 
       this.creditComponent.tradeRefsControls.forEach((value: any, index) => {
@@ -156,7 +176,23 @@ export class CustomerCreditComponent implements OnInit {
         }
       });
 
-      this.result.trades = this.creditComponent.trades;
+      this.result.customerCredit.trades = this.creditComponent.trades;
+
+      this.result.shipment.originAddress = this.shipmentComponent.shipmentForm.originAddress.value;
+      this.result.shipment.originZip = this.shipmentComponent.shipmentForm.originZip.value;
+      this.result.shipment.originStateId = this.shipmentComponent.shipmentForm.originStateId.value;
+      this.result.shipment.originCityName = this.shipmentComponent.shipmentForm.originCityName.value;
+      this.result.shipment.destinationAddress = this.shipmentComponent.shipmentForm.destinationAddress.value;
+      this.result.shipment.destinationZip = this.shipmentComponent.shipmentForm.destinationZip.value;
+      this.result.shipment.destinationStateId = this.shipmentComponent.shipmentForm.destinationStateId.value;
+      this.result.shipment.destinationCityName = this.shipmentComponent.shipmentForm.destinationCityName.value;
+      this.result.shipment.height = this.shipmentComponent.shipmentForm.height.value;
+      this.result.shipment.width = this.shipmentComponent.shipmentForm.width.value;
+      this.result.shipment.length = this.shipmentComponent.shipmentForm.length.value;
+      this.result.shipment.weight = this.shipmentComponent.shipmentForm.weight.value;
+      this.result.shipment.isHazmat = this.shipmentComponent.shipmentForm.isHazmat.value;
+      this.result.shipment.comodity = this.shipmentComponent.shipmentForm.comodity.value;
+      this.result.shipment.comments = this.shipmentComponent.shipmentForm.comments.value;
 
       if (event.currentTarget.value == "submit") {
         Swal.fire({
@@ -169,16 +205,16 @@ export class CustomerCreditComponent implements OnInit {
           confirmButtonText: 'Submit'
         } as SweetAlertOptions).then((sresult) => {
           if (sresult.value) {
-            this.result.isSubmitted = true;
+            this.result.customerCredit.isSubmitted = true;
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-              this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { 
+              this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => { 
                 if (d.success == true) { 
                   this.toastr.success(d.message);
                   this.userdetails.roleName != 'Admin'? this.router.navigate(['/admin/shipperdashboard']) : "";
                 } 
                 else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
             } else {
-              this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { 
+              this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => { 
                 if (d.success == true) { 
                   this.toastr.success(d.message); 
                   this.userdetails.roleName != 'Admin'? this.router.navigate(['/admin/shipperdashboard']) : ""; 
@@ -188,15 +224,16 @@ export class CustomerCreditComponent implements OnInit {
         });
 
       } else {
-        this.result.isSubmitted = false;
+        this.result.customerCredit.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Customer/Customer/CustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard/']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
+          this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/shipperdashboard/']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
         } else {
-          this.navService.put<any>("Customer/Customer/UpdateCustomerCredit", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
+          this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
         }
       }
     }
     this.creditComponent.isFormSubmitted = true;
+    this.shipmentComponent.isFormSubmitted = true;
   }
 
 

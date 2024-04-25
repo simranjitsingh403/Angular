@@ -13,72 +13,92 @@
 
         <form [formGroup]="validationForm">
 
-          <div class="col-md-12 grid-margin">
-            <div class="card rounded">
-              <div class="card-body">
-                <h6 class="card-title">Personal Information</h6>
-                <div class="col-md-12">
+          <mat-stepper [linear]="true" #stepper>
+            <ng-template matStepperIcon="edit">
+              <mat-icon>edit</mat-icon>
+            </ng-template>
+            <mat-step label="Step 1">
+              <div class="col-md-12 grid-margin">
+                <div class="card rounded">
+                  <div class="card-body">
+                    <h6 class="card-title">Personal Information</h6>
+                    <div class="col-md-12">
 
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="firstName" class="col-md-3 col-form-label required">First Name</label>
-                        <input type="text" class="form-control" id="firstName" formControlName="firstName"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.firstName.errors}" placeholder="First name">
-                        <div *ngIf="isFormSubmitted && form.firstName.errors?.required" class="invalid-feedback">
-                          Required
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="firstName" class="col-md-3 col-form-label required">First Name</label>
+                            <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                              [ngClass]="{'is-invalid': isFormSubmitted && form.firstName.errors}"
+                              placeholder="First name">
+                            <div *ngIf="isFormSubmitted && form.firstName.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="lastName" class="col-md-3 col-form-label required">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                              [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}"
+                              placeholder="Last name">
+                            <div *ngIf="isFormSubmitted && form.lastName.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="lastName" class="col-md-3 col-form-label required">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" formControlName="lastName"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}" placeholder="Last name">
-                        <div *ngIf="isFormSubmitted && form.lastName.errors?.required" class="invalid-feedback">
-                          Required
+
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="middleName" class="col-md-3 col-form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="middleName" formControlName="middleName"
+                              placeholder="Middle Name">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="email" class="col-md-3 col-form-label required">Email</label>
+                            <input type="email" class="form-control" id="email" formControlName="email"
+                              [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}" placeholder="email">
+                            <div *ngIf="isFormSubmitted && form.email.errors?.required" class="invalid-feedback">
+                              Required
+                            </div>
+                          </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
-                </div>
-
-                <div class="col-md-12">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="middleName" class="col-md-3 col-form-label">Middle Name</label>
-                        <input type="text" class="form-control" id="middleName" formControlName="middleName"
-                          placeholder="Middle Name">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="email" class="col-md-3 col-form-label required">Email</label>
-                        <input type="email" class="form-control" id="email" formControlName="email"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}" placeholder="email">
-                        <div *ngIf="isFormSubmitted && form.email.errors?.required" class="invalid-feedback">
-                          Required
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
               </div>
-            </div>
-          </div>
 
-            <!-- <app-shipment [show]="true" [states]="result.states"></app-shipment> -->
+              <app-shipment [show]="true" [states]="result.states"></app-shipment>
 
-            <app-credit [states]="result.states" [signature]="result.customerCredit.signature" [taxExemptAttachment]="result.customerCredit.taxExemptAttachment"></app-credit>
+              <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-primary" (click)="form1Submit()">Continue</button>
+              </div>
+            </mat-step>
 
-          <div class="d-flex justify-content-center mt-2">
-            <button *ngIf="userdetails.roleName != 'Admin' && (!result.customerCredit.isSubmitted || result.customerCredit.statusId == 3)"
-                        class="btn btn-primary me-5" type="button" value="save"
-                        (click)="formSubmit($event)">Save</button>
-            <button *ngIf="!result.customerCredit.isSubmitted || userdetails.roleName == 'Admin' || result.customerCredit.statusId == 3" class="btn btn-success" type="button" value="submit" (click)="formSubmit($event)">Submit</button>
-          </div>
+            <mat-step>
+              <ng-template matStepLabel>Finish</ng-template>
+              <app-credit [states]="result.states" [signature]="result.customerCredit.signature"
+                [taxExemptAttachment]="result.customerCredit.taxExemptAttachment"></app-credit>
+
+              <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-secondary me-5" type="button" matStepperPrevious>Back</button>
+                <button
+                  *ngIf="userdetails.roleName != 'Admin' && (!result.customerCredit.isSubmitted || result.customerCredit.statusId == 3)"
+                  class="btn btn-primary me-5" type="button" value="save" (click)="formSubmit($event)">Save</button>
+                <button
+                  *ngIf="!result.customerCredit.isSubmitted || userdetails.roleName == 'Admin' || result.customerCredit.statusId == 3"
+                  class="btn btn-success" type="button" value="submit" (click)="formSubmit($event)">Submit</button>
+              </div>
+            </mat-step>
+          </mat-stepper>
         </form>
 
       </div>
