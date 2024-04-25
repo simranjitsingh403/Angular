@@ -5,8 +5,8 @@
     <div class="card">
       <div class="card-body">
         <h6 *ngIf="isLogin" class="card-title">Driver Form</h6>
-        <img *ngIf="!isLogin && isDarkChecked" [src]="logo" routerLink="." style="width: 225px;margin-left: -40px;">
-        <img *ngIf="!isLogin && isLightChecked" [src]="logo" routerLink="." style="width: 225px;margin-left: -20px;">
+        <img *ngIf="!isLogin && isDarkChecked" [src]="logo" routerLink="/" style="width: 225px;margin-left: -40px;">
+        <img *ngIf="!isLogin && isLightChecked" [src]="logo" routerLink="/" style="width: 225px;margin-left: -20px;">
         <div *ngIf="result.rejectedReason != null && result.formStatusId==3">
           <h5 class="text-danger">Note:- {{result.rejectedReason}}</h5>
 

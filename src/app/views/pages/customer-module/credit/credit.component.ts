@@ -12,13 +12,14 @@ import { Customercreditmodel } from '../../../../model/customercreditmodel';
 import { Customertrademodel } from '../../../../model/customertrademodel';
 import { Usermodel } from '../../../../model/usermodel';
 import { environment } from '../../../../../environments/environment';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
   selector: 'app-credit',
   templateUrl: './credit.component.html',
   styleUrls: ['./credit.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, NgSelectModule, NgxMaskModule]
+  imports: [CommonModule, ReactiveFormsModule, NgSelectModule, NgxMaskModule, NgbAccordionModule]
 })
 export class CreditComponent implements OnInit {
   @Input() states = [];

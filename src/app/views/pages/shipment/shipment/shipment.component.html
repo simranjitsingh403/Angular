@@ -8,278 +8,318 @@
                 <form [formGroup]="validationForm">
 
                     <div class="col-md-12 grid-margin">
-                        <div class="card rounded">
-                            <div class="card-body">
-                                <h6 class="card-title">Origin Information</h6>
-                                <div class="col-md-12">
+                        <div ngbAccordion>
+                            <div ngbAccordionItem>
+                                <h2 ngbAccordionHeader>
+                                    <button ngbAccordionButton>Origin Information</button>
+                                </h2>
+                                <div ngbAccordionCollapse>
+                                    <div ngbAccordionBody>
+                                        <div class="col-md-12">
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="originAddress"
-                                                    class="col-md-3 col-form-label required">Address</label>
-                                                <textarea class="form-control" formControlName="originAddress"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originAddress.errors}"
-                                                    placeholder="address"></textarea>
-                                                <div *ngIf="isFormSubmitted && shipmentForm.originAddress.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="originAddress"
+                                                            class="col-md-3 col-form-label required">Address</label>
+                                                        <textarea class="form-control" formControlName="originAddress"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originAddress.errors}"
+                                                            placeholder="address"></textarea>
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.originAddress.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="col-md-3 col-form-label required">City
+                                                            Name</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="originCityName"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originCityName.errors}"
+                                                            placeholder="City Name">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.originCityName.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="col-md-3 col-form-label required">City Name</label>
-                                                <input type="text" class="form-control" formControlName="originCityName"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originCityName.errors}"
-                                                    placeholder="City Name">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.originCityName.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="originStateId"
+                                                            class="col-md-3 col-form-label required">State</label>
+                                                        <div>
+                                                            <ng-select [items]="states" bindLabel="name" bindValue="id"
+                                                                placeholder="Select State"
+                                                                formControlName="originStateId">
+                                                            </ng-select>
+                                                        </div>
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.originStateId.errors?.required"
+                                                            style="color:red;">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="originZip"
+                                                            class="col-md-3 col-form-label required">Zip</label>
+                                                        <input type="number" data-maxlength="5"
+                                                            oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                                            class="form-control" formControlName="originZip"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originZip.errors}"
+                                                            placeholder="zip">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.originZip.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="originStateId"
-                                                    class="col-md-3 col-form-label required">State</label>
-                                                <div>
-                                                    <ng-select [items]="states" bindLabel="name" bindValue="id"
-                                                        placeholder="Select State" formControlName="originStateId">
-                                                    </ng-select>
-                                                </div>
-                                                <div *ngIf="isFormSubmitted && shipmentForm.originStateId.errors?.required"
-                                                    style="color:red;">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="originZip"
-                                                    class="col-md-3 col-form-label required">Zip</label>
-                                                <input type="number" data-maxlength="5" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" formControlName="originZip"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originZip.errors}"
-                                                    placeholder="zip">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.originZip.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-12 grid-margin">
-                        <div class="card rounded">
-                            <div class="card-body">
-                                <h6 class="card-title">Destination Information</h6>
-                                <div class="col-md-12">
+                        <div ngbAccordion>
+                            <div ngbAccordionItem>
+                                <h2 ngbAccordionHeader>
+                                    <button ngbAccordionButton>Destination Information</button>
+                                </h2>
+                                <div ngbAccordionCollapse>
+                                    <div ngbAccordionBody>
+                                        <div class="col-md-12">
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="destinationAddress"
-                                                    class="col-md-3 col-form-label required">Address</label>
-                                                <textarea class="form-control"
-                                                    formControlName="destinationAddress"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationAddress.errors}"
-                                                    placeholder="address"></textarea>
-                                                <div *ngIf="isFormSubmitted && shipmentForm.destinationAddress.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="destinationAddress"
+                                                            class="col-md-3 col-form-label required">Address</label>
+                                                        <textarea class="form-control"
+                                                            formControlName="destinationAddress"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationAddress.errors}"
+                                                            placeholder="address"></textarea>
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.destinationAddress.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="col-md-3 col-form-label required">City Name</label>
-                                                <input type="text" class="form-control"
-                                                    formControlName="destinationCityName"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationCityName.errors}"
-                                                    placeholder="City Name">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.destinationCityName.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="destinationStateId"
-                                                    class="col-md-3 col-form-label required">State</label>
-                                                <div>
-                                                    <ng-select [items]="states" bindLabel="name" bindValue="id"
-                                                        placeholder="Select State" formControlName="destinationStateId">
-                                                    </ng-select>
-                                                </div>
-                                                <div *ngIf="isFormSubmitted && shipmentForm.destinationStateId.errors?.required"
-                                                    style="color:red;">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="destinationZip"
-                                                    class="col-md-3 col-form-label required">Zip</label>
-                                                <input type="number" data-maxlength="5" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" formControlName="destinationZip"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationZip.errors}"
-                                                    placeholder="zip">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.destinationZip.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 grid-margin">
-                        <div class="card rounded">
-                            <div class="card-body">
-                                <h6 class="card-title">Dimensions</h6>
-                                <div class="col-md-12">
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="height"
-                                                    class="col-md-3 col-form-label required">Height</label>
-                                                <input type="number" class="form-control" formControlName="height"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.height.errors}"
-                                                    placeholder="height">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.height.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="width"
-                                                    class="col-md-3 col-form-label required">Width</label>
-                                                <input type="number" class="form-control" formControlName="width"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.width.errors}"
-                                                    placeholder="width">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.width.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="length"
-                                                    class="col-md-3 col-form-label required">Length</label>
-                                                <input type="number" class="form-control" formControlName="length"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.length.errors}"
-                                                    placeholder="length">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.length.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="weight"
-                                                    class="col-md-3 col-form-label required">Weight</label>
-                                                <input type="number" class="form-control" formControlName="weight"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.weight.errors}"
-                                                    placeholder="weight">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.weight.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 grid-margin">
-                        <div class="card rounded">
-                            <div class="card-body">
-                                <h6 class="card-title">Other Information</h6>
-                                <div class="col-md-12">
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <div class="form-check form-check-inline mt-4">
-                                                    <label class="form-check-label" for="isHazmat">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            formControlName="isHazmat"
-                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.isHazmat.errors}">
-                                                        Hazmat?
-                                                    </label>
-                                                    <div *ngIf="isFormSubmitted && shipmentForm.isHazmat.errors?.required"
-                                                        class="invalid-feedback">
-                                                        Required
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="col-md-3 col-form-label required">City
+                                                            Name</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="destinationCityName"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationCityName.errors}"
+                                                            placeholder="City Name">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.destinationCityName.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="comodity" class="col-md-3 col-form-label required">Type of
-                                                    comodity</label>
-                                                <input type="text" class="form-control" formControlName="comodity"
-                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.comodity.errors}"
-                                                    placeholder="Comodity">
-                                                <div *ngIf="isFormSubmitted && shipmentForm.comodity.errors?.required"
-                                                    class="invalid-feedback">
-                                                    Required
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="destinationStateId"
+                                                            class="col-md-3 col-form-label required">State</label>
+                                                        <div>
+                                                            <ng-select [items]="states" bindLabel="name" bindValue="id"
+                                                                placeholder="Select State"
+                                                                formControlName="destinationStateId">
+                                                            </ng-select>
+                                                        </div>
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.destinationStateId.errors?.required"
+                                                            style="color:red;">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="destinationZip"
+                                                            class="col-md-3 col-form-label required">Zip</label>
+                                                        <input type="number" data-maxlength="5"
+                                                            oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                                            class="form-control" formControlName="destinationZip"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationZip.errors}"
+                                                            placeholder="zip">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.destinationZip.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div class="col-md-12">
-                                    <div class="row">
+                    <div class="col-md-12 grid-margin">
+                        <div ngbAccordion>
+                            <div ngbAccordionItem>
+                                <h2 ngbAccordionHeader>
+                                    <button ngbAccordionButton>Dimensions</button>
+                                </h2>
+                                <div ngbAccordionCollapse>
+                                    <div ngbAccordionBody>
                                         <div class="col-md-12">
-                                            <div class="mb-3">
-                                                <label for="comments" class="col-md-3 col-form-label">Comments</label>
-                                                <div>
-                                                    <quill-editor formControlName="comments"
-                                                        placeholder="Comments here..." [modules]="quillConfig"
-                                                        (onSelectionChanged)="onSelectionChanged($event)"
-                                                        (onContentChanged)="onContentChanged($event)">
-                                                    </quill-editor>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="height"
+                                                            class="col-md-3 col-form-label required">Height</label>
+                                                        <input type="number" class="form-control"
+                                                            formControlName="height"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.height.errors}"
+                                                            placeholder="height">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.height.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="width"
+                                                            class="col-md-3 col-form-label required">Width</label>
+                                                        <input type="number" class="form-control"
+                                                            formControlName="width"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.width.errors}"
+                                                            placeholder="width">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.width.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="length"
+                                                            class="col-md-3 col-form-label required">Length</label>
+                                                        <input type="number" class="form-control"
+                                                            formControlName="length"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.length.errors}"
+                                                            placeholder="length">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.length.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="weight"
+                                                            class="col-md-3 col-form-label required">Weight</label>
+                                                        <input type="number" class="form-control"
+                                                            formControlName="weight"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.weight.errors}"
+                                                            placeholder="weight">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.weight.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 grid-margin">
+                        <div ngbAccordion>
+                            <div ngbAccordionItem>
+                                <h2 ngbAccordionHeader>
+                                    <button ngbAccordionButton>Other Information</button>
+                                </h2>
+                                <div ngbAccordionCollapse>
+                                    <div ngbAccordionBody>
+                                        <div class="col-md-12">
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <div class="form-check form-check-inline mt-4">
+                                                            <label class="form-check-label" for="isHazmat">
+                                                                <input type="checkbox" class="form-check-input"
+                                                                    formControlName="isHazmat"
+                                                                    [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.isHazmat.errors}">
+                                                                Hazmat?
+                                                            </label>
+                                                            <div *ngIf="isFormSubmitted && shipmentForm.isHazmat.errors?.required"
+                                                                class="invalid-feedback">
+                                                                Required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="comodity"
+                                                            class="col-md-3 col-form-label required">Type of
+                                                            comodity</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="comodity"
+                                                            [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.comodity.errors}"
+                                                            placeholder="Comodity">
+                                                        <div *ngIf="isFormSubmitted && shipmentForm.comodity.errors?.required"
+                                                            class="invalid-feedback">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="comments"
+                                                            class="col-md-3 col-form-label">Comments</label>
+                                                        <div>
+                                                            <quill-editor formControlName="comments"
+                                                                placeholder="Comments here..." [modules]="quillConfig"
+                                                                (onSelectionChanged)="onSelectionChanged($event)"
+                                                                (onContentChanged)="onContentChanged($event)">
+                                                            </quill-editor>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -38,6 +38,7 @@ import { LandingCustomerComponent } from './views/pages/customer-module/landing-
 import { MatStepperIcon, MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCommonModule } from '@angular/material/core';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     CustomerShipmentComponent,
     CustomerDashboardComponent,
     CustomersComponent,
-    LandingCustomerComponent
+    LandingCustomerComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +79,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ShipmentComponent,
     CreditComponent,
     MatStepperModule,
-    MatIconModule
+    MatIconModule,
+    NgbAccordionModule
   ],
   providers: [
     AuthGuard,

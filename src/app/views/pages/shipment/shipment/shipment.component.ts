@@ -7,13 +7,14 @@ import { ContentChange, QuillModule, SelectionChange } from 'ngx-quill';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../../../api.service';
 import { environment } from '../../../../../environments/environment';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone:true,
   selector: 'app-shipment',
   templateUrl: './shipment.component.html',
   styleUrls: ['./shipment.component.scss'],
-  imports:[CommonModule, ReactiveFormsModule, NgSelectModule, QuillModule]
+  imports:[CommonModule, ReactiveFormsModule, NgSelectModule, QuillModule, NgbAccordionModule]
 })
 export class ShipmentComponent implements OnInit {
   validationForm: any;
