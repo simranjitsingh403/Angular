@@ -7,14 +7,14 @@ import { ContentChange, QuillModule, SelectionChange } from 'ngx-quill';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../../../api.service';
 import { environment } from '../../../../../environments/environment';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone:true,
   selector: 'app-shipment',
   templateUrl: './shipment.component.html',
   styleUrls: ['./shipment.component.scss'],
-  imports:[CommonModule, ReactiveFormsModule, NgSelectModule, QuillModule, NgbAccordionModule]
+  imports:[CommonModule, ReactiveFormsModule, NgSelectModule, QuillModule, NgbAccordionModule, FormsModule]
 })
 export class ShipmentComponent implements OnInit {
   validationForm: any;
@@ -24,6 +24,8 @@ export class ShipmentComponent implements OnInit {
   @Input() states = [];
   originCities=[];
   destinationCities=[];
+  units: any = [{ key: 1, value: "Inches" }, { key: 2, value: "Ft" }];
+  unitValue = "Inches";
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) { }
 
@@ -43,8 +45,14 @@ export class ShipmentComponent implements OnInit {
       weight: [, Validators.required],
       isHazmat: [false],
       comodity: [, Validators.required],
-      comments: []
+      comments: [],
+      dimensionsUnitId: [1]
     });
+  }
+
+  UnitsChange(event: any) {
+    debugger;
+    this.unitValue = event.value;
   }
 
   get shipmentForm() {

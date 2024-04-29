@@ -22,4 +22,5 @@ export class Shipmentmodel {
     createdDateTime: string | null = null
     jwtToken:string | null = null
     states:[] = []
+    dimensionsUnit: string | null = null
 }

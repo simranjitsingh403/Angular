@@ -86,7 +86,8 @@
                     </div>
 
                     <div *ngIf="isTaxExempt" class="row">
-                        <div class="col-md-6">
+                        
+                        <div class="col-md-6 offset-6">
                             <div class="mb-3">
                                 <label class="col-form-label">Resale Certificate</label>
                                 <div>
@@ -100,8 +101,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3 mt-5">
+                        <div class="col-md-6 offset-6">
+                            <div class="mb-3">
                                 <a class="col-md-12" *ngIf="taxExemptAttachment != null"
                                     href="{{apiPath + taxExemptAttachment}}" target="_blank">Resale
                                     Certificate</a>
@@ -268,6 +269,21 @@
                                                     <div ngbAccordionCollapse>
                                                         <div ngbAccordionBody>
                                                             <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <div class="form-check form-check-inline">
+                                                                                <label class="form-check-label" for="sameAddressCheck">
+                                                                                    <input id="sameAddressCheck" type="checkbox" class="form-check-input"
+                                                                                        (change)="SameAddress($event)">
+                                                                                    Is Billing address same as Shipping address?
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
 
                                                                 <div class="row">
                                                                     <div class="col-md-6">
@@ -364,7 +380,7 @@
                                                             class="col-md-3 col-form-label">Phone</label>
                                                         <input class="form-control" formControlName="apcontactNumber"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && form.apcontactNumber.errors}"
-                                                            placeholder="number" prefix="+1 " mask="(000) 000-0000"
+                                                            placeholder="Number" prefix="+1 " mask="(000) 000-0000"
                                                             [showMaskTyped]="true">
                                                         <div *ngIf="isFormSubmitted && form.apcontactNumber.errors?.required"
                                                             class="invalid-feedback">
@@ -610,6 +626,8 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
+                                                        <label
+                                                            class="col-md-3 col-form-label">Signature</label>
                                                         <canvas style="background-color: #fff;" #signPadCanvas
                                                             (touchstart)="startSignPadDrawing($event)"
                                                             (touchmove)="movedFinger($event)"></canvas>
@@ -684,7 +702,7 @@
                                                                 mask="(000) 000-0000" [showMaskTyped]="true"
                                                                 formControlName="tradeCompanyPhone"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyPhone.errors}"
-                                                                placeholder="phone">
+                                                                placeholder="Phone">
                                                             <div *ngIf="isFormSubmitted && tradeFormValidations(i).tradeCompanyPhone.errors?.required"
                                                                 class="invalid-feedback">
                                                                 Required
@@ -694,7 +712,7 @@
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="tradeCompanyFax"
-                                                                class="col-md-3 col-form-label required">Fax#</label>
+                                                                class="col-md-3 col-form-label">Fax#</label>
                                                             <input prefix="+1 " mask="(000) 000-0000"
                                                                 [showMaskTyped]="true" class="form-control"
                                                                 formControlName="tradeCompanyFax"
@@ -715,7 +733,7 @@
                                                     <div class="col-md-6">
                                                         <div class="mb-3">
                                                             <label for="tradeCompanyEmail"
-                                                                class="col-md-3 col-form-label">E-Mail(Optional)</label>
+                                                                class="col-md-3 col-form-label required">E-Mail</label>
                                                             <input type="email" class="form-control"
                                                                 formControlName="tradeCompanyEmail"
                                                                 [ngClass]="{'is-invalid': isFormSubmitted && tradeFormValidations(i).tradeCompanyEmail.errors}"

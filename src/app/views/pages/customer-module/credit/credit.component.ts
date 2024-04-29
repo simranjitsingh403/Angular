@@ -37,6 +37,7 @@ export class CreditComponent implements OnInit {
   date = new Date();
   isTaxExempt: boolean = false;
   isInvoiceEmail: boolean = false;
+  sameAddress: boolean = false;
   trades: Customertrademodel[] = [];
   @ViewChild('signPadCanvas', { static: false }) signaturePadElement: any;
   signPad: any;
@@ -84,20 +85,20 @@ export class CreditComponent implements OnInit {
         tradeCompanyName: ['', Validators.required],
         tradeCompanyAddress: ['', Validators.required],
         tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: ['', Validators.required],
-        tradeCompanyEmail: []
+        tradeCompanyFax: [''],
+        tradeCompanyEmail: ['',Validators.required]
       }), this.formBuilder.group({
         tradeCompanyName: ['', Validators.required],
         tradeCompanyAddress: ['', Validators.required],
         tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: ['', Validators.required],
-        tradeCompanyEmail: []
+        tradeCompanyFax: [''],
+        tradeCompanyEmail: ['',Validators.required]
       }), this.formBuilder.group({
         tradeCompanyName: ['', Validators.required],
         tradeCompanyAddress: ['', Validators.required],
         tradeCompanyPhone: [, Validators.required],
-        tradeCompanyFax: ['', Validators.required],
-        tradeCompanyEmail: []
+        tradeCompanyFax: [''],
+        tradeCompanyEmail: ['',Validators.required]
       })])
     });
 
@@ -114,6 +115,28 @@ export class CreditComponent implements OnInit {
     }
     else {
       this.isTaxExempt = false;
+    }
+  }
+
+  SameAddress(event: any) {
+    debugger;
+    if (event.currentTarget.checked) {
+      this.sameAddress = true;
+      this.validationForm.patchValue({
+        billingAddress: this.form.shippingAddress.value,
+        billingCityName: this.form.shippingCityName.value,
+        billingStateId: this.form.shippingStateId.value,
+        billingZip: this.form.shippingZip.value,
+      });
+    }
+    else {
+      this.sameAddress = false;
+      this.validationForm.patchValue({
+        billingAddress: "",
+        billingCityName: "",
+        billingStateId: null,
+        billingZip: "",
+      });
     }
   }
 

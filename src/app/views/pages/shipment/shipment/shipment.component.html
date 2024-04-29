@@ -9,7 +9,7 @@
 
                     <div class="col-md-12 grid-margin">
                         <div ngbAccordion>
-                            <div ngbAccordionItem>
+                            <div ngbAccordionItem [collapsed]="false">
                                 <h2 ngbAccordionHeader>
                                     <button ngbAccordionButton>Origin Information</button>
                                 </h2>
@@ -24,7 +24,7 @@
                                                             class="col-md-3 col-form-label required">Address</label>
                                                         <textarea class="form-control" formControlName="originAddress"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originAddress.errors}"
-                                                            placeholder="address"></textarea>
+                                                            placeholder="Address"></textarea>
                                                         <div *ngIf="isFormSubmitted && shipmentForm.originAddress.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -75,7 +75,7 @@
                                                             oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                                             class="form-control" formControlName="originZip"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originZip.errors}"
-                                                            placeholder="zip">
+                                                            placeholder="Zip">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.originZip.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -93,7 +93,7 @@
 
                     <div class="col-md-12 grid-margin">
                         <div ngbAccordion>
-                            <div ngbAccordionItem>
+                            <div ngbAccordionItem [collapsed]="false">
                                 <h2 ngbAccordionHeader>
                                     <button ngbAccordionButton>Destination Information</button>
                                 </h2>
@@ -109,7 +109,7 @@
                                                         <textarea class="form-control"
                                                             formControlName="destinationAddress"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationAddress.errors}"
-                                                            placeholder="address"></textarea>
+                                                            placeholder="Address"></textarea>
                                                         <div *ngIf="isFormSubmitted && shipmentForm.destinationAddress.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -159,7 +159,7 @@
                                                             oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                                             class="form-control" formControlName="destinationZip"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationZip.errors}"
-                                                            placeholder="zip">
+                                                            placeholder="Zip">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.destinationZip.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -177,12 +177,26 @@
 
                     <div class="col-md-12 grid-margin">
                         <div ngbAccordion>
-                            <div ngbAccordionItem>
+                            <div ngbAccordionItem [collapsed]="false">
                                 <h2 ngbAccordionHeader>
                                     <button ngbAccordionButton>Dimensions</button>
                                 </h2>
                                 <div ngbAccordionCollapse>
                                     <div ngbAccordionBody>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                      <div>
+                                                        <ng-select [items]="units" bindLabel="value" bindValue="key" formControlName="dimensionsUnitId" placeholder="Select Unit"
+                                                        (change)="UnitsChange($event)">
+                                                        </ng-select>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-12">
 
                                             <div class="row">
@@ -193,7 +207,7 @@
                                                         <input type="number" class="form-control"
                                                             formControlName="height"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.height.errors}"
-                                                            placeholder="height">
+                                                            placeholder="Height">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.height.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -207,7 +221,7 @@
                                                         <input type="number" class="form-control"
                                                             formControlName="width"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.width.errors}"
-                                                            placeholder="width">
+                                                            placeholder="Width">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.width.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -226,7 +240,7 @@
                                                         <input type="number" class="form-control"
                                                             formControlName="length"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.length.errors}"
-                                                            placeholder="length">
+                                                            placeholder="Length">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.length.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -236,11 +250,11 @@
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="weight"
-                                                            class="col-md-3 col-form-label required">Weight</label>
+                                                            class="col-md-3 col-form-label required">Weight (Lbs)</label>
                                                         <input type="number" class="form-control"
                                                             formControlName="weight"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.weight.errors}"
-                                                            placeholder="weight">
+                                                            placeholder="Weight">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.weight.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -258,7 +272,7 @@
 
                     <div class="col-md-12 grid-margin">
                         <div ngbAccordion>
-                            <div ngbAccordionItem>
+                            <div ngbAccordionItem [collapsed]="false">
                                 <h2 ngbAccordionHeader>
                                     <button ngbAccordionButton>Other Information</button>
                                 </h2>

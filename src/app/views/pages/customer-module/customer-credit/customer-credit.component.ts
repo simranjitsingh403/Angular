@@ -110,7 +110,8 @@ export class CustomerCreditComponent implements OnInit {
         weight: this.result.shipment.weight,
         isHazmat: this.result.shipment.isHazmat,
         comodity: this.result.shipment.comodity,
-        comments: this.result.shipment.comments
+        comments: this.result.shipment.comments,
+        dimensionsUnitId: this.result.shipment.dimensionsUnit == "Inches" || isNullOrUndefined(this.result.shipment.dimensionsUnit) ? 1 : 2,
       });
       this.spinnerService.hide();
       this.creditComponent.isTaxExempt = this.result.customerCredit.taxExemptAttachment != null ? true : false;
@@ -193,7 +194,7 @@ export class CustomerCreditComponent implements OnInit {
       this.result.shipment.isHazmat = this.shipmentComponent.shipmentForm.isHazmat.value;
       this.result.shipment.comodity = this.shipmentComponent.shipmentForm.comodity.value;
       this.result.shipment.comments = this.shipmentComponent.shipmentForm.comments.value;
-
+      this.result.shipment.dimensionsUnit = this.shipmentComponent.unitValue;
       if (event.currentTarget.value == "submit") {
         Swal.fire({
           title: 'Are you sure?',

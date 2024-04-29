@@ -131,7 +131,8 @@ export class LandingCustomerComponent implements OnInit {
         weight: this.result.shipment.weight,
         isHazmat: this.result.shipment.isHazmat,
         comodity: this.result.shipment.comodity,
-        comments: this.result.shipment.comments
+        comments: this.result.shipment.comments,
+        dimensionsUnitId: this.result.shipment.dimensionsUnit == "Inches" || isNullOrUndefined(this.result.shipment.dimensionsUnit) ? 1 : 2,
       });
 
       this.creditComponent.isTaxExempt = this.result.customerCredit.taxExemptAttachment != null ? true : false;
@@ -234,6 +235,7 @@ export class LandingCustomerComponent implements OnInit {
       this.result.shipment.isHazmat = this.shipmentComponent.shipmentForm.isHazmat.value;
       this.result.shipment.comodity = this.shipmentComponent.shipmentForm.comodity.value;
       this.result.shipment.comments = this.shipmentComponent.shipmentForm.comments.value;
+      this.result.shipment.dimensionsUnit = this.shipmentComponent.unitValue;
 
       if (event.currentTarget.value == "submit") {
         Swal.fire({
@@ -250,8 +252,8 @@ export class LandingCustomerComponent implements OnInit {
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
               this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => {
                 if (d.success == true) {
-                  this.router.navigate([d.redirectUrl]);
-                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true });
+                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 1000 }).onHidden.subscribe(t => {//window.location.reload(); 
+                    this.router.navigate([d.redirectUrl]);});
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
               }, e => this.spinnerService.hide());
@@ -259,7 +261,8 @@ export class LandingCustomerComponent implements OnInit {
             else {
               this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => {
                 if (d.success == true) {
-                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 1000 }).onHidden.subscribe(d => window.location.reload());
+                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 1000 }).onHidden.subscribe(t => {//window.location.reload(); 
+                    this.router.navigate([d.redirectUrl]);});
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
               }, e => this.spinnerService.hide());
