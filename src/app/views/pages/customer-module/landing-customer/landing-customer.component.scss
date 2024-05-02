@@ -2,8 +2,11 @@
     background-color: #00A9CE !important;
     border-radius: 32px !important;
     font-weight: 10px;
-  
-    & div.mat-step-label.mat-step-label-active.mat-step-label-selected {
-        color: #FFF;
-    }
+    color: #FFF;
+  }
+
+
+  ::ng-deep .mat-horizontal-stepper-header-container {
+    width: 69%;
+    margin: 10px auto;
   }
