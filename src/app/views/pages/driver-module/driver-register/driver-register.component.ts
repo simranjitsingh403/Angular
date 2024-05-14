@@ -47,8 +47,7 @@ export class DriverRegistorComponent implements OnInit {
     if (!this.driverId) {
       this.driverId = "00000000-0000-0000-0000-000000000000";
     }
-
-
+    
     this.navService.get<Drivermodel>("Driver/Account/Register?Id=" + this.driverId).subscribe((response) => {
       this.result = response;
     }, e => { this.toastr.error(e.message); this.spinnerService.hide(); }, () => {
@@ -64,7 +63,7 @@ export class DriverRegistorComponent implements OnInit {
         isvalidlicense: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : (this.result.licenseClassId != 0 ? true : false),
         licenseclassid: this.result.licenseClassId != 0 ? this.result.licenseClassId : null,
         isusauthorized: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : this.result.isUSAuthorized,
-        isimmigrationallowed: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : this.result.isImmigrationAllowed,
+        isimmigrationallowed: this.result.isImmigrationAllowed == true ? '1' : '2',
         salaryexpectation: this.driverId == "00000000-0000-0000-0000-000000000000" ? '' : this.result.salaryExpectation,
         jobtype: this.result.jobType != 0 ? this.result.jobType.toString() : '1',
         referredbyname: this.result.referredByName,
@@ -108,7 +107,7 @@ export class DriverRegistorComponent implements OnInit {
       isvalidlicense: ['', Validators.requiredTrue],
       licenseclassid: ['', Validators.required],
       isusauthorized: ['', Validators.requiredTrue],
-      isimmigrationallowed: ['', Validators.requiredTrue],
+      isimmigrationallowed: [''],
       salaryexpectation: ['', Validators.required],
       jobtype: ['', Validators.required],
       referredbyname: [''],
@@ -145,7 +144,7 @@ export class DriverRegistorComponent implements OnInit {
       this.result.isLegallyAllowed = this.form1.islegallyallowed.value;
       this.result.licenseClassId = this.form1.licenseclassid.value;
       this.result.isUSAuthorized = this.form1.isusauthorized.value;
-      this.result.isImmigrationAllowed = this.form1.isimmigrationallowed.value;
+      this.result.isImmigrationAllowed = this.form1.isimmigrationallowed.value == '1' ? true : false;
       this.result.salaryExpectation = this.form1.salaryexpectation.value;
       this.result.jobType = this.form1.jobtype.value;
       this.result.referredByName = this.form1.referredbyname.value;

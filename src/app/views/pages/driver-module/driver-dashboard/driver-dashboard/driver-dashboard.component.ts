@@ -17,7 +17,7 @@ export class DriverDashboardComponent implements OnInit {
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   driverId = this.userdetails.driverId;
   result: Drivermodel = new Drivermodel();
-  status: any = [{ key: 1, value: "Pending" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }];
+  status: any = [{ key: 1, value: "In Progress" }, { key: 2, value: "Accepted" }, { key: 3, value: "Rejected" }];
   statusName: string = "";
   isDark = localStorage.getItem('isDark') == 'true'?true:false;
 

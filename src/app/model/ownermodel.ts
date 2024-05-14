@@ -1,7 +1,7 @@
 export class Ownermodel {
     id: string = "00000000-0000-0000-0000-000000000000"
     firstName: string | null = null
-    middleName: string | null = null
+    businessName: string | null = null
     lastName: string | null = null
     address: string | null = null
     typeId: number = 0

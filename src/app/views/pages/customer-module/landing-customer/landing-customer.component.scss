@@ -3,10 +3,18 @@
     border-radius: 32px !important;
     font-weight: 10px;
     color: #FFF;
+    width: 8%;
   }
 
-
   ::ng-deep .mat-horizontal-stepper-header-container {
-    width: 69%;
+    width: 97%;
     margin: 10px auto;
+  }
+
+  ::ng-deep .mat-step-icon-state-number {
+    display: none;
+  }
+
+  ::ng-deep #cdk-step-label-0-2 {
+    width: 0;
   }

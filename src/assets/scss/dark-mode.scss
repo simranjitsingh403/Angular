@@ -88,6 +88,10 @@ input[type=date]{
   color-scheme: dark;
 }
 
+input[type=checkbox], input[type=radio]{
+  border: 1px solid #fff;
+}
+
 .badge{
   color: #fff;
 }

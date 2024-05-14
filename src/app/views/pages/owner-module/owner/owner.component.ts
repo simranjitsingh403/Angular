@@ -36,7 +36,7 @@ export class OwnerComponent implements OnInit {
     this.validationForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      middleName: [''],
+      businessName: [''],
       address: ['', Validators.required],
       value: [],
       year: [],
@@ -60,7 +60,7 @@ export class OwnerComponent implements OnInit {
       this.validationForm.patchValue({
         firstName: this.result.firstName,
         lastName: this.result.lastName,
-        middleName: this.result.middleName,
+        businessName: this.result.businessName,
         address: this.result.address,
         value: this.result.value,
         year: this.result.year,
@@ -96,7 +96,7 @@ export class OwnerComponent implements OnInit {
     if (this.validationForm.valid) {
       this.result.firstName = this.form.firstName.value;
       this.result.lastName = this.form.lastName.value;
-      this.result.middleName = this.form.middleName.value;
+      this.result.businessName = this.form.businessName.value;
       this.result.address = this.form.address.value;
       this.result.value = this.form.value.value;
       this.result.year = this.form.year.value;
