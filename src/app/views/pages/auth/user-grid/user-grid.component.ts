@@ -54,7 +54,7 @@ export class UserGridComponent implements OnInit {
       } as SweetAlertOptions).then((result) => {
         if (result.value) {
           if (result.value) {
-            this.navService.put("Account/DeleteUser/" + params.data.id).subscribe(d => { if (d) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error("something went wrong"); this.GetAll() } }, e => this.spinnerService.hide());
+            this.navService.put<any>("Account/DeleteUser/" + params.data.id).subscribe(d => { if (d.success) { this.toastr.success("Record deleted successfully."); this.GetAll() } else { this.toastr.error(d.message); this.GetAll() } }, e => this.spinnerService.hide());
           }
         }
       });
