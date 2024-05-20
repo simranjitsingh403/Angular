@@ -18,7 +18,6 @@ export class OwnerComponent implements OnInit {
   validationForm: any;
   isFormSubmitted: Boolean = false;
   apiPath: string = environment.baseURL;
-  vehicleBrands = [];
   cities: any = [];
   states = [];
   newCities = [];
@@ -40,7 +39,7 @@ export class OwnerComponent implements OnInit {
       address: ['', Validators.required],
       value: [],
       year: [],
-      brandId: [],
+      brandName: [],
       modal: [''],
       vinCode: [''],
       type: ['', Validators.required],
@@ -64,7 +63,7 @@ export class OwnerComponent implements OnInit {
         address: this.result.address,
         value: this.result.value,
         year: this.result.year,
-        brandId: this.result.brandId != 0 ? this.result.brandId : null,
+        brandName: this.result.brandName,
         modal: this.result.modal,
         vinCode: this.result.vinCode,
         type: this.result.typeId == 0 ? '1' : this.result.typeId.toString(),
@@ -77,7 +76,6 @@ export class OwnerComponent implements OnInit {
       });
       this.states = this.result.states;
       this.cities = this.result.cities;
-      this.vehicleBrands = this.result.carBrands;
 
       if (this.result.parkingStateId != 0) {
         this.newCities = this.cities.filter((s: any) => s.stateId == this.result.parkingStateId);
@@ -100,7 +98,7 @@ export class OwnerComponent implements OnInit {
       this.result.address = this.form.address.value;
       this.result.value = this.form.value.value;
       this.result.year = this.form.year.value;
-      this.result.brandId = this.form.brandId.value;
+      this.result.brandName = this.form.brandName.value;
       this.result.modal = this.form.modal.value;
       this.result.vinCode = this.form.vinCode.value;
       this.result.typeId = this.form.type.value;
@@ -111,7 +109,8 @@ export class OwnerComponent implements OnInit {
       this.result.experience = this.form.experience.value;
       this.result.email = this.form.email.value;
       this.result.jwtToken = localStorage.getItem('token');
-
+      this.result.createdBy = this.userdetails.id;
+      this.result.modifiedBy = this.userdetails.id;
       if (event.currentTarget.value == "submit") {
         Swal.fire({
           title: 'Are you sure?',

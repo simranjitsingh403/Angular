@@ -50,7 +50,7 @@ export class CreditComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
-      isPORequired: [false, Validators.requiredTrue],
+      isPORequired: [false],
       isTaxExempt: [],
       taxExemptAttachment: [],
       businessYears: ['', Validators.required],

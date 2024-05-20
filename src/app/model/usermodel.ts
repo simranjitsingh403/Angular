@@ -22,4 +22,6 @@ export class Usermodel {
     confirmPassword:string | null = null
     passwordToken:string | null = null
     customerId : string = "00000000-0000-0000-0000-000000000000"
+    modifiedBy: string = "00000000-0000-0000-0000-000000000000"
+    modifiedDateTime: string | null = null
 }

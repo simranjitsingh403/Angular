@@ -25,7 +25,7 @@
                       <div class="mb-3">
                         <label for="firstName" class="col-md-3 col-form-label required">First Name</label>
                         <input type="text" class="form-control" id="firstName" formControlName="firstName"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.firstName.errors}" placeholder="First name">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.firstName.errors}" placeholder="First Name">
                         <div *ngIf="isFormSubmitted && form.firstName.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -35,7 +35,7 @@
                       <div class="mb-3">
                         <label for="lastName" class="col-md-3 col-form-label required">Last Name</label>
                         <input type="text" class="form-control" id="lastName" formControlName="lastName"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}" placeholder="Last name">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.lastName.errors}" placeholder="Last Name">
                         <div *ngIf="isFormSubmitted && form.lastName.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -57,7 +57,7 @@
                       <div class="mb-3">
                         <label for="email" class="col-md-3 col-form-label required">Email</label>
                         <input *ngIf="ownerId=='00000000-0000-0000-0000-000000000000'" type="email" class="form-control" id="email" formControlName="email"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}" placeholder="email">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.email.errors}" placeholder="E-mail">
                           <span *ngIf="ownerId!='00000000-0000-0000-0000-000000000000'" class="form-control">{{result.email}}</span>
                         <div *ngIf="isFormSubmitted && form.email.errors?.required" class="invalid-feedback">
                           Required
@@ -73,7 +73,7 @@
                       <div class="mb-3">
                         <label for="address" class="col-md-3 col-form-label required">Address</label>
                         <textarea class="form-control" formControlName="address"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.address.errors}" placeholder="address"></textarea>
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.address.errors}" placeholder="Address"></textarea>
                         <div *ngIf="isFormSubmitted && form.address.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -96,7 +96,7 @@
                       <div class="mb-3">
                         <label for="value" class="col-md-3 col-form-label">$Value</label>
                         <input type="number" class="form-control" formControlName="value"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.value.errors}" placeholder="value">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.value.errors}" placeholder="Value">
                         <div *ngIf="isFormSubmitted && form.value.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -106,7 +106,7 @@
                       <div class="mb-3">
                         <label for="year" class="col-md-3 col-form-label">Year</label>
                         <input type="number" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" formControlName="year"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.year.errors}" placeholder="year">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.year.errors}" placeholder="Year">
                         <div *ngIf="isFormSubmitted && form.year.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -122,9 +122,8 @@
                       <div class="mb-3">
                         <label for="value" class="col-md-3 col-form-label">Make</label>
                         <div>
-                          <ng-select [items]="vehicleBrands" bindLabel="name" bindValue="id"
-                            placeholder="Select Vehicle Brand" formControlName="brandId">
-                          </ng-select>
+                          <input type="text" class="form-control" formControlName="brandName"
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.modal.errors}" placeholder="E.g. Volvo">
                         </div>
                       </div>
                     </div>
@@ -132,7 +131,7 @@
                       <div class="mb-3">
                         <label for="modal" class="col-md-3 col-form-label">Modal</label>
                         <input type="text" class="form-control" formControlName="modal"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.modal.errors}" placeholder="Vehicle modal">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.modal.errors}" placeholder="Vehicle Modal">
                         <div *ngIf="isFormSubmitted && form.modal.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -148,7 +147,7 @@
                       <div class="mb-3">
                         <label for="vinCode" class="col-md-3 col-form-label">Vin#</label>
                         <input type="text" class="form-control" formControlName="vinCode"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.vinCode.errors}" placeholder="vin#">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.vinCode.errors}" placeholder="Vin#">
                         <div *ngIf="isFormSubmitted && form.vinCode.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -236,7 +235,7 @@
                         <label for="license" class="col-md-3 col-form-label required">Driver License</label>
                         <input type="text" class="form-control" formControlName="license"
                           [ngClass]="{'is-invalid': isFormSubmitted && form.license.errors}"
-                          placeholder="License number">
+                          placeholder="License Number">
                         <div *ngIf="isFormSubmitted && form.license.errors?.required" class="invalid-feedback">
                           Required
                         </div>

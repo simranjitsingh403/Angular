@@ -35,4 +35,6 @@ export class Drivermodel {
     states: [] = []
     documentTypes: [] = []
     documents:any = [] 
+    modifiedBy: string = "00000000-0000-0000-0000-000000000000"
+    modifiedDateTime: string | null = null
 }

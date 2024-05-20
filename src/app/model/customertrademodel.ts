@@ -9,4 +9,6 @@ export class Customertrademodel {
     isDeleted: boolean = false
     createdBy: string = "00000000-0000-0000-0000-000000000000"
     createdDateTime: string | null = null
+    modifiedBy: string = "00000000-0000-0000-0000-000000000000"
+    modifiedDateTime: string | null = null
 }

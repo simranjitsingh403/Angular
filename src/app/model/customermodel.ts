@@ -16,4 +16,6 @@ export class Customermodel {
     customerCredit: Customercreditmodel = new Customercreditmodel()
     cities:[] = []
     states:[] = []
+    modifiedBy: string = "00000000-0000-0000-0000-000000000000"
+    modifiedDateTime: string | null = null
 }

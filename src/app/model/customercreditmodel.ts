@@ -41,4 +41,6 @@ export class Customercreditmodel {
     cities:[] = []
     isSubmitted:boolean = false
     rejectedReason:string | null = null
+    modifiedBy: string = "00000000-0000-0000-0000-000000000000"
+    modifiedDateTime: string | null = null
 }

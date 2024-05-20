@@ -7,7 +7,7 @@ export class Ownermodel {
     typeId: number = 0
     value: number | null = null
     year: number | null = null
-    brandId: number | null = null
+    brandName: string | null = null
     modal: string | null = null
     vinCode: string | null = null
     license: string | null = null
@@ -18,7 +18,6 @@ export class Ownermodel {
     isDeleted: boolean = false
     states: [] = []
     cities: [] = []
-    carBrands: [] = []
     dotInspectionPath: string | null = null
     currentRegistrationPath: string | null = null
     email:string | null = null
@@ -26,4 +25,8 @@ export class Ownermodel {
     rejectedReason:string | null = null
     jwtToken:string|null = null
     isSubmitted:boolean = false
+    createdBy: string = "00000000-0000-0000-0000-000000000000"
+    createdDateTime: string | null = null
+    modifiedBy: string = "00000000-0000-0000-0000-000000000000"
+    modifiedDateTime: string | null = null
 }
