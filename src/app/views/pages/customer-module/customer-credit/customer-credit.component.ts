@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from '../../../../api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,7 @@ import { CreditComponent } from '../credit/credit.component';
 import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 import { ShipmentComponent } from '../../shipment/shipment/shipment.component';
 import { Customermodel } from '../../../../model/customermodel';
+import { FormService } from '../../../../services/form.service';
 
 @Component({
   selector: 'app-customer-credit',
@@ -24,7 +25,8 @@ export class CustomerCreditComponent implements OnInit {
   @ViewChild(CreditComponent) creditComponent!: CreditComponent;
   customerId = this.route.snapshot.params['id'] == undefined ? this.userdetails.customerId : this.route.snapshot.params['id'];
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService) {
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService,
+    private elementRef: ElementRef, private formService : FormService, private cdr : ChangeDetectorRef) {
   }
 
 
@@ -235,6 +237,8 @@ export class CustomerCreditComponent implements OnInit {
     }
     this.creditComponent.isFormSubmitted = true;
     this.shipmentComponent.isFormSubmitted = true;
+    this.cdr.detectChanges();
+    this.formService.focusInvalidElements(this.elementRef.nativeElement.querySelector('.is-invalid'));
   }
 
 

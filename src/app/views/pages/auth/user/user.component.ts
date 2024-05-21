@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../../../api.service';
 import { Usermodel } from '../../../../model/usermodel';
 import { environment } from '../../../../../environments/environment';
+import { FormService } from '../../../../services/form.service';
 
 @Component({
   selector: 'app-user',
@@ -27,7 +28,7 @@ export class UserComponent implements OnInit {
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   editPermission: boolean = false;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
-    private spinnerService: NgxSpinnerService) {
+    private spinnerService: NgxSpinnerService, private elementRef: ElementRef, private formService : FormService, private cdr : ChangeDetectorRef) {
     this.baseUrl = environment.baseURL;
   }
 
@@ -106,6 +107,8 @@ export class UserComponent implements OnInit {
     }
     else {
       this.isFormSubmitted = true;
+      this.cdr.detectChanges();
+      this.formService.focusInvalidElements(this.elementRef.nativeElement.querySelector('.is-invalid'));
     }
 
   }

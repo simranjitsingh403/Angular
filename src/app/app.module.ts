@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ApplicationRef, NgModule } from '@angular/core';
+import { ApplicationRef, ChangeDetectorRef, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';

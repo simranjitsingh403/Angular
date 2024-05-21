@@ -6,6 +6,10 @@
     width: 8%;
   }
 
+  ::ng-deep .mat-step-header {
+    pointer-events: none;
+  }
+
   ::ng-deep .mat-horizontal-stepper-header-container {
     width: 97%;
     margin: 10px auto;

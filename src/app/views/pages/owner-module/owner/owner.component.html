@@ -95,7 +95,7 @@
                     <div class="col-md-6">
                       <div class="mb-3">
                         <label for="value" class="col-md-3 col-form-label">$Value</label>
-                        <input type="number" class="form-control" formControlName="value"
+                        <input type="number" class="form-control" min="0" formControlName="value"
                           [ngClass]="{'is-invalid': isFormSubmitted && form.value.errors}" placeholder="Value">
                         <div *ngIf="isFormSubmitted && form.value.errors?.required" class="invalid-feedback">
                           Required
@@ -106,7 +106,7 @@
                       <div class="mb-3">
                         <label for="year" class="col-md-3 col-form-label">Year</label>
                         <input type="number" data-maxlength="4" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control" formControlName="year"
-                          [ngClass]="{'is-invalid': isFormSubmitted && form.year.errors}" placeholder="Year">
+                          [ngClass]="{'is-invalid': isFormSubmitted && form.year.errors}" placeholder="Year" min="0">
                         <div *ngIf="isFormSubmitted && form.year.errors?.required" class="invalid-feedback">
                           Required
                         </div>
@@ -208,7 +208,8 @@
                         <label for="parkingStateId" class="col-md-3 col-form-label required">State</label>
                         <div>
                           <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
-                            formControlName="parkingStateId" (change)="stateChange($event)">
+                            formControlName="parkingStateId" (change)="stateChange($event)"
+                            [ngClass]="{'is-invalid': isFormSubmitted && form.parkingStateId.errors}">
                           </ng-select>
                         </div>
                         <div *ngIf="isFormSubmitted && form.parkingStateId.errors?.required" style="color:red;">
@@ -246,7 +247,8 @@
                         <label for="stateId" class="col-md-3 col-form-label required">Issuing State</label>
                         <div>
                           <ng-select [items]="states" bindLabel="name" bindValue="id" placeholder="Select State"
-                            formControlName="stateId">
+                            formControlName="stateId"
+                            [ngClass]="{'is-invalid': isFormSubmitted && form.stateId.errors}">
                           </ng-select>
                         </div>
                         <div *ngIf="isFormSubmitted && form.stateId.errors?.required" style="color:red;">

@@ -227,7 +227,8 @@
                                                                                 <ng-select [items]="states"
                                                                                     bindLabel="name" bindValue="id"
                                                                                     placeholder="Select State"
-                                                                                    formControlName="shippingStateId">
+                                                                                    formControlName="shippingStateId"
+                                                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.shippingStateId.errors}">
                                                                                 </ng-select>
                                                                             </div>
                                                                             <div *ngIf="isFormSubmitted && form.shippingStateId.errors?.required"
@@ -245,7 +246,8 @@
                                                                                 class="form-control"
                                                                                 formControlName="shippingZip"
                                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.shippingZip.errors}"
-                                                                                placeholder="Zip">
+                                                                                placeholder="Zip"
+                                                                                min="0">
                                                                             <div *ngIf="isFormSubmitted && form.shippingZip.errors?.required"
                                                                                 class="invalid-feedback">
                                                                                 Required
@@ -330,7 +332,8 @@
                                                                                 <ng-select [items]="states"
                                                                                     bindLabel="name" bindValue="id"
                                                                                     placeholder="Select State"
-                                                                                    formControlName="billingStateId">
+                                                                                    formControlName="billingStateId"
+                                                                                    [ngClass]="{'is-invalid': isFormSubmitted && form.billingStateId.errors}">
                                                                                 </ng-select>
                                                                             </div>
                                                                             <div *ngIf="isFormSubmitted && form.billingStateId.errors?.required"
@@ -348,7 +351,8 @@
                                                                                 class="form-control"
                                                                                 formControlName="billingZip"
                                                                                 [ngClass]="{'is-invalid': isFormSubmitted && form.billingZip.errors}"
-                                                                                placeholder="Zip">
+                                                                                placeholder="Zip"
+                                                                                min="0">
                                                                             <div *ngIf="isFormSubmitted && form.billingZip.errors?.required"
                                                                                 class="invalid-feedback">
                                                                                 Required
@@ -533,7 +537,8 @@
                                                         <div>
                                                             <ng-select [items]="states" bindLabel="name" bindValue="id"
                                                                 placeholder="Select State"
-                                                                formControlName="bankStateId">
+                                                                formControlName="bankStateId"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && form.bankStateId.errors}">
                                                             </ng-select>
                                                         </div>
                                                         <div *ngIf="isFormSubmitted && form.bankStateId.errors?.required"
@@ -550,7 +555,8 @@
                                                             oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                                             class="form-control" formControlName="bankZip"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && form.bankZip.errors}"
-                                                            placeholder="Zip">
+                                                            placeholder="Zip"
+                                                            min="0">
                                                         <div *ngIf="isFormSubmitted && form.bankZip.errors?.required"
                                                             class="invalid-feedback">
                                                             Required

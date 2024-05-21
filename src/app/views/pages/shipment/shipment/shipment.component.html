@@ -58,7 +58,8 @@
                                                         <div>
                                                             <ng-select [items]="states" bindLabel="name" bindValue="id"
                                                                 placeholder="Select State"
-                                                                formControlName="originStateId">
+                                                                formControlName="originStateId"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originStateId.errors}">
                                                             </ng-select>
                                                         </div>
                                                         <div *ngIf="isFormSubmitted && shipmentForm.originStateId.errors?.required"
@@ -75,7 +76,8 @@
                                                             oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                                             class="form-control" formControlName="originZip"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.originZip.errors}"
-                                                            placeholder="Zip">
+                                                            placeholder="Zip"
+                                                            min="0">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.originZip.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -142,7 +144,8 @@
                                                         <div>
                                                             <ng-select [items]="states" bindLabel="name" bindValue="id"
                                                                 placeholder="Select State"
-                                                                formControlName="destinationStateId">
+                                                                formControlName="destinationStateId"
+                                                                [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationStateId.errors}">
                                                             </ng-select>
                                                         </div>
                                                         <div *ngIf="isFormSubmitted && shipmentForm.destinationStateId.errors?.required"
@@ -159,7 +162,8 @@
                                                             oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                                             class="form-control" formControlName="destinationZip"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.destinationZip.errors}"
-                                                            placeholder="Zip">
+                                                            placeholder="Zip"
+                                                            min="0">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.destinationZip.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -207,7 +211,8 @@
                                                         <input type="number" class="form-control"
                                                             formControlName="height"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.height.errors}"
-                                                            placeholder="Height">
+                                                            placeholder="Height"
+                                                            min="0">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.height.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -221,7 +226,8 @@
                                                         <input type="number" class="form-control"
                                                             formControlName="width"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.width.errors}"
-                                                            placeholder="Width">
+                                                            placeholder="Width"
+                                                            min="0">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.width.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -240,7 +246,8 @@
                                                         <input type="number" class="form-control"
                                                             formControlName="length"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.length.errors}"
-                                                            placeholder="Length">
+                                                            placeholder="Length"
+                                                            min="0">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.length.errors?.required"
                                                             class="invalid-feedback">
                                                             Required
@@ -254,7 +261,8 @@
                                                         <input type="number" class="form-control"
                                                             formControlName="weight"
                                                             [ngClass]="{'is-invalid': isFormSubmitted && shipmentForm.weight.errors}"
-                                                            placeholder="Weight">
+                                                            placeholder="Weight"
+                                                            min="0">
                                                         <div *ngIf="isFormSubmitted && shipmentForm.weight.errors?.required"
                                                             class="invalid-feedback">
                                                             Required

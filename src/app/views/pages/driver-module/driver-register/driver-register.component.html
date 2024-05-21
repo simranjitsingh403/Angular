@@ -120,7 +120,8 @@
                             <label for="licenseclassid" class="col-form-label required">Select License Class</label>
                             <div>
                               <ng-select [items]="result.licenseClasses" bindLabel="name" bindValue="id"
-                                placeholder="Select License Class" formControlName="licenseclassid">
+                                placeholder="Select License Class" formControlName="licenseclassid"
+                                [ngClass]="{'is-invalid': isForm1Submitted && form1.licenseclassid.errors}">
                               </ng-select>
                             </div>
                             <div *ngIf="isForm1Submitted && form1.licenseclassid.errors?.required" style="color:red;">
@@ -134,7 +135,8 @@
                             <label for="stateid" class="col-form-label required">Select State</label>
                             <div>
                               <ng-select [items]="result.states" bindLabel="name" bindValue="id"
-                                placeholder="Select State" formControlName="stateid">
+                                placeholder="Select State" formControlName="stateid"
+                                [ngClass]="{'is-invalid': isForm1Submitted && form1.stateid.errors}">
                               </ng-select>
                             </div>
                             <div *ngIf="isForm1Submitted && form1.stateid.errors?.required" style="color:red;">
@@ -165,7 +167,8 @@
                               oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control"
                               id="salaryexpectation" formControlName="salaryexpectation"
                               [ngClass]="{'is-invalid': isForm1Submitted && form1.salaryexpectation.errors}"
-                              placeholder="Salary Expectation">
+                              placeholder="Salary Expectation"
+                              min="0">
                             <div *ngIf="isForm1Submitted && form1.salaryexpectation.errors?.required"
                               class="invalid-feedback">
                               Required
@@ -578,7 +581,8 @@
                           <label for="licenseclassid" class="col-form-label required">Select License Class</label>
                           <div>
                             <ng-select [items]="result.licenseClasses" bindLabel="name" bindValue="id"
-                              placeholder="Select License Class" formControlName="licenseclassid">
+                              placeholder="Select License Class" formControlName="licenseclassid"
+                              [ngClass]="{'is-invalid': isForm1Submitted && form1.licenseclassid.errors}">
                             </ng-select>
                           </div>
                           <div *ngIf="isForm1Submitted && form1.licenseclassid.errors?.required" style="color:red;">
@@ -592,7 +596,8 @@
                           <label for="stateid" class="col-form-label required">Select State</label>
                           <div>
                             <ng-select [items]="result.states" bindLabel="name" bindValue="id"
-                              placeholder="Select State" formControlName="stateid">
+                              placeholder="Select State" formControlName="stateid"
+                              [ngClass]="{'is-invalid': isForm1Submitted && form1.stateid.errors}">
                             </ng-select>
                           </div>
                           <div *ngIf="isForm1Submitted && form1.stateid.errors?.required" style="color:red;">
@@ -623,7 +628,8 @@
                             oninput="this.value=this.value.slice(0,this.dataset.maxlength)" class="form-control"
                             id="salaryexpectation" formControlName="salaryexpectation"
                             [ngClass]="{'is-invalid': isForm1Submitted && form1.salaryexpectation.errors}"
-                            placeholder="Salary Expectation">
+                            placeholder="Salary Expectation"
+                            min="0">
                           <div *ngIf="isForm1Submitted && form1.salaryexpectation.errors?.required"
                             class="invalid-feedback">
                             Required

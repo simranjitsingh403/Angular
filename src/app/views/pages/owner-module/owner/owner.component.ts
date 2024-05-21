@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, FormGroup, FormControl, FormBuilder, FormsModule } from '@angular/forms';
 import { ApiService } from '../../../../api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { Ownermodel } from '../../../../model/ownermodel';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Usermodel } from '../../../../model/usermodel';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FormService } from '../../../../services/form.service';
 
 @Component({
   selector: 'app-owner',
@@ -29,7 +30,7 @@ export class OwnerComponent implements OnInit {
   logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
-    private spinnerService: NgxSpinnerService) { }
+    private spinnerService: NgxSpinnerService, private elementRef: ElementRef, private formService : FormService, private cdr : ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
@@ -124,9 +125,25 @@ export class OwnerComponent implements OnInit {
           if (sresult.value) {
             this.result.isSubmitted = true;
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-              this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
+              this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { 
+                this.toastr.success(d.message,"",{timeOut:2000}).onHidden.subscribe(t => {
+                  if (this.userdetails.roleName != 'Admin') {
+                    window.location.href = 'https://oneliftpartners.com/';
+                  } else {
+                    this.router.navigate(['/admin/owners']); 
+                  }
+                });
+              } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
             } else {
-              this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); if (this.userdetails.roleName == "Owner") { this.router.navigate(['/admin/ownerdashboard']); } else { this.router.navigate(['/admin/owners']); } } else { this.toastr.error(d.message) } this.spinnerService.hide(); }
+              this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { 
+                this.toastr.success(d.message).onHidden.subscribe(t => {
+                  if (this.userdetails.roleName != 'Admin') {
+                    this.router.navigate(['/admin/ownerdashboard']);
+                  } else {
+                    this.router.navigate(['/admin/owners']); 
+                  }
+                });
+              } else { this.toastr.error(d.message) } this.spinnerService.hide(); }
                 , e => this.spinnerService.hide());
             }
           }
@@ -135,15 +152,33 @@ export class OwnerComponent implements OnInit {
       } else {
         this.result.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/owners']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
+          this.navService.post<any>("Owner/Owner/Register", this.result).subscribe(d => { if (d.success == true) { 
+            this.toastr.success(d.message,"",{timeOut:2000}).onHidden.subscribe(t => {
+              if (this.userdetails.roleName != 'Admin') {
+                window.location.href = 'https://oneliftpartners.com/';
+              } else {
+                this.router.navigate(['/admin/owners']); 
+              }
+            });
+          } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
         } else {
-          this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); if (this.userdetails.roleName == "Owner") { this.router.navigate(['/admin/ownerdashboard']); } else { this.router.navigate(['/admin/owners']); } } else { this.toastr.error(d.message) } this.spinnerService.hide(); }
+          this.navService.put<any>("Owner/Owner/UpdateOwner", this.result).subscribe(d => { if (d.success == true) { 
+            this.toastr.success(d.message).onHidden.subscribe(t => {
+              if (this.userdetails.roleName != 'Admin') {
+                this.router.navigate(['/admin/ownerdashboard']);
+              } else {
+                this.router.navigate(['/admin/owners']); 
+              }
+            });
+            } else { this.toastr.error(d.message) } this.spinnerService.hide(); }
             , e => this.spinnerService.hide());
         }
       }
 
     }
     this.isFormSubmitted = true;
+    this.cdr.detectChanges();
+    this.formService.focusInvalidElements(this.elementRef.nativeElement.querySelector('.is-invalid'));
   }
 
   fieldsChange(values: any): void {

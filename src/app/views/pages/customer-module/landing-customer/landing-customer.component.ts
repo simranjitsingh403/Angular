@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +13,7 @@ import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 import { Customertrademodel } from '../../../../model/customertrademodel';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { MatStepper } from '@angular/material/stepper';
+import { FormService } from '../../../../services/form.service';
 
 @Component({
   selector: 'app-landing-customer',
@@ -34,7 +35,9 @@ export class LandingCustomerComponent implements OnInit {
   logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
   customerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
 
-  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService) { }
+  constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService,
+    private elementRef: ElementRef, private formService : FormService, private cdr : ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.validationForm = this.formBuilder.group({
@@ -156,6 +159,8 @@ export class LandingCustomerComponent implements OnInit {
       }
       this.isFormSubmitted = true;
       this.shipmentComponent.isFormSubmitted = true;
+      this.cdr.detectChanges();
+      this.formService.focusInvalidElements(this.elementRef.nativeElement.querySelector('.is-invalid'));
     }
 
   formSubmit(event: any) {
@@ -252,7 +257,7 @@ export class LandingCustomerComponent implements OnInit {
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
               this.navService.post<any>("Customer/Customer/LandingCustomerRegister", this.result).subscribe(d => {
                 if (d.success == true) {
-                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 1000 }).onHidden.subscribe(t => {//window.location.reload(); 
+                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 2000 }).onHidden.subscribe(t => {//window.location.reload(); 
                     this.router.navigate([d.redirectUrl]);});
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
@@ -261,7 +266,7 @@ export class LandingCustomerComponent implements OnInit {
             else {
               this.navService.put<any>("Customer/Customer/UpdateLandingCustomer", this.result).subscribe(d => {
                 if (d.success == true) {
-                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 1000 }).onHidden.subscribe(t => {//window.location.reload(); 
+                  this.toastr.success("Record saved successfully.<br/>We have sent you an email on : " + this.result.email, "", { enableHtml: true, timeOut: 2000 }).onHidden.subscribe(t => {//window.location.reload(); 
                     this.router.navigate([d.redirectUrl]);});
                 } else { this.toastr.error(d.message) };
                 this.spinnerService.hide();
@@ -296,6 +301,8 @@ export class LandingCustomerComponent implements OnInit {
     this.isFormSubmitted = true;
     this.creditComponent.isFormSubmitted = true;
     this.shipmentComponent.isFormSubmitted = true;
+    this.cdr.detectChanges();
+    this.formService.focusInvalidElements(this.elementRef.nativeElement.querySelector('.is-invalid'));
   }
 
 }

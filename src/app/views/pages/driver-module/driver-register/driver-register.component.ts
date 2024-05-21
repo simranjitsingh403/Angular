@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { WizardComponent as BaseWizardComponent } from 'angular-archwizard';
 import {MatStepper, MatStepperIcon} from '@angular/material/stepper'
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Usermodel } from '../../../../model/usermodel';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FormService } from '../../../../services/form.service';
 
 @Component({
   selector: 'app-driver-registor',
@@ -41,7 +42,7 @@ export class DriverRegistorComponent implements OnInit {
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   @ViewChild('stepper') stepper!: MatStepper;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
-    private spinnerService: NgxSpinnerService) { }
+    private spinnerService: NgxSpinnerService, private elementRef: ElementRef, private formService : FormService, private cdr : ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (!this.driverId) {
@@ -168,16 +169,25 @@ export class DriverRegistorComponent implements OnInit {
           if (sresult.value) {
             this.result.isSubmitted = true;
             if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-              this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
-            } else {
-              this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
-                if (d.success == true) {
-                  this.toastr.success(d.message);
-                  if (this.userdetails.roleName == 'Driver') {
-                    this.router.navigate(['/admin/dashboard']);
+              this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { 
+                this.toastr.success(d.message,"",{timeOut:2000}).onHidden.subscribe(t => {
+                  if (this.userdetails.roleName != 'Admin') {
+                    window.location.href = 'https://oneliftpartners.com/';
                   } else {
                     this.router.navigate(['/admin/drivers']);
                   }
+                });
+              } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
+            } else {
+              this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
+                if (d.success == true) {
+                  this.toastr.success(d.message).onHidden.subscribe(t => {
+                    if (this.userdetails.roleName != 'Admin') {
+                      this.router.navigate(['/admin/dashboard']);
+                    } else {
+                      this.router.navigate(['/admin/drivers']);
+                    }
+                  });
                 } else { this.toastr.error(d.message) }
                 this.spinnerService.hide();
               }, e => this.spinnerService.hide());
@@ -188,15 +198,25 @@ export class DriverRegistorComponent implements OnInit {
       } else {
         this.result.isSubmitted = false;
         if (this.result.id == "00000000-0000-0000-0000-000000000000") {
-          this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { this.toastr.success(d.message); this.router.navigate(['/admin/drivers']); } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
-        } else {
-          this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
-            if (d.success == true) {
-              this.toastr.success(d.message); if (this.userdetails.roleName == 'Driver') {
-                this.router.navigate(['/admin/dashboard']);
+          this.navService.post<any>("Driver/Account/Register", this.result).subscribe(d => { if (d.success == true) { 
+            this.toastr.success(d.message,"",{timeOut:2000}).onHidden.subscribe(t => {
+              if (this.userdetails.roleName != 'Admin') {
+                window.location.href = 'https://oneliftpartners.com/';
               } else {
                 this.router.navigate(['/admin/drivers']);
               }
+            }); 
+          } else { this.toastr.error(d.message) } this.spinnerService.hide(); }, e => this.spinnerService.hide());
+        } else {
+          this.navService.put<any>("Driver/Account/UpdateDriver", this.result).subscribe(d => {
+            if (d.success == true) {
+              this.toastr.success(d.message).onHidden.subscribe(t => {
+                if (this.userdetails.roleName != 'Admin') {
+                  this.router.navigate(['/admin/dashboard']);
+                } else {
+                  this.router.navigate(['/admin/drivers']);
+                }
+              });
             } else { this.toastr.error(d.message) }
             this.spinnerService.hide();
           }, e => this.spinnerService.hide());
@@ -205,6 +225,8 @@ export class DriverRegistorComponent implements OnInit {
     }
     this.isForm1Submitted = true;
     this.isForm2Submitted = true;
+    this.cdr.detectChanges();
+    this.formService.focusInvalidElements(this.elementRef.nativeElement.querySelector('.is-invalid'));
   }
 
   /**
@@ -230,6 +252,8 @@ export class DriverRegistorComponent implements OnInit {
       this.stepper.next();
     }
     this.isForm1Submitted = true;
+    this.cdr.detectChanges();
+    this.formService.focusInvalidElements(this.elementRef.nativeElement.querySelector('.is-invalid'));
   }
 
   /**
