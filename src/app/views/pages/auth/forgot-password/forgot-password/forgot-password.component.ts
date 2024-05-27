@@ -18,7 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
   baseUrl: any;
   isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
   isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
-  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.jpeg" : "/assets/images/OneLift_black.png";
   user: Usermodel = new Usermodel();
   isPasswordNotValid: boolean = false;
   isPasswordNotMatch: boolean = false;

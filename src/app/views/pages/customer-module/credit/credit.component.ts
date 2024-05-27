@@ -32,7 +32,7 @@ export class CreditComponent implements OnInit {
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
   isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
-  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.jpeg" : "/assets/images/OneLift_black.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   date = new Date();
   isTaxExempt: boolean = false;

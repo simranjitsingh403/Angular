@@ -38,7 +38,7 @@ export class DriverRegistorComponent implements OnInit {
   @ViewChild('wizardForm') wizardForm!: BaseWizardComponent;
   isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
   isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
-  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.jpeg" : "/assets/images/OneLift_black.png";
   isLogin = localStorage.getItem('isLoggedin') == null ? false : true;
   @ViewChild('stepper') stepper!: MatStepper;
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router,

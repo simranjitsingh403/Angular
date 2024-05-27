@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   baseUrl: any;
   isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
   isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
-  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.jpeg" : "/assets/images/OneLift_black.png";
   userdetails: Usermodel = new Usermodel();
 
   constructor(public formBuilder: UntypedFormBuilder, private router: Router, private route: ActivatedRoute, private navService: ApiService, private toastr: ToastrService,

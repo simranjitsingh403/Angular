@@ -32,7 +32,7 @@ export class LandingCustomerComponent implements OnInit {
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
   isLightChecked = localStorage.getItem('isDark') == 'true'?false:true;
   isDarkChecked = localStorage.getItem('isDark') == 'true'?true:false;
-  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLift_black.png";
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.jpeg" : "/assets/images/OneLift_black.png";
   customerId: any = this.route.snapshot.params['id'] == undefined ? "00000000-0000-0000-0000-000000000000" : this.route.snapshot.params['id'];
 
   constructor(public formBuilder: UntypedFormBuilder, private navService: ApiService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router, private spinnerService: NgxSpinnerService,

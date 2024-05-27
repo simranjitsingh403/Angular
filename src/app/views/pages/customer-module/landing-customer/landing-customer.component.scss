@@ -19,6 +19,6 @@
     display: none;
   }
 
-  ::ng-deep #cdk-step-label-0-2 {
+  ::ng-deep .mat-step-header[aria-posinset="3"]  {
     width: 0;
   }

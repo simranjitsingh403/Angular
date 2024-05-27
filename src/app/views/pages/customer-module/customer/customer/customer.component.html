@@ -5,7 +5,7 @@
     <div class="card">
       <div class="card-body">
         <h6 *ngIf="isLogin" class="card-title">Customer Form</h6>
-        <img *ngIf="!isLogin && isDarkChecked" [src]="logo" routerLink="." style="width: 225px;margin-left: -40px;">
+        <img *ngIf="!isLogin && isDarkChecked" [src]="logo" routerLink="." class="darkLogo">
         <img *ngIf="!isLogin && isLightChecked" [src]="logo" routerLink="." style="width: 225px;margin-left: -20px;">
         <form [formGroup]="validationForm">
 

@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   isLightChecked = false;
   isDarkChecked = false;
   @ViewChild('sidebarToggler') sidebarToggler!: ElementRef;
-  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.png" : "/assets/images/OneLiftM_black.png";
+  logo = localStorage.getItem('isDark') == 'true'?"/assets/images/OneLift_white.jpeg" : "/assets/images/OneLiftM_black.png";
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu!: ElementRef;
   userdetails: Usermodel = JSON.parse(localStorage.getItem('userDetails') || "{}");
